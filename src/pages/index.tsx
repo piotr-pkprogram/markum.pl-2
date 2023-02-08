@@ -6,7 +6,6 @@ import marcinKumiszczoWorking from 'public/img/marcin-kumiszczo-pracujacy-jako-a
 import phoneIcon from 'public/img/phone-icon.svg';
 import mailIcon from 'public/img/mail-icon.svg';
 import { uniqueness } from '../data/uniqueness';
-import ReactHtmlParser from 'react-html-parser';
 import { useGetAllDataQuery } from '../store';
 import { ServiceType } from 'types/serviceType';
 import { EstateType } from 'types/estateType';
@@ -122,7 +121,7 @@ const Home: NextPage = () => {
               key={id}
             >
               <Image className="uniqueness-section__unique-ico" src={icon} alt="" />
-              <span className="uniqueness-section__unique-name">{ReactHtmlParser(name)}</span>
+              <span className="uniqueness-section__unique-name" dangerouslySetInnerHTML={{ __html: name }}/>
               <p className="uniqueness-section__unique-desc">{desc}</p>
             </div>
           ))}

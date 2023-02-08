@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 import React, { useEffect, useRef, useState } from 'react';
-import ReactHtmlParser from 'react-html-parser';
 import arrowPrev from 'public/img/arrow-prev.svg';
 import arrowNext from 'public/img/arrow-next.svg';
 import area from 'public/img/blue-area.svg';
@@ -376,9 +375,7 @@ const EstateView: NextPage = () => {
         </div>
       </section>
       <section className="estate-desc p-4">
-        <p className="bg-gray p-6 rounded-3xl text-lg font-medium">
-          {ReactHtmlParser(data?.estate?.desc as string)}
-        </p>
+        <p className="bg-gray p-6 rounded-3xl text-lg font-medium" dangerouslySetInnerHTML={{ __html: data?.estate?.desc as string }} />
       </section>
       {ReactDOM.createPortal(
         <>

@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import ReactHtmlParser from 'react-html-parser';
 import { ReviewType, ReviewTypes } from 'types/reviewType';
 import styles from './ReviewElement.module.scss';
 import ReactPlayer from 'react-player/lazy';
@@ -13,9 +12,7 @@ const ReviewElement = ({ review, className }: { review: ReviewType; className?: 
   if (review.reviewType === ReviewTypes.text)
     return (
       <div className={`${styles.wrapper} ${className}`}>
-        <p className="text-base sm2:col-1/2">
-          {ReactHtmlParser(review.review.replaceAll('/n', '<br />'))}
-        </p>
+        <p className="text-base sm2:col-1/2" dangerouslySetInnerHTML={{ __html: review.review.replaceAll('/n', '<br />') }}></p>
         <span className="text-3xl font-medium col-start-1 row-start-2">
           {review.name} {review.surname}
         </span>

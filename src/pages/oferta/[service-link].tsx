@@ -6,7 +6,6 @@ import maricnKumiszczoPng from 'public/img/marcin-kumiszczo-siedzacy-w-samochodz
 import marcinKumiszczoAbout from 'public/img/marcin-kumiszczo-będący-na-spotkaniu-jakoagent-nieruchomosci.jpg';
 import Image from 'next/image';
 import { benefits } from 'src/data/benefits';
-import ReactHtmlParser from 'react-html-parser';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { ReviewType } from 'types/reviewType';
 import '@splidejs/splide/dist/css/splide.min.css';
@@ -142,7 +141,7 @@ const Service = () => {
               <div style={{ height: '102px', width: '102px' }}>
                 <Image src={benefit.svg} alt="" placeholder="blur" />
               </div>
-              <span className="main-benefits__benefit-name">{ReactHtmlParser(benefit.name)}</span>
+              <span className="main-benefits__benefit-name" dangerouslySetInnerHTML={{ __html: benefit.name}}></span>
             </div>
           ))}
         </div>

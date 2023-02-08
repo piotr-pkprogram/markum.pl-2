@@ -6,7 +6,9 @@ import errorServer from 'public/img/error.png';
 import offline from 'public/img/web.png';
 
 const ErrorBox = ({ error }: { error: FetchBaseQueryError }) => {
-  if (error && navigator.onLine)
+  console.log(error);
+
+  if (error && navigator.onLine) {
     return (
       <div className={styles.warpper}>
         <div className={styles.img}>
@@ -17,14 +19,14 @@ const ErrorBox = ({ error }: { error: FetchBaseQueryError }) => {
           {Number.isInteger(error.status)
             ? error.status
             : 'originalStatus' in error
-            ? error.originalStatus
-            : 500}
+              ? error.originalStatus
+              : 500}
         </span>
         <span>Nie mozna wczytać nieruchomości</span>
         <span>Prosimy odświeżyć stronę później.</span>
       </div>
     );
-  else if (error)
+  } else if (error)
     return (
       <div className={styles.warpper}>
         <div className={styles.img}>

@@ -1,0 +1,14 @@
+.warpper {
+  @apply grid gap-1 w-full text-blue font-medium justify-items-center content-center;
+  max-width: 1106px;
+  height: 386px;
+
+  @media (min-width: 1380px) {
+    grid-column: 1 / 4;
+  }
+}
+
+.img {
+  height: 64px;
+  width: 64px;
+}

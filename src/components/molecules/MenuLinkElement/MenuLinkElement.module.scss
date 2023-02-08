@@ -1,0 +1,7 @@
+.menuLink {
+  @apply text-base text-lightBlack transition-opacity hover:opacity-70 font-semibold;
+
+  &.active {
+    @apply text-blue2 font-semibold;
+  }
+}

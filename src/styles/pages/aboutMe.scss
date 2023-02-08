@@ -1,0 +1,29 @@
+.about-section {
+  @apply grid gap-8 justify-items-center items-center bg-lightBlue p-6;
+
+  &__main-desc {
+    @apply grid normal2:grid-flow-col gap-6 items-center justify-items-center w-full;
+    max-width: 1300px;
+
+    @media (min-width: 940px) {
+      grid-template-columns: 40% 60%;
+    }
+  }
+
+  &__personal {
+    @apply grid gap-3 items-center row-start-1 normal2:row-start-auto;
+  }
+
+  &__title {
+    @apply text-3xl xxs:text-4xl sm:text-5xl w-full;
+  }
+
+  &__span {
+    @apply font-bold text-2xl;
+  }
+
+  &__desc {
+    @apply w-full text-lg;
+    max-width: 1300px;
+  }
+}

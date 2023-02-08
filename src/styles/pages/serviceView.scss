@@ -1,0 +1,160 @@
+.about-me {
+  @apply grid items-center justify-items-center p-6 gap-5;
+
+  @media (min-width: 1230px) {
+    @apply grid-flow-col grid-cols-2;
+  }
+
+  &__desc-wrapper {
+    @apply w-full;
+    max-width: 660px;
+  }
+
+  &__title {
+    @apply text-2xl xxs:text-4xl font-bold mb-5;
+  }
+}
+
+.numbers {
+  @apply grid sm3:grid-flow-col justify-items-center p-6 gap-y-3;
+
+  &__count-wrapper {
+    @apply grid justify-items-center sm3:row-start-1;
+  }
+
+  &__counter {
+    @apply text-2xl xxs:text-4xl font-bold;
+  }
+
+  &__desc {
+    @apply text-lg font-medium text-center;
+  }
+}
+
+.main-benefits {
+  @apply grid gap-2 bg-lightBlue items-center justify-items-center p-4 pb-10 gap-10;
+
+  &__title {
+    @apply text-2xl xxs:text-4xl font-bold mb-1;
+
+    &-wrapper {
+      @apply text-center grid justify-items-center;
+    }
+  }
+
+  &__span {
+    @apply text-lg xxs:text-2xl font-semibold;
+  }
+
+  &__wrapper {
+    @apply grid sm:grid-flow-col items-center justify-items-center w-full gap-y-10 grid-rows-2 sm:pr-20;
+  }
+
+  &__benefit {
+    @apply sm:row-start-1 grid gap-2 text-center justify-items-center;
+
+    &-name {
+      @apply font-bold;
+    }
+  }
+}
+
+.service-process {
+  @apply grid justify-items-center gap-6 p-4 bg-lightBlue;
+
+  &__title {
+    @apply text-2xl xxs:text-4xl font-semibold text-center;
+  }
+
+  &__stages {
+    @apply bg-white rounded-3xl grid p-4 w-full;
+    max-width: 1240px;
+
+    @media (min-width: 1130px) {
+      @apply p-8;
+    }
+  }
+
+  &__stage {
+    @apply w-full grid justify-items-center;
+    &-title {
+      @apply text-2xl xs:text-3xl font-semibold text-center;
+    }
+  }
+
+  &__steps {
+    @apply grid items-center justify-items-center gap-5 relative gap-y-10 my-6 w-full;
+  }
+
+  &__step {
+    @apply w-full bg-white grid gap-1 p-3 rounded-md content-center shadow-lg xs:col-start-2;
+    max-width: 451.5px;
+    left: 0;
+
+    @media (min-width: 1100px) {
+      @apply absolute col-start-auto row-start-auto;
+    }
+
+    @media (min-width: 1200px) {
+      left: 35px;
+    }
+
+    &:nth-child(2n) {
+      left: auto;
+      right: 0;
+
+      @media (min-width: 1200px) {
+        right: 35px;
+      }
+    }
+
+    &-name {
+      @apply text-xl xs:text-2xl font-medium;
+    }
+
+    &-span {
+      @apply font-light;
+    }
+
+    &-img {
+      @apply bg-blue2 rounded-full hidden items-center justify-center z-20 col-start-1 relative;
+
+      @media (min-width: 390px) {
+        @apply flex;
+        width: 96px;
+        height: 96px;
+      }
+
+      @media (min-width: 1100px) {
+        @apply col-start-auto row-start-auto;
+      }
+    }
+  }
+
+  &__bar {
+    @apply h-full block bg-blue2/30;
+    width: 9px;
+
+    &-container {
+      @apply w-full h-full hidden xs:flex justify-center items-center p-3 z-0 col-start-1 row-start-1 row-end-5;
+
+      @media (min-width: 1100px) {
+        @apply absolute col-start-auto row-start-auto row-end-auto;
+      }
+    }
+  }
+}
+
+@media (min-width: 650px) {
+  .sm\:col-start-1 {
+    @apply col-start-1;
+  }
+
+  .sm\:col-start-2 {
+    @apply col-start-2;
+  }
+
+  .sm\:col-start-3 {
+    @apply col-start-3;
+  }
+}

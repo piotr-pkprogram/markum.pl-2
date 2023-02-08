@@ -1,0 +1,25 @@
+.offer_wrapper {
+  @apply grid p-2 justify-items-center gap-3 rounded-lg content-center cursor-pointer w-full;
+
+  @media (min-width: 405px) {
+    @apply shadow-lg hover:shadow-2xl hover:shadow-blue2 shadow-blue2 transition-shadow;
+    width: 387px;
+    height: 311px;
+  }
+
+  @media (min-width: 870px) {
+    @apply last:row-start-2 last:col-1/2;
+  }
+
+  @media (min-width: 1300px) {
+    @apply last:row-start-1 last:col-start-3;
+  }
+
+  &__title {
+    @apply text-2xl font-bold text-center;
+  }
+
+  &__desc {
+    @apply text-base text-center;
+  }
+}

@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /polityka-prywatnosci
+Disallow: /na-sprzedaz/[location]
+Disallow: /na-wynajem/[location]
+Disallow: /oferta/[service-link]
+
+# Host
+Host: https://marcinkumiszczo.pl/
+
+# Sitemaps
+Sitemap: https://marcinkumiszczo.pl/sitemap.xml

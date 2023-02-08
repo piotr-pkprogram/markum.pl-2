@@ -1,0 +1,15 @@
+.wrapper {
+  @apply relative rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow w-full;
+  max-width: 305px;
+  min-height: 271px;
+
+  @media (min-width: 325px) {
+    width: 305px;
+    height: 271px;
+  }
+
+  &__info {
+    @apply absolute bg-white p-3 bottom-0 w-full grid grid-flow-col items-center;
+    height: 117px;
+  }
+}

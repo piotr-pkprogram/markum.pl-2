@@ -1,0 +1,34 @@
+.wrapper {
+  @apply z-40 bg-white w-full normal:grid grid-flow-col p-2 justify-items-center h-min hidden shadow-lg top-0;
+  grid-auto-columns: 20% auto;
+}
+
+.navWrapper {
+  @apply grid grid-flow-col w-full justify-items-end items-center gap-2;
+  grid-auto-columns: auto max-content;
+}
+
+.phoneWrapper {
+  @apply z-40 bg-white shadow-lg border-blue2 border-solid border-b-2 w-full grid top-0 grid-flow-col sm:justify-items-center fixed normal:hidden grid-cols-2;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 20% auto;
+  }
+}
+
+.burger {
+  @apply grid content-center h-full pb-2 justify-self-end min-w-24 justify-self-end;
+
+  &__element {
+    @apply bg-blue2 mt-2 border-solid rounded-full border-blue2 border-1.5 justify-self-center w-1/2;
+  }
+}
+
+.phoneMenu {
+  @apply fixed grid right-0 bg-white h-full gap-2 border-solid border-blue2 shadow-lg border-l-2 top-14 z-20;
+  grid-auto-rows: min-content;
+}
+
+.phoneNavLink {
+  @apply p-3 text-center border-t border-blue2 last:border-b border-black;
+}

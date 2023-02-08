@@ -1,0 +1,116 @@
+{
+  "name": "markum.pl",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "codegen": "contentful-typescript-codegen --output types/generated/contentful.d.ts",
+    "generate-sitemap": "next-sitemap --config next-stiemap.js"
+  },
+  "eslintConfig": {
+    "extends": "next",
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "dependencies": {
+    "@emailjs/browser": "^3.4.0",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@loadable/component": "^5.15.2",
+    "@material-ui/styles": "^4.11.4",
+    "@mui/icons-material": "^5.4.2",
+    "@mui/material": "^5.4.1",
+    "@reduxjs/toolkit": "^1.7.2",
+    "@splidejs/react-splide": "^0.6.20",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@types/express": "^4.17.13",
+    "axios": "^0.25.0",
+    "browserlist": "^1.0.1",
+    "contentful": "^9.1.12",
+    "contentful-sdk-core": "^7.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
+    "image-size": "^1.0.2",
+    "less-loader": "^10.2.0",
+    "mailgun-js": "^0.22.0",
+    "mongoose": "^6.1.9",
+    "next": "12.0.8",
+    "next-connect": "^0.11.0",
+    "next-images": "^1.8.4",
+    "react": "17.0.2",
+    "react-cookie": "^4.1.1",
+    "react-dom": "17.0.2",
+    "react-html-parser": "^2.0.2",
+    "react-icons": "^4.3.1",
+    "react-player": "^2.9.0",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "sass": "^1.49.7",
+    "set-interval-async": "^2.0.3",
+    "sharp": "^0.30.7",
+    "styled-components": "^5.3.3",
+    "typescript-eslint": "^0.0.1-alpha.0",
+    "use-count-up": "^3.0.1",
+    "uuid": "^8.3.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@storybook/addon-actions": "^6.4.18",
+    "@storybook/addon-essentials": "^6.4.18",
+    "@storybook/addon-links": "^6.4.18",
+    "@storybook/react": "^6.4.18",
+    "@types/node": "17.0.8",
+    "@types/react": "17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-html-parser": "^2.0.2",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "autoprefixer": "^10.4.2",
+    "babel-loader": "^8.2.3",
+    "contentful-management": "^8.2.0",
+    "contentful-typescript-codegen": "^3.2.3",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.6.0",
+    "eslint-config-next": "12.0.8",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-storybook": "^0.5.6",
+    "next-sitemap": "^2.5.17",
+    "postcss": "^8.4.5",
+    "prettier": "^2.5.1",
+    "tailwindcss": "^3.0.15",
+    "typescript": "4.5.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
+}

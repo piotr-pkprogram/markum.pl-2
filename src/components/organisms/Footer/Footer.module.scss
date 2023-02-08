@@ -1,0 +1,59 @@
+.basicInfo {
+  @apply w-full grid sm:grid-flow-col font-medium items-center justify-items-center gap-1 sm:gap-8 p-3 xl:px-14 text-sm;
+
+  @media (min-width: 650px) {
+    grid-auto-columns: max-content max-content auto;
+  }
+}
+
+.addressAndForm {
+  @apply grid gap-5 p-3 normal2:p-5 pb-0 normal2:gap-0 normal2:gap-y-5 normal2:justify-items-center normal2:grid-flow-col w-full;
+
+  @media (min-width: 940px) {
+    grid-auto-columns: 30% 400px auto;
+  }
+}
+
+.formWrapper {
+  @apply grid grid-cols-3 gap-2 content-center w-full h-full row-start-1 normal2:col-start-2 normal2:col-end-4;
+  grid-auto-rows: min-content;
+  grid-auto-columns: min-content;
+}
+
+.inputsWrapper {
+  @apply grid grid-flow-col gap-2 w-full col-1/3 grid-cols-2 sm:grid-cols-none;
+
+  @media (min-width: 1350px) {
+    grid-auto-columns: max-content;
+  }
+}
+
+.styledLink {
+  @apply font-medium flex items-center;
+}
+
+.sendBtn {
+  @apply col-start-1 row-start-5 relative;
+
+  @media (min-width: 1415px) {
+    @apply col-start-3 row-start-1;
+  }
+
+  &__loader {
+    @apply absolute -right-24;
+    bottom: -2px;
+
+    @media (max-width: 345px) {
+        @apply hidden;
+    }
+  }
+}
+
+.errorP {
+  @apply text-red-500 text-sm px-3 py-1 font-semibold row-start-2;
+}
+
+.styledInput {
+  @apply row-start-1;
+  max-width: 326px !important;
+}

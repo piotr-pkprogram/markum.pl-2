@@ -1,0 +1,303 @@
+.hero-section {
+  @apply w-full relative flex flex-wrap items-center;
+  height: 516px;
+
+  &__title {
+    @apply text-2xl xs:text-3xl sm2:text-4xl font-bold col-start-1;
+    max-width: 853px;
+    &-container {
+      @apply grid gap-14 w-full h-full bg-lightBlue/70 normal:bg-transparent content-center p-3 sm2:pl-7 normal:p-0 normal:h-auto normal:w-max z-10;
+      @media (min-width: 900px) {
+        margin-left: 10%;
+      }
+    }
+  }
+
+  &__span {
+    @apply text-xl xs:text-2xl font-light col-start-1;
+    max-width: 492px;
+  }
+
+  &__img-wrapper {
+    @apply absolute top-0 right-0;
+    &--bg {
+      @apply w-full h-full block bg-no-repeat normal:hidden;
+      background-size: auto 100%;
+      background-image: url('../../../public/img/marcin-kumiszczo-pracujacy-jako-agent-nieruchomosci.jpg');
+
+      @media (min-width: 600px) {
+        background-size: 100%;
+      }
+    }
+  }
+}
+
+.uniqueness-section {
+  @apply grid bg-lightBlue p-4 gap-3 items-center justify-items-center;
+
+  @media (min-width: 530px) {
+    @apply gap-10;
+  }
+
+  @media (min-width: 800px) {
+    @apply p-8;
+  }
+
+  @media (min-width: 1180px) {
+    @apply grid-cols-2 grid-flow-col gap-2;
+  }
+
+  &__introduction {
+    @apply grid gap-8 h-full w-full md:w-max;
+    grid-template-rows: max-content max-content auto;
+
+    @media (min-width: 400px) {
+      max-height: 440px;
+    }
+
+    @media (min-width: 768px) {
+      grid-auto-columns: max-content;
+    }
+  }
+
+  &__title {
+    @apply font-bold text-3xl;
+    max-width: 730px;
+
+    @media (min-width: 1180px) {
+      max-width: 536px;
+    }
+  }
+
+  &__desc {
+    @apply text-lg;
+    max-width: 730px;
+
+    @media (min-width: 1180px) {
+      max-width: 553px;
+    }
+  }
+
+  &__contact {
+    @apply w-max hidden;
+
+    @media (min-width: 530px) {
+      @apply grid grid-flow-col;
+    }
+
+    @media (min-width: 1180px) {
+      @apply w-full;
+    }
+  }
+
+  &__contact-link {
+    @apply font-semibold p-4 grid grid-flow-col items-center border-solid border-darkBlue self-center first:justify-self-end;
+    max-width: 270px;
+    height: 100px;
+
+    @media (min-width: 1180px) {
+      @apply first:justify-self-auto;
+    }
+  }
+
+  &__uniqueness {
+    @apply grid gap-4 sm3:grid-flow-col;
+  }
+
+  &__unique {
+    &-container {
+      @apply grid justify-items-start gap-1;
+    }
+
+    &-name {
+      @apply font-bold text-xl;
+      max-width: 192px;
+    }
+
+    &-desc {
+      max-width: 357px;
+    }
+  }
+}
+
+.services-section {
+  @apply grid justify-items-center gap-8 py-4;
+
+  @media (min-width: 425px) {
+    @apply p-2;
+  }
+
+  @media (min-width: 445px) {
+    @apply p-5 py-8;
+  }
+
+  &__title {
+    @apply text-3xl xxs:text-4xl w-full text-center;
+
+    @media (min-width: 405px) {
+      @apply text-4xl;
+    }
+
+    @media (min-width: 612px) {
+      @apply text-5xl;
+    }
+  }
+
+  &__offers-wrapper {
+    @apply grid gap-10 justify-items-center;
+
+    @media (min-width: 870px) {
+      @apply grid-flow-col;
+    }
+  }
+}
+
+.estates-section {
+  @apply grid gap-6 justify-items-center py-4 bg-lightBlue;
+
+  @media (min-width: 425px) {
+    @apply p-2;
+  }
+
+  @media (min-width: 445px) {
+    @apply p-5 py-8;
+  }
+
+  &__title {
+    @apply text-3xl xxs:text-4xl w-full text-center font-semibold;
+
+    @media (min-width: 405px) {
+      @apply text-4xl;
+    }
+
+    @media (min-width: 612px) {
+      @apply text-5xl;
+    }
+  }
+
+  &__slider-wrapper {
+    @apply cursor-grab;
+  }
+
+  &__page {
+    @apply rounded-full first:mr-2 border-2 border-darkBlue transition-colors;
+    width: 22px;
+    height: 22px;
+
+    &.is-active {
+      @apply bg-darkBlue;
+    }
+  }
+}
+
+.reviews-section {
+  @apply grid gap-6 justify-items-center py-4;
+
+  @media (min-width: 425px) {
+    @apply p-2;
+  }
+
+  @media (min-width: 700px) {
+    @apply p-5 py-8;
+  }
+
+  &__title-wrapper {
+    @apply grid gap-2 justify-items-center;
+  }
+
+  &__span-title {
+    @apply font-bold text-2xl;
+  }
+
+  &__title {
+    @apply text-3xl xxs:text-4xl w-full text-center;
+
+    @media (min-width: 405px) {
+      @apply text-4xl;
+    }
+
+    @media (min-width: 612px) {
+      @apply text-5xl;
+    }
+  }
+
+  &__slider-wrapper {
+    @apply cursor-grab w-full grid justify-items-center;
+  }
+
+  &__page {
+    @apply rounded-full first:mr-2 bg-white border-2 border-darkBlue transition-colors;
+    width: 22px;
+    height: 22px;
+
+    &.is-active {
+      @apply bg-darkBlue;
+    }
+  }
+}
+
+.faq-section {
+  @apply grid gap-6 justify-items-center py-4 bg-lightBlue;
+
+  @media (min-width: 425px) {
+    @apply p-2;
+  }
+
+  @media (min-width: 445px) {
+    @apply p-5 py-8;
+  }
+
+  &__title-wrapper {
+    @apply grid gap-2 justify-items-center;
+  }
+
+  &__span-title {
+    @apply font-bold text-2xl;
+  }
+
+  &__title {
+    @apply text-3xl xxs:text-4xl w-full text-center;
+
+    @media (min-width: 405px) {
+      @apply text-4xl;
+    }
+
+    @media (min-width: 612px) {
+      @apply text-5xl;
+    }
+  }
+
+  &__questions-wrapper {
+    @apply w-full grid justify-items-center;
+  }
+
+  &__btn {
+    width: 200px !important;
+  }
+}
+
+.splide-estates {
+  & .splide__track {
+    @media (max-width: 340px) {
+      width: 89vw !important;
+    }
+  }
+}
+
+.splide-reviews {
+  & .splide__track {
+    @media (max-width: 700px) {
+      width: 89vw !important;
+    }
+  }
+}
+
+@media (min-width: 580px) {
+  .sm3\:col-start-1 {
+    @apply col-start-1;
+  }
+
+  .sm3\:col-start-2 {
+    @apply col-start-2;
+  }
+}

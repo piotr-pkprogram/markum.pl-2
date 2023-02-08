@@ -1,0 +1,15 @@
+.wrapper {
+  @apply fixed grid gap-2 w-full bottom-0 border-t-2 border-darkBlue items-center z-20 bg-white p-2 justify-items-center;
+
+  @media (min-width: 600px) {
+    @apply grid-flow-col justify-center pr-10;
+  }
+
+  @media (min-width: 1430px) {
+    grid-auto-columns: max-content;
+  }
+
+  &__close {
+    @apply absolute right-2 hover:opacity-70 transition-opacity cursor-pointer;
+  }
+}

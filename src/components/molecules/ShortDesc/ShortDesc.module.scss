@@ -1,0 +1,33 @@
+.wrapper {
+  @apply bg-lightBlue grid grid-flow-col items-center justify-items-center lg2:p-4 relative;
+
+  @media (min-width: 1220px) {
+    grid-template-columns: 65% 35%;
+  }
+
+  &__title {
+    @apply text-2xl xxs:text-4xl font-bold;
+
+    &Container {
+      @apply grid gap-3 w-full h-full z-20 bg-lightBlue/70 lg2:bg-transparent lg2:h-auto content-center p-4 lg2:p-0;
+      grid-auto-rows: max-content;
+
+      @media (min-width: 1220px) {
+        max-width: 745px;
+      }
+    }
+  }
+
+  &__desc {
+    @apply text-base;
+    line-height: 30px;
+
+    &Bold {
+      @apply text-xl font-medium;
+    }
+  }
+
+  &__phoneImg {
+    @apply w-full h-full absolute lg2:hidden;
+  }
+}

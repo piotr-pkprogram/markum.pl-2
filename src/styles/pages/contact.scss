@@ -1,0 +1,61 @@
+.contact-form-and-info {
+  @apply grid p-4 gap-6 justify-items-center items-center;
+
+  &__title {
+    @apply text-3xl xxs:text-4xl sm:text-5xl font-semibold mt-4 text-center;
+  }
+
+  &__wrapper {
+    @apply grid gap-x-3 gap-y-5 items-center justify-items-center normal2:grid-cols-2 w-full;
+  }
+
+  &__info {
+    @apply grid gap-3;
+
+    @media (min-width: 450px) {
+      @apply grid-flow-col;
+    }
+  }
+
+  &__main-info {
+    @apply w-full grid gap-5 content-center w-full;
+    max-width: 273px;
+  }
+
+  &__form {
+    @apply grid gap-4 justify-center w-full grid-cols-2;
+    max-width: 391px;
+
+    &-title {
+      @apply col-start-1 col-end-3 font-medium text-2xl justify-self-center;
+    }
+  }
+
+  &__loader {
+    @apply absolute -right-24;
+    bottom: -3px;
+
+    @media (max-width: 345px) {
+      @apply hidden;
+    }
+  }
+}
+
+.textarea-contact {
+  min-height: 264px;
+}
+
+
+.localisation {
+  @apply grid sm:grid-flow-col gap-y-4 bg-lightBlue p-8 items-center justify-items-center;
+
+  @media (min-width: 650px) {
+    height: 411px;
+  }
+
+  &__map {
+    @apply w-full rounded-3xl overflow-hidden;
+    max-width: 741px;
+    height: 334px;
+  }
+}

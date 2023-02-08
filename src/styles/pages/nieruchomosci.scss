@@ -1,0 +1,75 @@
+.estates {
+  &__tabs-wrapper {
+    @apply p-6 relative flex flex-wrap w-full;
+    min-height: 88px;
+  }
+
+  &__tab {
+    @apply bg-lightGray py-1.5 px-3 border-3 border-blue2 border-b-0 rounded-t-3xl absolute bottom-0 left-2;
+
+    @media (min-width: 320px) {
+      @apply px-5;
+    }
+
+    @media (min-width: 355px) {
+      left: auto;
+    }
+
+    &--second {
+      @apply left-36;
+
+      @media (min-width: 320px) {
+        @apply left-40;
+      }
+
+      @media (min-width: 355px) {
+        @apply left-48;
+      }
+    }
+
+    &--active {
+      @apply before:block before:absolute before:bg-lightGray before:w-full before:left-0 before:-bottom-1 before:h-2;
+    }
+  }
+
+  &__main-wrapper {
+    @apply grid justify-items-center w-full bg-lightGray gap-2 pb-6 border-t-3 border-blue2;
+
+    @media (min-width: 1380px) {
+      @apply grid-flow-col;
+    }
+  }
+
+  &__row {
+    @apply gap-4 grid justify-items-center items-center w-full p-2;
+
+    @media (min-width: 905px) {
+      @apply grid-flow-col py-6;
+    }
+
+    @media (min-width: 1380px) {
+      @apply grid-flow-row row-start-1;
+    }
+  }
+
+  &__more {
+    @media (min-width: 1380px) {
+      @apply row-start-3;
+      grid-column: 1 / 4;
+    }
+  }
+}
+
+@media (min-width: 1380px) {
+  .\32xl\:col-start-1 {
+    @apply col-start-1;
+  }
+
+  .\32xl\:col-start-2 {
+    @apply col-start-2;
+  }
+
+  .\32xl\:col-start-3 {
+    @apply col-start-3;
+  }
+}

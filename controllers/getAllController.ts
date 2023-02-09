@@ -25,7 +25,7 @@ export const getAllData = catchAsyncErrors(
       const reviewsRes = await client.getEntries<IReviewsFields>({ content_type: 'reviews' });
       const servicesRes = await client.getEntries<IServicesFields>({ content_type: 'services' });
 
-      const estates = Array.from(await getOffers());
+      // const estates = Array.from(await getOffers());
       const questions = questionsRes.items.map((item) => transformQuestion(item)).reverse();
       const reviews = reviewsRes.items.map((item) => transformReview(item)).reverse();
       const services = await Promise.all(
@@ -34,7 +34,7 @@ export const getAllData = catchAsyncErrors(
 
       res.status(200).json({
         success: true,
-        estates,
+        estates: [],
         questions,
         reviews,
         services
@@ -42,7 +42,7 @@ export const getAllData = catchAsyncErrors(
     } catch (err) {
       res.status(500).json({
         success: false,
-        error: err
+        error: err,
       });
     }
   }

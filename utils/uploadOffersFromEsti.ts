@@ -89,7 +89,6 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
     }
   });
 
-  console.log('checked');
   offers = await Promise.all(offers.map(async (offer: IEstateFields) => {
     // @ts-ignore
     offer.images = await Promise.all(offer.pictures.map(async (picture) => {

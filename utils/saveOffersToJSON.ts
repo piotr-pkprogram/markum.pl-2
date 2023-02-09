@@ -12,6 +12,7 @@ export const saveOffersToJSON = (estates: IEstateFields[]) => {
 export const checkUploadTime = () => {
   if (fs.readFileSync('public/offers.json').length !== 0) {
     const json = fs.readFileSync('public/offers.json', {encoding:'utf8', flag:'r'});
+    console.log(JSON.stringify(json));
     const data = JSON.parse(json);
     const time = new Date(data.uploadTime);
 

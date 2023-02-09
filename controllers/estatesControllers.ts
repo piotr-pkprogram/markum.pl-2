@@ -16,13 +16,13 @@ const uploadOffers = async () => {
 };
 
 export const getOffers = () => {
-  const isUploaded = checkUploadTime();
+    const isUploaded = checkUploadTime();
 
-  if (!isUploaded.checkTime) {
-    uploadOffers();
-  }
+    if (!isUploaded.checkTime) {
+      uploadOffers();
+    }
 
-  return isUploaded.estates;
+    return isUploaded.estates;
 };
 
 const getSingleEstateById = catchAsyncErrors(

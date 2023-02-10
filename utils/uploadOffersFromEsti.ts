@@ -33,7 +33,7 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
           : offer.locationPrecinctName;
 
         const link = `/${
-          offer.transaction && offer.transaction === 132 ? 'na-wynajem' : 'na-sprzedaz'
+          offer.transaction && offer.transaction == 132 ? 'na-wynajem' : 'na-sprzedaz'
         }/${offer.locationStreetName ? deletePolishChars(offer.locationStreetName).toLowerCase() : offer.locationParentPrecinctName ? deletePolishChars(offer.locationParentPrecinctName).toLowerCase() : ''
         }${
           offer.locationBuildingnumber ? `-${offer.locationBuildingnumber}-` : '-'
@@ -41,7 +41,7 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
 
         const newOffer = {
           id: parseInt(offer.id),
-          category: offer.transaction && offer.transaction === 132 ? 'FOR_RENT' : 'FOR_SALE',
+          category: offer.transaction && offer.transaction == 132 ? 'FOR_RENT' : 'FOR_SALE',
           link: link,
           desc: offer.descriptionWebsite,
           address: {

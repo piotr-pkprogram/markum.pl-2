@@ -4,14 +4,9 @@ import { uploadOffersFromEsti } from 'utils/uploadOffersFromEsti';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextFunction } from 'connect';
 import { checkUploadTime, saveOffersToJSON } from 'utils/saveOffersToJSON';
-import { compressImages } from 'utils/compressImages';
 
 const uploadOffers = async () => {
   const newEstates = Array.from(await uploadOffersFromEsti());
-  await Promise.all(newEstates.map(async (estate) => {
-    estate.images = await compressImages(estate.images);
-    return estate;
-  }));
   saveOffersToJSON(newEstates);
 };
 
@@ -74,7 +69,7 @@ export const getAllEstates = catchAsyncErrors(
         else resPerPage = 8;
 
         let estates = Array.from(await getOffers());
-        const estatesCount = await estates.length;
+        let estatesCount = estates.length;
 
         if (req.query.page) {
           const currentPage = Number(req.query.page) || 1;
@@ -82,6 +77,7 @@ export const getAllEstates = catchAsyncErrors(
           let query;
 
           if (req.query.category) {
+            estatesCount = estates.filter((estate: any) => estate.category === req.query.category).length;
             query = estates.filter((_, index) => index >= skip);
             query = query.filter((estate: any) => estate.category === req.query.category);
             query = query.slice(0, resPerPage);

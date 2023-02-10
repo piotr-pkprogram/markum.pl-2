@@ -71,18 +71,21 @@ const Estates: NextPage = () => {
         </div>
         <div className="estates__main-wrapper">
           {!isLoading && !error ? (
-            arraySplitting(data.estates, 2).map((array: EstateType[], index) => (
-              <div
-                className={`estates__row ${
-                  index > 2 ? `2xl:!row-start-2 2xl:col-start-${index - 2}` : ''
-                }`}
-                key={index}
-              >
-                {array.map((estate) => (
-                  <EstateBox estate={estate} key={estate.id} />
-                ))}
-              </div>
-            ))
+            arraySplitting(data.estates, 2).map((array: EstateType[], index) => {
+              console.log(data);
+              return (
+                <div
+                  className={`estates__row ${
+                    index > 2 ? `2xl:!row-start-2 2xl:col-start-${index - 2}` : ''
+                  }`}
+                  key={index}
+                >
+                  {array.map((estate) => (
+                    <EstateBox estate={estate} key={estate.id} />
+                  ))}
+                </div>
+              );
+            })
           ) : (
             <ErrorBox error={error as FetchBaseQueryError} />
           )}

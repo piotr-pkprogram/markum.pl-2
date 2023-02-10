@@ -10,7 +10,7 @@ import styleInput from 'src/components/atoms/Input/Input.module.scss';
 import homeLogo from 'public/img/home-logo.jpg';
 import { useRouter } from 'next/router';
 import { useGetSingleEstateByLinkQuery } from 'src/store';
-import certyfikate from 'public/img/Marcin-Kumiszczo-stopka-do-maila-1024x576.jpg';
+import certificate from 'public/img/Marcin-Kumiszczo-stopka-do-maila-1024x576.jpg';
 import { init, send } from '@emailjs/browser';
 // @ts-ignore
 import loadable from '@loadable/component';
@@ -38,7 +38,7 @@ const Footer = () => {
   const loaderWrapper = useRef<HTMLDivElement>(null);
   const [isSuccess, setIsSuccess] = useState<boolean>();
   const [ResError, setResError] = useState<ResError>();
-  const [isConatactPage, setIsConatactPage] = useState<boolean>(false);
+  const [isContactPage, setIsContactPage] = useState<boolean>(false);
   const router = useRouter();
   const [link, setLink] = useState('');
   const { data, isLoading } = useGetSingleEstateByLinkQuery(link);
@@ -46,8 +46,8 @@ const Footer = () => {
   init('user_lMRCEmHpYEa191SzKn8aZ');
 
   useEffect(() => {
-    if (router.pathname.includes('kontakt')) setIsConatactPage(true);
-    else setIsConatactPage(false);
+    if (router.pathname.includes('kontakt')) setIsContactPage(true);
+    else setIsContactPage(false);
 
     if ('location' in router.query)
       setLink(router.pathname.replace('[location]', `${router.query.location}`));
@@ -72,7 +72,7 @@ const Footer = () => {
       };
 
       send(
-        'service_rq725p8',
+        'service_axjqgar',
         data?.estate ? 'template_jtjziqf' : 'template_peshgyk',
         dataEmail
       ).then(
@@ -103,7 +103,7 @@ const Footer = () => {
 
   return (
     <footer id="kontakt" className="text-darkBlue grid max-w-full">
-      {!isConatactPage ? (
+      {!isContactPage ? (
         <div className={styles.addressAndForm}>
           <address className="grid gap-1 not-italic text-sm normal2:row-start-1 normal2:row-end-3 items-center normal2:justify-items-center">
             <Logo isBig />
@@ -225,7 +225,7 @@ const Footer = () => {
           <div className="normal2:row-start-2 normal2:col-start-3 justify-self-start">
             <Image
               className="rounded-md"
-              src={certyfikate}
+              src={certificate}
               alt="Certyfikowany Negocjator Na Rynku Nieruchomości"
               width="320px"
               height="180px"

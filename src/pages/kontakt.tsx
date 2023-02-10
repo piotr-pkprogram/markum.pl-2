@@ -50,7 +50,7 @@ const Contact: NextPage = () => {
         message: inputs[3].value
       };
 
-      send('service_rq725p8', 'template_gb0j6b9', data).then(
+      send('service_axjqgar', 'template_gb0j6b9', data).then(
         function () {
           setIsSuccess(true);
           handleClearForm(InitialState);
@@ -58,6 +58,7 @@ const Contact: NextPage = () => {
         },
         function (err) {
           setIsSuccess(false);
+          console.log(err);
           setResError({
             status: err.status,
             isOfflineError: !navigator.onLine

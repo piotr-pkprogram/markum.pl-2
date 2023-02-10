@@ -24,7 +24,7 @@ const ResponseP = ({ isSuccess, error, message }: Props) => {
   else
     return (
       <p id="response" className={`${styles.response} !text-red-500 !border-red-500`}>
-        Wystąpił błąd {error?.status ? error.status : 500}. Proszę sprubować wysłać kontakt później.
+        Wystąpił błąd {error?.status ? error.status : 500}. Proszę spróbować wysłać kontakt później.
       </p>
     );
 };

@@ -30,7 +30,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')]
   },
   images: {
-    domains: ['images.ctfassets.net', 'localhost', 'marcinkumiszczo.pl']
+    domains: ['images.ctfassets.net', 'localhost', 'www.marcinkumiszczo.pl']
   },
   async headers() {
     return [

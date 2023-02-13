@@ -81,7 +81,7 @@ const Service = () => {
         height="322px"
       />
       <section className="about-me">
-        <Image src={marcinKumiszczoAbout} alt="" loading="lazy" placeholder="blur" />
+        <Image src={marcinKumiszczoAbout} alt="" loading="lazy" />
         <div className="about-me__desc-wrapper">
           <h2 className="about-me__title">Poznaj Mnie</h2>
           <p className="text-lg">
@@ -139,7 +139,7 @@ const Service = () => {
               }`}
             >
               <div style={{ height: '102px', width: '102px' }}>
-                <Image src={benefit.svg} alt="" placeholder="blur" />
+                <Image src={benefit.svg} alt="" />
               </div>
               <span className="main-benefits__benefit-name" dangerouslySetInnerHTML={{ __html: benefit.name}}></span>
             </div>
@@ -158,7 +158,7 @@ const Service = () => {
                 {stage.steps.map((step, i) => {
                   return (
                     <div className={`service-process__step-img row-start-${i + 1}`} key={step._id}>
-                      <Image src={`https:${step.icon}`} alt="" height={65} width={65} placeholder="blur" />
+                      <Image src={`https:${step.icon}`} alt="" height={65} width={65} />
                     </div>
                   );
                 })}

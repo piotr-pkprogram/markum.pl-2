@@ -22,7 +22,7 @@ module.exports = {
         'CONTENTFUL_API_PREVIEW_KEY': 'rjpkrg7XfxddBPD3v4Z-9z-8HT0nmrZozBGuhEvbrwo',
         'CONTENTFUL_API_ID': 'xjfnd4eilgtd',
         'CONTENTFUL_API_MANAGMENT_KEY': 'CFPAT-HKsmBrLGNUUSzdTheHNWnMWbeh-4kcc0TVZzwC00T7c',
-        'DOMAIN': 'http://134.122.92.71:3000',
+        'DOMAIN': 'http://134.122.92.71',
         'ESTICRM_ID': 6400,
         'ESTICRM_TOKEN': '44b48b0294',
       },
@@ -32,7 +32,7 @@ module.exports = {
         'CONTENTFUL_API_PREVIEW_KEY': 'rjpkrg7XfxddBPD3v4Z-9z-8HT0nmrZozBGuhEvbrwo',
         'CONTENTFUL_API_ID': 'xjfnd4eilgtd',
         'CONTENTFUL_API_MANAGMENT_KEY': 'CFPAT-HKsmBrLGNUUSzdTheHNWnMWbeh-4kcc0TVZzwC00T7c',
-        'DOMAIN': 'http://marcinkumiszczo.pl',
+        'DOMAIN': 'https://marcinkumiszczo.pl',
         'ESTICRM_ID': 6400,
         'ESTICRM_TOKEN': '44b48b0294',
       }

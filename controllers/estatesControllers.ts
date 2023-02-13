@@ -14,7 +14,7 @@ export const getOffers = () => {
     const isUploaded = checkUploadTime();
 
     if (!isUploaded.checkTime) {
-      // uploadOffers();
+      uploadOffers();
     }
 
     return isUploaded.estates;

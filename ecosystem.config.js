@@ -5,7 +5,7 @@ module.exports = {
       exec_mode: 'cluster',
       instances: 'max', // Or a number of instances
       script: 'node_modules/next/dist/bin/next',
-      args: 'dev',
+      args: 'start',
       env_local: {
         APP_ENV: 'local',
         'CONTENTFUL_API_PUBLIC_KEY': 'nrz0imrXtNkAmAhpoe6Y1nTV8cYAKZxyeQNs5hIYjiA',

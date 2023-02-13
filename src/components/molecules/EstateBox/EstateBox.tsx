@@ -23,7 +23,7 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Image
+      <img
         src={`${estate.images[0].src}`}
         alt={estate.images[0].alt ? estate.images[0].alt : ''}
         width="298px"

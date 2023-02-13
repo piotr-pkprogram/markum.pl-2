@@ -9,7 +9,7 @@ const EstateElement = ({ estate }: { estate: EstateType }) => {
   return (
     <Link href={estate.link} passHref>
       <div className={styles.wrapper}>
-        <Image
+        <img
           src={`${estate.images[0].src}`}
           alt={estate.images[0].alt ? estate.images[0].alt : ''}
           width={305}

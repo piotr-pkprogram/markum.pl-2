@@ -13,7 +13,7 @@ const uploadOffers = async () => {
 export const getOffers = () => {
     const isUploaded = checkUploadTime();
 
-    if (!isUploaded.checkTime) {
+    if (!isUploaded.checkTime && process.env.APP_ENV == 'dev') {
       uploadOffers();
     }
 

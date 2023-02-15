@@ -15,9 +15,10 @@ export const checkUploadTime = () => {
     const data = JSON.parse(json);
     const time = new Date(data.uploadTime);
 
-    const pastTime = time.getHours() - new Date().getHours();
+    let pastTime = new Date().getTime() - time.getTime();
+    pastTime = Math.floor(((pastTime / 1000) / 60) / 60);
 
-    if (pastTime < 1)
+    if (pastTime < 20)
       return {
         checkTime: true,
         estates: data.estates

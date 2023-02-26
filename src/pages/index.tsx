@@ -27,7 +27,6 @@ const QuestionElement = loadable(
   () => import('src/components/molecules/QuestionElement/QuestionElement')
 );
 const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
-
 const Home: NextPage = () => {
   // @ts-ignore
   const { data, error, isLoading } = useGetAllDataQuery();

@@ -6,7 +6,7 @@ export const saveOffersToJSON = (estates: IEstateFields[]) => {
     estates
   });
 
-  fs.writeFileSync('public/offers.json', data);
+  fs.writeFileSync('public/offers.json', data, {encoding:'utf8',flag:'w'});
 }
 
 export const checkUploadTime = () => {
@@ -18,7 +18,7 @@ export const checkUploadTime = () => {
     let pastTime = new Date().getTime() - time.getTime();
     pastTime = Math.floor(((pastTime / 1000) / 60) / 60);
 
-    if (pastTime < 20)
+    if (pastTime < 15)
       return {
         checkTime: true,
         estates: data.estates

@@ -267,7 +267,7 @@ const EstateView: NextPage = () => {
                   className={`thumbnail ${index === 0 ? 'active' : ''}`}
                   key={`thumbnail-${index}`}
                 >
-                  <Image src={img.src} alt="" layout="fill" />
+                  <img src={img.src} alt="" style={{ objectFit: "fill" }} />
                 </li>
               );
             })}
@@ -413,10 +413,10 @@ const EstateView: NextPage = () => {
                           : 'placeholder-image--horizontal'
                       }`}
                     >
-                      <Image
+                      <img
                         src={currentImage.src}
                         alt={currentImage.alt}
-                        layout="fill"
+                        style={{ objectFit: "fill" }}
                         loading="lazy"
                       />
                     </div>

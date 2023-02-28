@@ -267,7 +267,7 @@ const EstateView: NextPage = () => {
                   className={`thumbnail ${index === 0 ? 'active' : ''}`}
                   key={`thumbnail-${index}`}
                 >
-                  <img src={img.src} alt="" style={{ objectFit: "fill", width: "100%", height: "100%"}} />
+                  <img src={img.src} alt="" style={{ objectFit: "cover", width: "100%", height: "100%"}} />
                 </li>
               );
             })}
@@ -416,7 +416,7 @@ const EstateView: NextPage = () => {
                       <img
                         src={currentImage.src}
                         alt={currentImage.alt}
-                        style={{ objectFit: "fill", width: "100%", height: "100%"}}
+                        style={{ objectFit: "cover", width: "100%", height: "100%"}}
                         loading="lazy"
                       />
                     </div>

@@ -26,8 +26,7 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
       <img
         src={`${estate.images[0].src}`}
         alt={estate.images[0].alt ? estate.images[0].alt : ''}
-        width="298px"
-        height="199px"
+        style={{ objectFit: "cover", width: "100%"}}
         loading="lazy"
       />
       <div className={styles.basicInfo}>

@@ -207,7 +207,7 @@ const EstateView: NextPage = () => {
               if (img.dimensions.width > img.dimensions.height)
                 return (
                   <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
-                    <Image
+                    <img
                       src={img.src}
                       alt={img.alt ? img.alt : ''}
                       width="600px"
@@ -226,7 +226,7 @@ const EstateView: NextPage = () => {
               else
                 return (
                   <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
-                    <Image
+                    <img
                       src={img.src}
                       alt={img.alt ? img.alt : ''}
                       width="340px"

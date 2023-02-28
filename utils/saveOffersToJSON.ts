@@ -18,7 +18,7 @@ export const checkUploadTime = () => {
     let pastTime = new Date().getTime() - time.getTime();
     pastTime = Math.floor(((pastTime / 1000) / 60) / 60);
 
-    if (pastTime < 15)
+    if (pastTime < 2)
       return {
         checkTime: true,
         estates: data.estates

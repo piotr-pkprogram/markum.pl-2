@@ -36,7 +36,7 @@ const EstateView: NextPage = () => {
     | { src: string; alt: string; dimensions: { width: number; height: number } }
     | { url: string; type: string;}
     | null
-    >(null);
+  >(null);
   const [body, setBody] = useState<HTMLBodyElement>();
 
   const handleArrowsClick = (arrowType: ArrowType) => {
@@ -207,7 +207,7 @@ const EstateView: NextPage = () => {
               if (img.dimensions.width > img.dimensions.height)
                 return (
                   <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
-                    <Image
+                    <img
                       src={img.src}
                       alt={img.alt ? img.alt : ''}
                       width="600px"
@@ -226,7 +226,7 @@ const EstateView: NextPage = () => {
               else
                 return (
                   <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
-                    <Image
+                    <img
                       src={img.src}
                       alt={img.alt ? img.alt : ''}
                       width="340px"

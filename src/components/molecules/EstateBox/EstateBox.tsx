@@ -11,15 +11,19 @@ import loadable from '@loadable/component';
 const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
 
 const EstateBox = ({ estate }: { estate: EstateType }) => {
-  const rooms =
-    (estate.numOfRooms?.toString().includes('2') ||
-      estate.numOfRooms?.toString().includes('3') ||
-      estate.numOfRooms?.toString().includes('4')) &&
-    (estate.numOfRooms <= 10 || estate.numOfRooms >= 20)
-      ? 'pokoje'
-      : estate.numOfRooms !== 1
-      ? 'pokoji'
-      : 'pokój';
+  let rooms = "";
+  
+  if (estate.numOfRooms) {
+    rooms =
+      (estate.numOfRooms?.toString().includes('2') ||
+        estate.numOfRooms?.toString().includes('3') ||
+        estate.numOfRooms?.toString().includes('4')) &&
+        (estate.numOfRooms <= 10 || estate.numOfRooms >= 20)
+        ? 'pokoje'
+        : estate.numOfRooms !== 1
+          ? 'pokoji'
+          : 'pokój';
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -48,10 +52,12 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
             <Image src={area} alt="" />
             {Math.round(estate.area)} m<sup>2</sup>
           </span>
-          <span className="flex items-center gap-1">
-            <Image src={door} alt="" />
-            {estate.numOfRooms} {rooms}
-          </span>
+          {estate.numOfRooms ? (
+            <span className="flex items-center gap-1">
+             <Image src={door} alt="" />
+            {estate.numOfRooms} {rooms} 
+            </span>)
+            : (<span className="flex items-center gap-1" />)}
         </div>
         <TextLink
           className="!font-semibold !text-xl !text-darkBlue grid grid-flow-col items-center !gap-0 w-max"

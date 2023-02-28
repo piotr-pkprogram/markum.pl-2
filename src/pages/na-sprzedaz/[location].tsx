@@ -84,16 +84,18 @@ const EstateView: NextPage = () => {
       });
     }
 
-    setRooms(
-      (data?.estate?.numOfRooms.toString().includes('2') ||
-        data?.estate?.numOfRooms.toString().includes('3') ||
-        data?.estate?.numOfRooms.toString().includes('4')) &&
-      (data?.estate?.numOfRooms <= 10 || data?.estate?.numOfRooms >= 20)
-        ? 'pokoje'
-        : data?.estate?.numOfRooms !== 1
-          ? 'pokoji'
-          : 'pokój'
-    );
+    if (data?.estate.numOfRooms) {
+      setRooms(
+        (data?.estate?.numOfRooms.toString().includes('2') ||
+          data?.estate?.numOfRooms.toString().includes('3') ||
+          data?.estate?.numOfRooms.toString().includes('4')) &&
+          (data?.estate?.numOfRooms <= 10 || data?.estate?.numOfRooms >= 20)
+          ? 'pokoje'
+          : data?.estate?.numOfRooms !== 1
+            ? 'pokoji'
+            : 'pokój'
+      );
+    }
   }, [isLoading, data]);
 
   // @ts-ignore
@@ -308,10 +310,11 @@ const EstateView: NextPage = () => {
                 <Image src={area} alt="" />
                 {Math.round(data?.estate?.area as number)} m<sup>2</sup>
               </span>
-              <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
+              {rooms != "" ? (<span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
                 <Image src={door} alt="" />
                 {data?.estate?.numOfRooms} {rooms}
-              </span>
+              </span>)
+                : <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto" />}
             </p>
             <p className="estate-info__price-and-year">
               <span className="flex flex-wrap gap-3 items-center text-lg">
@@ -323,7 +326,7 @@ const EstateView: NextPage = () => {
                   <sup>2</sup>
                 </span>
               </span>
-              <span>Rok budowy: {data?.estate?.constructYear}</span>
+              <span>{data?.estate?.constructYear ? `Rok budowy: ${data?.estate?.constructYear}` : ''}</span>
             </p>
           </div>
           <div className="estate-info__details">

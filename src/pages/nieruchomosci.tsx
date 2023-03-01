@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useGetAllEstatesQuery } from 'src/store';
 import { EstateCategory, EstateType } from 'types/estateType';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { arraySplitting } from 'utils/arraySpliting';
 import { Pagination, PaginationItem } from '@mui/material';
@@ -34,6 +34,11 @@ const Estates: NextPage = () => {
       setCategory(EstateCategory.forSale);
     }
   };
+  
+  useEffect(() => {
+    setPage(1);
+    setIsMore(false);
+  }, [category]);
 
   const handlePageChange = (e: ChangeEvent<unknown>, value: number) => {
     setPage(value);

@@ -77,7 +77,7 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
       // @ts-ignore
       if (estioffer?.link) {
         // @ts-ignore
-        return estioffer?.link['en-US'] === offer.link;
+        return estioffer?.link === offer.link;
       } else return false;
     });
 
@@ -94,7 +94,7 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
     offer.images = await Promise.all(offer.pictures.map(async (picture) => {
       const index = picture.lastIndexOf('/') + 1;
       const fileName = picture.substr(index);
-      const file = fs.createWriteStream(`public/img/offers/simple/${fileName}`);
+      const file = fs.createWriteStream(`public/img/offers/simple/${fileName}`, {flags: 'w'});
       let dimensions;
 
       await new Promise((resolve) => {

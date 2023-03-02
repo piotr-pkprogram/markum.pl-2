@@ -84,7 +84,7 @@ const EstateView: NextPage = () => {
       });
     }
 
-    if (data?.estate.numOfRooms) {
+    if (data?.estate?.numOfRooms) {
       setRooms(
         (data?.estate?.numOfRooms.toString().includes('2') ||
           data?.estate?.numOfRooms.toString().includes('3') ||

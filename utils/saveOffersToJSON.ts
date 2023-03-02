@@ -6,7 +6,7 @@ export const saveOffersToJSON = (estates: IEstateFields[]) => {
     estates
   });
 
-  fs.writeFileSync('public/offers.json', data, {encoding:'utf8',flag:'w'});
+  fs.writeFileSync('public/offers.json', data, {encoding:'utf8', flag:'w'});
 }
 
 export const checkUploadTime = () => {

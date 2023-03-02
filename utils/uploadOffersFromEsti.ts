@@ -97,6 +97,7 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
       const file = fs.createWriteStream(`public/img/offers/simple/${fileName}`, {flags: 'w'});
       let dimensions;
 
+
       await new Promise((resolve) => {
         https.get(picture, async function(res) {
           res.pipe(file);
@@ -131,6 +132,6 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
 
     return offer;
   }));
-
+  
   return offers;
 };

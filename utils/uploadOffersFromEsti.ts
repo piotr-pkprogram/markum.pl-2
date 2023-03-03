@@ -97,27 +97,24 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
       const file = fs.createWriteStream(`public/img/offers/simple/${fileName}`, {flags: 'w'});
       let dimensions;
 
-
       await new Promise((resolve) => {
-        https.get(picture, async function(res) {
-          res.pipe(file);
-          dimensions = await sizeOf(`public/img/offers/simple/${fileName}`);
-          const chunks_of_data: any[] = [];
+        try {
+          https.get(picture, async function (res) {
+            res.pipe(file);
+            dimensions = await sizeOf(`public/img/offers/simple/${fileName}`);
+            const chunks_of_data: any[] = [];
 
-          res.on('data', (fragments) => {
-            chunks_of_data.push(fragments);
+            res.on('data', (fragments) => {
+              chunks_of_data.push(fragments);
+            });
+
+            res.on('end', () => {
+              const response_body = Buffer.concat(chunks_of_data);
+
+              resolve(response_body.toString());
+            });
           });
-
-          res.on('end', () => {
-            const response_body = Buffer.concat(chunks_of_data);
-
-            resolve(response_body.toString());
-          });
-
-          res.on('error', (error) => {
-            console.log(error);
-          });
-        });
+        } catch (err) {}
       });
       delete offer.pictures;
 

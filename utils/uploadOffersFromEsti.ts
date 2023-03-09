@@ -6,13 +6,16 @@ import { IEstateFields } from 'types/generated/contentful';
 import { promisify } from 'util';
 import https from 'https';
 import fs from 'fs';
+import Canvas from 'canvas';
 
 const sizeOf = promisify(require('image-size'));
 
-async function isImgUrl(url: string) {
-  return await fetch(url, { method: 'HEAD' }).then((res) => {
-    // @ts-ignore
-    return res.headers.get('Content-Type').startsWith('image');
+function isImgUrl(url) {
+  const img = new Canvas.Image();
+  img.src = url;
+  return new Promise((resolve) => {
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
   });
 }
 
@@ -115,9 +118,9 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
           const file = fs.createWriteStream(`public/img/offers/simple/${fileName}`, { flags: 'w' });
           let dimensions;
 
-          const isImage = await isImgUrl(picture);
+          // const isImage = await Promise.all(isImgUrl(picture));
 
-          if (isImage) {
+          // if (isImage) {
             try {
               await new Promise((resolve) => {
                 https.get(picture, async function (res) {
@@ -151,9 +154,9 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
             } catch {
               return null;
             }
-          } else {
-            return null;
-          }
+          // } else {
+          //   return null;
+          // }
         })
       );
       delete offer.pictures;

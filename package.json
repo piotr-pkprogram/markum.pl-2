@@ -13,14 +13,16 @@
     },
     "eslintConfig": {
         "extends": "next",
-        "overrides": [{
-            "files": [
-                "**/*.stories.*"
-            ],
-            "rules": {
-                "import/no-anonymous-default-export": "off"
+        "overrides": [
+            {
+                "files": [
+                    "**/*.stories.*"
+                ],
+                "rules": {
+                    "import/no-anonymous-default-export": "off"
+                }
             }
-        }]
+        ]
     },
     "dependencies": {
         "@emailjs/browser": "^3.4.0",
@@ -35,10 +37,12 @@
         "@types/express": "^4.17.13",
         "axios": "^0.25.0",
         "browserlist": "^1.0.1",
+        "canvas": "^2.11.0",
         "contentful": "^9.1.12",
         "contentful-sdk-core": "^7.0.1",
         "html-webpack-plugin": "^5.5.0",
         "husky": "^7.0.4",
+        "image-js": "^0.35.3",
         "image-size": "^1.0.2",
         "less-loader": "^10.2.0",
         "mailgun-js": "^0.22.0",

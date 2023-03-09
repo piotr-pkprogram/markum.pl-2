@@ -10,6 +10,7 @@ import Canvas from 'canvas';
 
 const sizeOf = promisify(require('image-size'));
 
+// @ts-ignore
 function isImgUrl(url) {
   const img = new Canvas.Image();
   img.src = url;
@@ -121,39 +122,39 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
           // const isImage = await Promise.all(isImgUrl(picture));
 
           // if (isImage) {
-            try {
-              await new Promise((resolve) => {
-                https.get(picture, async function (res) {
-                  res.pipe(file);
-                  dimensions = await sizeOf(`public/img/offers/simple/${fileName}`);
-                  const chunks_of_data: any[] = [];
+          try {
+            await new Promise((resolve) => {
+              https.get(picture, async function (res) {
+                res.pipe(file);
+                dimensions = await sizeOf(`public/img/offers/simple/${fileName}`);
+                const chunks_of_data: any[] = [];
 
-                  res.on('data', (fragments) => {
-                    chunks_of_data.push(fragments);
-                  });
+                res.on('data', (fragments) => {
+                  chunks_of_data.push(fragments);
+                });
 
-                  res.on('end', () => {
-                    const response_body = Buffer.concat(chunks_of_data);
+                res.on('end', () => {
+                  const response_body = Buffer.concat(chunks_of_data);
 
-                    resolve(response_body.toString());
-                  });
+                  resolve(response_body.toString());
+                });
 
-                  res.on('error', (error) => {
-                    console.log(error);
-                  });
+                res.on('error', (error) => {
+                  console.log(error);
                 });
               });
+            });
 
-              return {
-                // @ts-ignore
-                fileName: fileName.replace(`.${dimensions.type}`, ''),
-                src: `${process.env.DOMAIN}/img/offers/simple/${fileName}`,
-                alt: '',
-                dimensions
-              };
-            } catch {
-              return null;
-            }
+            return {
+              // @ts-ignore
+              fileName: fileName.replace(`.${dimensions.type}`, ''),
+              src: `${process.env.DOMAIN}/img/offers/simple/${fileName}`,
+              alt: '',
+              dimensions
+            };
+          } catch {
+            return null;
+          }
           // } else {
           //   return null;
           // }

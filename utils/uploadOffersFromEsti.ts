@@ -119,9 +119,6 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
           const file = fs.createWriteStream(`public/img/offers/simple/${fileName}`, { flags: 'w' });
           let dimensions;
 
-          // const isImage = await Promise.all(isImgUrl(picture));
-
-          // if (isImage) {
           try {
             await new Promise((resolve) => {
               https.get(picture, async function (res) {
@@ -155,9 +152,6 @@ export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
           } catch {
             return null;
           }
-          // } else {
-          //   return null;
-          // }
         })
       );
       delete offer.pictures;

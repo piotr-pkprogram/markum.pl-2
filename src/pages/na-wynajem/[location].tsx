@@ -34,7 +34,7 @@ const EstateView: NextPage = () => {
   const splideSlider = useRef<Splide>(null);
   const [currentImage, setCurrentImage] = useState<
     | { src: string; alt: string; dimensions: { width: number; height: number } }
-    | { url: string; type: string;}
+    | { url: string; type: string }
     | null
   >(null);
   const [body, setBody] = useState<HTMLBodyElement>();
@@ -92,8 +92,8 @@ const EstateView: NextPage = () => {
           (data?.estate?.numOfRooms <= 10 || data?.estate?.numOfRooms >= 20)
           ? 'pokoje'
           : data?.estate?.numOfRooms !== 1
-            ? 'pokoji'
-            : 'pokój'
+          ? 'pokoji'
+          : 'pokój'
       );
     }
   }, [isLoading, data]);
@@ -120,9 +120,7 @@ const EstateView: NextPage = () => {
           property="og:title"
           content={`${
             data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-          } ${data?.estate?.address.city} ${data?.estate?.address.street} ${
-            data?.estate?.address.houseNumber
-          } | Markum - Twój Dom`}
+          } ${data?.estate?.address.city} ${data?.estate?.address.street} | Markum - Twój Dom`}
         />
         <meta
           property="og:description"
@@ -136,9 +134,7 @@ const EstateView: NextPage = () => {
           property="og:site_name"
           content={`${
             data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-          }, ${data?.estate?.address.city} ${data?.estate?.address.street} ${
-            data?.estate?.address.houseNumber
-          }`}
+          }, ${data?.estate?.address.city} ${data?.estate?.address.street}`}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${process.env.DOMAIN}/${data?.estate?.link}`} />
@@ -196,7 +192,11 @@ const EstateView: NextPage = () => {
             )}
             {data?.estate.tourLink ? (
               <SplideSlide className="estate-info__slide">
-                <iframe src={data?.estate.tourLink} className="estate-info__iframe" />
+                <iframe
+                  src={data?.estate.tourLink}
+                  title="Przewodnik po nieruchomości"
+                  className="estate-info__iframe"
+                />
                 <div
                   className="absolute w-full h-full cursor-pointer z-20"
                   onClick={() => setCurrentImage({ url: data?.estate.tourLink, type: 'iframe' })}
@@ -206,44 +206,33 @@ const EstateView: NextPage = () => {
               ''
             )}
             {data?.estate?.images.map((img, index) => {
-              if (img.dimensions.width > img.dimensions.height)
-                return (
-                  <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
-                    <img
-                      src={img.src}
-                      alt={img.alt ? img.alt : ''}
-                      width="600px"
-                      height="340px"
-                      loading="lazy"
-                      onClick={() =>
-                        setCurrentImage({
-                          src: img.src,
-                          alt: img.alt,
-                          dimensions: img.dimensions
-                        })
-                      }
-                    />
-                  </SplideSlide>
-                );
-              else
-                return (
-                  <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
-                    <img
-                      src={img.src}
-                      alt={img.alt ? img.alt : ''}
-                      width="340px"
-                      height="600px"
-                      loading="lazy"
-                      onClick={() =>
-                        setCurrentImage({
-                          src: img.src,
-                          alt: img.alt,
-                          dimensions: img.dimensions
-                        })
-                      }
-                    />
-                  </SplideSlide>
-                );
+              const imgSrc = `https://img.asariweb.pl/large/${img.id}`;
+              return (
+                <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
+                  <img
+                    id={`image-${img.id}`}
+                    src={`https://img.asariweb.pl/normal/${img.id}`}
+                    alt={img.description ? img.description : ''}
+                    width="600px"
+                    height="340px"
+                    loading="lazy"
+                    onClick={() => {
+                      const HTMLImage = document.querySelector(
+                        `#image-${img.id}`
+                      ) as HTMLImageElement;
+
+                      setCurrentImage({
+                        src: imgSrc,
+                        alt: img.description,
+                        dimensions: {
+                          width: HTMLImage.naturalWidth,
+                          height: HTMLImage.naturalHeight
+                        }
+                      });
+                    }}
+                  />
+                </SplideSlide>
+              );
             })}
           </Splide>
           <ul id="thumbnails" className="thumbnails">
@@ -269,7 +258,11 @@ const EstateView: NextPage = () => {
                   className={`thumbnail ${index === 0 ? 'active' : ''}`}
                   key={`thumbnail-${index}`}
                 >
-                  <img src={img.src} alt="" style={{ objectFit: "cover", width: "100%", height: "100%"}} />
+                  <img
+                    src={`https://img.asariweb.pl/normal/${img.id}`}
+                    alt=""
+                    style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                  />
                 </li>
               );
             })}
@@ -288,33 +281,23 @@ const EstateView: NextPage = () => {
                   ? ``
                   : `zł`}
               </span>
-              {data?.estate.rent ? (
-                <span className="font-medium">
-                  Czynsz: {data?.estate.rent}&nbsp;
-                  {typeof data?.estate.rent === 'string' && data?.estate.rent.includes('zł')
-                    ? ``
-                    : `zł`}
-                </span>
-              ) : (
-                ''
-              )}
             </p>
             <p className="estate-info__location">
               <span className="text-lg col-start-1 col-end-3 xs:col-start-auto xs:col-end-auto">
-                {data?.estate?.address.street} {data?.estate?.address.houseNumber}{' '}
-                {data?.estate?.address.apartmentNumber
-                  ? `/ ${data?.estate?.address.apartmentNumber}`
-                  : ''}
+                {data?.estate?.address.street}
               </span>
               <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
                 <Image src={area} alt="" />
                 {Math.round(data?.estate?.area as number)} m<sup>2</sup>
               </span>
-              {rooms != "" ? (<span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
-                <Image src={door} alt="" />
-                {data?.estate?.numOfRooms} {rooms}
-              </span>)
-                : <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto" />}
+              {rooms != '' ? (
+                <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
+                  <Image src={door} alt="" />
+                  {data?.estate?.numOfRooms} {rooms}
+                </span>
+              ) : (
+                <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto" />
+              )}
             </p>
             <p className="estate-info__price-and-year">
               <span className="flex flex-wrap gap-3 items-center text-lg">
@@ -326,19 +309,15 @@ const EstateView: NextPage = () => {
                   <sup>2</sup>
                 </span>
               </span>
-              <span>{data?.estate?.constructYear ? `Rok budowy: ${data?.estate?.constructYear}` : ''}</span>
+              <span>
+                {data?.estate?.constructYear ? `Rok budowy: ${data?.estate?.constructYear}` : ''}
+              </span>
             </p>
           </div>
           <div className="estate-info__details">
             <p className="text-2xl">Szczegóły oferty:</p>
             <p className="flex flex-wrap gap-y-2 gap-x-4">
-              {data?.estate?.details &&
-              'Typ_kuchni' in data?.estate?.details &&
-              data?.estate?.details.Typ_kuchni !== '' ? (
-                <span>Typ Kuchni: {data?.estate?.details.Typ_kuchni}</span>
-              ) : (
-                ''
-              )}
+              {data?.estate?.details.Ogrodek === true ? <span>Posiada Ogródek</span> : ''}
               {data?.estate?.details.Balkon ? (
                 data?.estate?.details.Balkon === 1 ? (
                   <span>Posiada Balkon</span>
@@ -360,11 +339,6 @@ const EstateView: NextPage = () => {
               ) : (
                 ''
               )}
-              {data?.estate?.details.propFeatures
-                ? data.estate?.details.propFeatures
-                  .split(',')
-                  .map((feature, index) => <span key={`estate-feature-${index}`}>{feature}</span>)
-                : ''}
             </p>
           </div>
           <TextButton
@@ -378,7 +352,10 @@ const EstateView: NextPage = () => {
         </div>
       </section>
       <section className="estate-desc p-4">
-        <p className="bg-gray p-6 rounded-3xl text-lg font-medium" dangerouslySetInnerHTML={{ __html: data?.estate?.desc as string }} />
+        <p
+          className="bg-gray p-6 rounded-3xl text-lg font-medium"
+          dangerouslySetInnerHTML={{ __html: data?.estate?.desc as string }}
+        />
       </section>
       {ReactDOM.createPortal(
         <>
@@ -394,7 +371,11 @@ const EstateView: NextPage = () => {
                   return (
                     <div className={`placeholder-image`}>
                       {currentImage.type === 'iframe' ? (
-                        <iframe src={data?.estate.tourLink} className="w-full h-full" />
+                        <iframe
+                          src={data?.estate.tourLink}
+                          title="Przewodnik po nieruchomości"
+                          className="w-full h-full"
+                        />
                       ) : currentImage.type === 'video' ? (
                         <ReactPlayer
                           className="!w-full !h-full"
@@ -419,7 +400,7 @@ const EstateView: NextPage = () => {
                       <img
                         src={currentImage.src}
                         alt={currentImage.alt}
-                        style={{ objectFit: "cover", width: "100%", height: "100%"}}
+                        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                         loading="lazy"
                       />
                     </div>

@@ -10,8 +10,8 @@ const EstateElement = ({ estate }: { estate: EstateType }) => {
     <Link href={estate.link} passHref>
       <div className={styles.wrapper}>
         <img
-          src={`${estate.images[0].src}`}
-          alt={estate.images[0].alt ? estate.images[0].alt : ''}
+          src={`https://img.asariweb.pl/normal/${estate.images[0].id}`}
+          alt={estate.images[0].description ? estate.images[0].description : ''}
           width={305}
           height={209}
           loading="lazy"
@@ -26,8 +26,8 @@ const EstateElement = ({ estate }: { estate: EstateType }) => {
           </p>
           <p className="row-start-2 col-1/2 text-lg font-medium">
             {`${estate.address.city} ${estate.address.street ? estate.address.street : ''} ${
-              estate.address.houseNumber ? estate.address.houseNumber : ''
-            } ${estate.address.district ? estate.address.district : ''}`}
+              estate.address.district ? estate.address.district : ''
+            }`}
           </p>
         </div>
       </div>

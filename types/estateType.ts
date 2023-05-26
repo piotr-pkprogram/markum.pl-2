@@ -4,7 +4,6 @@ export enum EstateCategory {
 }
 
 export type EstateType = {
-  _id: string;
   id: number;
   category: EstateCategory | string;
   link: string;
@@ -14,13 +13,12 @@ export type EstateType = {
     city: string;
     district: string;
     street: string;
-    houseNumber: number;
-    apartmentNumber?: number;
   };
   images: {
+    id: number;
     src: string;
-    alt: string;
-    dimensions: {
+    description: string;
+    dimensions?: {
       width: number;
       height: number;
     };
@@ -29,15 +27,13 @@ export type EstateType = {
   videoLink: string;
   price: number | string;
   priceForm2: number | string;
-  rent?: number | string;
   area: number;
   numOfRooms: number;
   constructYear: number;
   details: {
-    Typ_kuchni: string;
     Balkon: number;
     Liczba_lazienek: number;
-    propFeatures: string;
+    Ogrodek: boolean;
     Wysokosc_apartamentu: number;
   };
 };

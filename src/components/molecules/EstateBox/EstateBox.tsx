@@ -11,26 +11,26 @@ import loadable from '@loadable/component';
 const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
 
 const EstateBox = ({ estate }: { estate: EstateType }) => {
-  let rooms = "";
-  
+  let rooms = '';
+
   if (estate.numOfRooms) {
     rooms =
       (estate.numOfRooms?.toString().includes('2') ||
         estate.numOfRooms?.toString().includes('3') ||
         estate.numOfRooms?.toString().includes('4')) &&
-        (estate.numOfRooms <= 10 || estate.numOfRooms >= 20)
+      (estate.numOfRooms <= 10 || estate.numOfRooms >= 20)
         ? 'pokoje'
         : estate.numOfRooms !== 1
-          ? 'pokoji'
-          : 'pokój';
+        ? 'pokoji'
+        : 'pokój';
   }
 
   return (
     <div className={styles.wrapper}>
       <img
-        src={`${estate.images[0].src}`}
-        alt={estate.images[0].alt ? estate.images[0].alt : ''}
-        style={{ objectFit: "cover", width: "100%"}}
+        src={`https://img.asariweb.pl/normal/${estate.images[0].id}`}
+        alt={estate.images[0].description ? estate.images[0].description : ''}
+        style={{ objectFit: 'cover', width: '100%' }}
         loading="lazy"
       />
       <div className={styles.basicInfo}>
@@ -42,10 +42,6 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
           <span>
             {estate.address.city} {estate.address.district}
           </span>
-          <br />
-          <span>
-            {estate.address.street} {estate.address.houseNumber}
-          </span>
         </p>
         <div className="grid grid-flow-col gap-2">
           <span className="flex items-center gap-1">
@@ -54,10 +50,12 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
           </span>
           {estate.numOfRooms ? (
             <span className="flex items-center gap-1">
-             <Image src={door} alt="" />
-            {estate.numOfRooms} {rooms} 
-            </span>)
-            : (<span className="flex items-center gap-1" />)}
+              <Image src={door} alt="" />
+              {estate.numOfRooms} {rooms}
+            </span>
+          ) : (
+            <span className="flex items-center gap-1" />
+          )}
         </div>
         <TextLink
           className="!font-semibold !text-xl !text-darkBlue grid grid-flow-col items-center !gap-0 w-max"

@@ -67,7 +67,7 @@ const Footer = () => {
         subject: `${inputs[0].value} zostawił Ci swój kontakt.`,
         name: inputs[0].value,
         phoneNumber: inputs[1].value,
-        estateId: data?.estate ? data?.estate._id : '',
+        estateId: data?.estate ? data?.estate.id : '',
         estateLink: data?.estate ? `https://marcinkumiszczo.pl${data?.estate.link}` : ''
       };
 
@@ -237,13 +237,13 @@ const Footer = () => {
         ''
       )}
       <div className={styles.basicInfo}>
-        <span>2022 Markum - Twój Dom | All rights reserved</span>
+        <span>{new Date().getFullYear()} Markum - Twój Dom | Wszystkie prawa zastrzeżone</span>
         <TextLink
           className={`${styles.styledLink} !text-darkBlue !text-sm`}
           isRouterLink
           to="/polityka-prywatnosci"
         >
-          Privacy Policy
+          Polityka Prywatności
         </TextLink>
         <TextLink
           className={`${styles.styledLink} !text-darkBlue !text-sm sm:justify-self-end`}

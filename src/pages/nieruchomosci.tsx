@@ -3,7 +3,7 @@ import { useGetAllEstatesQuery } from 'src/store';
 import { EstateCategory, EstateType } from 'types/estateType';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { arraySplitting } from 'utils/arraySpliting';
+import { splitArray } from 'utils/arraySplitting';
 import { Pagination, PaginationItem } from '@mui/material';
 import Head from 'next/head';
 // @ts-ignore
@@ -34,7 +34,7 @@ const Estates: NextPage = () => {
       setCategory(EstateCategory.forSale);
     }
   };
-  
+
   useEffect(() => {
     setPage(1);
     setIsMore(false);
@@ -76,18 +76,18 @@ const Estates: NextPage = () => {
         </div>
         <div className="estates__main-wrapper">
           {!isLoading && !error ? (
-            arraySplitting(data.estates, 2).map((array: EstateType[], index) => (
-                <div
-                  className={`estates__row ${
-                    index > 2 ? `2xl:!row-start-2 2xl:col-start-${index - 2}` : ''
-                  }`}
-                  key={index}
-                >
-                  {array.map((estate) => (
-                    <EstateBox estate={estate} key={estate.id} />
-                  ))}
-                </div>
-              ))
+            splitArray(data.estates, 2).map((array: EstateType[], index) => (
+              <div
+                className={`estates__row ${
+                  index > 2 ? `2xl:!row-start-2 2xl:col-start-${index - 2}` : ''
+                }`}
+                key={index}
+              >
+                {array.map((estate) => (
+                  <EstateBox estate={estate} key={estate.id} />
+                ))}
+              </div>
+            ))
           ) : (
             <ErrorBox error={error as FetchBaseQueryError} />
           )}

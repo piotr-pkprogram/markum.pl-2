@@ -1,5 +1,6 @@
 import { IEstateFields } from 'types/generated/contentful';
 import fs from 'fs';
+
 export const saveOffersToJSON = (estates: IEstateFields[]) => {
   const data = JSON.stringify({
     uploadTime: new Date(),

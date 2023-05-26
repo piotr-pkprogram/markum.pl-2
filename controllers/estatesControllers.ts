@@ -1,35 +1,31 @@
 import catchAsyncErrors from 'middlewares/catchAsyncErrors';
 import ErrorHandler from 'utils/errorHandler';
-import { uploadOffersFromEsti } from 'utils/uploadOffersFromEsti';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextFunction } from 'connect';
-import { checkUploadTime, saveOffersToJSON } from 'utils/saveOffersToJSON';
+import fs from 'fs';
 
-const uploadOffers = async () => {
-  const newEstates = Array.from(await uploadOffersFromEsti());
-  saveOffersToJSON(newEstates);
-};
+export const getAllOffers = () => {
+  const files = fs.readdirSync('public/offers');
+  const estates = files.map((file) => {
+    const json = fs.readFileSync(`public/offers/${file}`, { encoding: 'utf8', flag: 'r' });
+    return JSON.parse(json);
+  });
 
-export const getOffers = () => {
-  const isUploaded = checkUploadTime();
-
-  if (!isUploaded.checkTime && process.env.APP_ENV == 'dev') {
-    uploadOffers();
-  }
-
-  return isUploaded.estates;
+  return estates;
 };
 
 const getSingleEstateById = catchAsyncErrors(
   async (req: NextApiRequest, res: NextApiResponse, next: NextFunction) => {
-    const estateRes = Array.from(await getOffers()).filter(
-      (estate: any) => estate.id == req.query.id
-    );
-    let estate;
-    if (!estateRes) {
+    let estate = {};
+
+    if (!fs.existsSync(`public/offers/estate-${req.query.id}.json`)) {
       return next(new ErrorHandler(404, 'Please enter correct id. Cannot find estate.'));
     } else {
-      estate = estateRes[0];
+      const json = fs.readFileSync(`public/offers/estate-${req.query.id}.json`, {
+        encoding: 'utf8',
+        flag: 'r'
+      });
+      estate = JSON.parse(json);
     }
 
     res.status(200).json({ success: true, estate });
@@ -38,15 +34,19 @@ const getSingleEstateById = catchAsyncErrors(
 
 const getSingleEstateByLink = catchAsyncErrors(
   async (req: NextApiRequest, res: NextApiResponse, next: NextFunction) => {
-    const estateRes = Array.from(await getOffers()).filter(
-      (estate: any) => estate.link == req.query.link
-    );
+    const link = req.query.link as string;
+    let estateId: string | string[] = link.split('-');
+    estateId = estateId[estateId.length - 1];
+    let estate = {};
 
-    let estate;
-    if (!(estateRes.length > 0)) {
+    if (!fs.existsSync(`public/offers/estate-${estateId}.json`)) {
       return next(new ErrorHandler(404, 'Please enter correct link. Cannot find estate.'));
     } else {
-      estate = estateRes[0];
+      const json = fs.readFileSync(`public/offers/estate-${estateId}.json`, {
+        encoding: 'utf8',
+        flag: 'r'
+      });
+      estate = JSON.parse(json);
     }
 
     res.status(200).json({ success: true, estate });
@@ -66,7 +66,7 @@ export const getAllEstates = catchAsyncErrors(
         if ('isMore' in req.query && req.query.isMore !== 'false') resPerPage = 12;
         else resPerPage = 8;
 
-        let estates = Array.from(await getOffers());
+        let estates = Array.from(await getAllOffers());
         let estatesCount = estates.length;
 
         if (req.query.page) {

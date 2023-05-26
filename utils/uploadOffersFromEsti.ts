@@ -6,19 +6,8 @@ import { IEstateFields } from 'types/generated/contentful';
 import { promisify } from 'util';
 import https from 'https';
 import fs from 'fs';
-// import Canvas from 'canvas';
 
 const sizeOf = promisify(require('image-size'));
-
-// @ts-ignore
-// function isImgUrl(url) {
-//   const img = new Canvas.Image();
-//   img.src = url;
-//   return new Promise((resolve) => {
-//     img.onload = () => resolve(true);
-//     img.onerror = () => resolve(false);
-//   });
-// }
 
 export const uploadOffersFromEsti = async (): Promise<IEstateFields[]> => {
   const estiOffers = await axios.get(

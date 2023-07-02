@@ -5,6 +5,7 @@ export enum EstateCategory {
 
 export type EstateType = {
   id: number;
+  createdDate: Date | string;
   category: EstateCategory | string;
   link: string;
   desc: string;

@@ -5,6 +5,7 @@ import { ListingType } from 'types/listingType';
 
 const updateExportedListOffers = (listingsList: any[]) => {
   const data = JSON.stringify({
+    uploadDate: new Date(),
     amount: listingsList.length,
     data: listingsList
   });

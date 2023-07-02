@@ -4,6 +4,7 @@ import axios from 'axios';
 
 export default async (listingsList: any[]) => {
   const data = JSON.stringify({
+    uploadDate: new Date(),
     amount: listingsList.length,
     data: listingsList
   });

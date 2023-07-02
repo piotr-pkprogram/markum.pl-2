@@ -17,6 +17,7 @@ export default (offer: any) => {
 
   const newOffer: EstateType = {
     id: parseInt(offer.id),
+    createdDate: offer.dateCreated,
     category: offer.sectionName.toLowerCase().includes('rental') ? 'FOR_RENT' : 'FOR_SALE',
     link: offer.sectionName.toLowerCase().includes('rental')
       ? '/na-wynajem/' + link

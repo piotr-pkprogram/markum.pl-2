@@ -10,6 +10,15 @@ export const getAllOffers = () => {
     const json = fs.readFileSync(`public/offers/${file}`, { encoding: 'utf8', flag: 'r' });
     return JSON.parse(json);
   });
+  estates.sort((a, b) => {
+    const aDate = new Date(a.createdDate);
+    const bDate = new Date(b.createdDate);
+    
+    if ( aDate.getTime() > bDate.getTime()) return -1;
+    else if (aDate.getTime() < bDate.getTime()) return 1;
+    
+    return 0;
+  });
 
   return estates;
 };

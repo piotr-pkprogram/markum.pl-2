@@ -10,7 +10,7 @@ import styleInput from 'src/components/atoms/Input/Input.module.scss';
 import homeLogo from 'public/img/home-logo.jpg';
 import { useRouter } from 'next/router';
 import { useGetSingleEstateByLinkQuery } from 'src/store';
-import certificate from 'public/img/Marcin-Kumiszczo-stopka-do-maila-1024x576.jpg';
+import certificate from 'public/img/Marcin-Kumiszczo-stopka-maila-1024x576.jpg';
 import { init, send } from '@emailjs/browser';
 // @ts-ignore
 import loadable from '@loadable/component';

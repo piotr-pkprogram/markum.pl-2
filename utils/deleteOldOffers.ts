@@ -11,4 +11,5 @@ export default (listingsList: any[]) => {
       fs.unlinkSync(`public/offers/${file}`);
     }
   });
+  console.log('Delete old offers');
 };

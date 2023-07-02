@@ -149,18 +149,19 @@ const Home: NextPage = () => {
                 arrows: false,
                 perPage: data.estates.length >= 4 ? 4 : data.estates.length,
                 autoplay: true,
-                rewind: true,
-                interval: 1500,
+                rewind: data.estates.length < 5,
+                interval: 1000,
                 width: 1354,
                 gap: '1rem',
                 lazyLoad: 'nearby',
-                preloadPages: 1,
+                preloadPages: 2,
                 pauseOnHover: true,
                 pauseOnFocus: true,
+                updateOnMove: true,
                 pagination: false,
                 drag: true,
                 keyboard: true,
-                perMove: 2,
+                perMove: 1,
                 breakpoints: {
                   1400: {
                     type: data.estates.length > 4 ? 'loop' : 'slider',
@@ -170,13 +171,11 @@ const Home: NextPage = () => {
                   1050: {
                     type: data.estates.length > 3 ? 'loop' : 'slider',
                     perPage: 2,
-                    perMove: 1,
                     width: 670
                   },
                   715: {
                     type: data.estates.length > 1 ? 'loop' : 'slider',
                     perPage: 1,
-                    perMove: 1,
                     width: 305
                   }
                 }

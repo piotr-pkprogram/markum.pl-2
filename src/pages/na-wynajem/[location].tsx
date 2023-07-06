@@ -102,12 +102,12 @@ const EstateView: NextPage = () => {
   return !isLoading && !error && 'estate' in data ? (
     <>
       <Head>
-        <title>{`${
+        <title>{ data?.estate?.address.district ? `${
           data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-        }, 
-            ${data?.estate?.address.city}, ${
-          data?.estate?.address.district
-        } | Markum - Twój Dom`}</title>
+        }, ${data?.estate?.address.city}, ${data?.estate?.address.district} | Markum - Twój Dom` : `${
+          data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
+        }, ${data?.estate?.address.city} | Markum - Twój Dom` }
+        </title>
         <meta
           name="description"
           content={

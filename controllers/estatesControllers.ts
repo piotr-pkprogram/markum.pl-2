@@ -72,8 +72,8 @@ export const getAllEstates = catchAsyncErrors(
       } else {
         let resPerPage;
 
-        if ('isMore' in req.query && req.query.isMore !== 'false') resPerPage = 12;
-        else resPerPage = 8;
+        if ('isMore' in req.query && req.query.isMore !== 'false') resPerPage = 15;
+        else resPerPage = 10;
 
         let estates = Array.from(await getAllOffers());
         let estatesCount = estates.length;

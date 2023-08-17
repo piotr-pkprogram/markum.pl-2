@@ -76,28 +76,19 @@ const Estates: NextPage = () => {
         </div>
         <div className="estates__main-wrapper">
           {!isLoading && !error ? (
-            splitArray(data.estates, 2).map((array: EstateType[], index) => (
-              <div
-                className={`estates__row ${
-                  index > 2 ? `2xl:!row-start-2 2xl:col-start-${index - 2}` : ''
-                }`}
-                key={index}
-              >
-                {array.map((estate) => (
-                  <EstateBox estate={estate} key={estate.id} />
-                ))}
-              </div>
-            ))
-          ) : (
-            <ErrorBox error={error as FetchBaseQueryError} />
-          )}
-          {!isMore && data?.estatesCount > 8 ? (
+            <div className="estates__content">
+            {data.estates.map((estate) => (
+                <EstateBox estate={estate} key={estate.id} />
+            ))}
+            {!isMore && data?.estatesCount > 8 ? (
+            <div className="w-full flex justify-center">
             <TextButton classNames="estates__more" onClick={() => setIsMore(true)}>
               Zobacz więcej
             </TextButton>
+            </div>
           ) : data?.estatesCount > 12 ? (
+            <div className="w-full flex justify-center">
             <Pagination
-              className="2xl:row-start-3 2xl:col-start-1 2xl:col-end-4"
               count={Math.ceil(data.estatesCount / 12)}
               page={page}
               onChange={handlePageChange}
@@ -107,9 +98,14 @@ const Estates: NextPage = () => {
                   {...item}
                 />
               )}
-            />
+                />
+            </div>
           ) : (
             ''
+          )}
+            </div>
+          ) : (
+            <ErrorBox error={error as FetchBaseQueryError} />
           )}
         </div>
       </section>

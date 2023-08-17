@@ -1,13 +1,13 @@
 .wrapper {
-  @apply grid grid-flow-col relative shadow-md shadow-lightBlue hover:shadow-xl hover:shadow-lightBlue transition-shadow rounded-3xl overflow-hidden w-full;
-  max-width: 432px;
-  height: 199px;
+  @apply grid relative shadow-md shadow-lightBlue hover:shadow-xl hover:shadow-lightBlue transition-shadow rounded-3xl overflow-hidden w-full;
+  max-width: 300px;
+  height: 350px;
+  grid-auto-rows: 50% auto;
 }
 
 .basicInfo {
-  @apply absolute bg-white max-w-full right-0 grid gap-1 items-center px-4 py-2 font-bold;
+  @apply bg-white max-w-full grid gap-1 items-center px-4 py-2 font-bold;
   min-width: 211px;
-  height: 199px;
 }
 
 .arrowBox {

@@ -1,9 +1,8 @@
 import type { NextPage } from 'next';
 import { useGetAllEstatesQuery } from 'src/store';
-import { EstateCategory, EstateType } from 'types/estateType';
+import { EstateCategory } from 'types/estateType';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { splitArray } from 'utils/arraySplitting';
 import { Pagination, PaginationItem } from '@mui/material';
 import Head from 'next/head';
 // @ts-ignore

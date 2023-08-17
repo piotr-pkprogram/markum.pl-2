@@ -77,7 +77,7 @@ const Estates: NextPage = () => {
         <div className="estates__main-wrapper">
           {!isLoading && !error ? (
             <div className="estates__content">
-            {data.estates.map((estate) => (
+            {data.estates.map((estate: any) => (
                 <EstateBox estate={estate} key={estate.id} />
             ))}
             {!isMore && data?.estatesCount > 8 ? (

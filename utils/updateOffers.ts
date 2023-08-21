@@ -33,30 +33,35 @@ export default async (listingsList: any[]) => {
     if (estate.length > 0) {
       const newDate = new Date(offer.lastUpdated);
       const lastDate = new Date(estate[0].lastUpdated);
-
-      if (newDate.getTime() > lastDate.getTime()) {
-        const listing = await axios.get(
+      const listing = await axios.get(
           `https://api.asariweb.pl/apiSite/listing?userId=${process.env.ASARI_ID}&loginToken=${process.env.ASARI_TOKEN}&id=${offer.id}`
         );
 
-        offer.data = listing.data.data;
-        fs.writeFileSync(
-          `public/offers/estate-${offer.id}.json`,
-          JSON.stringify(transformOffer(offer.data)),
-          { encoding: 'utf8', flag: 'w' }
-        );
+      if (newDate.getTime() > lastDate.getTime() && listing.data.data.user.email == 'marcin.kumiszczo@home-estate.pl') {
+          fs.writeFileSync(
+            `public/offers/estate-${offer.id}.json`,
+            JSON.stringify(transformOffer(listing.data.data)),
+            { encoding: 'utf8', flag: 'w' }
+          );
+      } else if (listing.data.data.user.email != 'marcin.kumiszczo@home-estate.pl') {
+          listingsList = listingsList.filter(listing2 => listing2.id != listing.data.data.id);
+          // console.log(listing.data.data.user.email, listingsList.length);
       }
     } else {
       const listing = await axios.get(
         `https://api.asariweb.pl/apiSite/listing?userId=${process.env.ASARI_ID}&loginToken=${process.env.ASARI_TOKEN}&id=${offer.id}`
       );
 
-      offer.data = listing.data.data;
-      fs.writeFileSync(
-        `public/offers/estate-${offer.id}.json`,
-        JSON.stringify(transformOffer(offer.data)),
-        { encoding: 'utf8', flag: 'w' }
-      );
+      if (listing.data.data.user.email == 'marcin.kumiszczo@home-estate.pl') {
+        fs.writeFileSync(
+          `public/offers/estate-${offer.id}.json`,
+          JSON.stringify(transformOffer(listing.data.data)),
+          { encoding: 'utf8', flag: 'w' }
+        );
+      } else {
+        listingsList = listingsList.filter(listing2 => listing2.id != listing.data.data.id);
+        // console.log(listing.data.data.user.email, listingsList.length);
+      }
     }
 
     counter++;

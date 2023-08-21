@@ -20,16 +20,19 @@ export default async (listingsList: any[]) => {
     const listing = await axios.get(
       `https://api.asariweb.pl/apiSite/listing?userId=${process.env.ASARI_ID}&loginToken=${process.env.ASARI_TOKEN}&id=${offer.id}`
     );
-
-    offer.data = listing.data.data;
-    fs.writeFileSync(
-      `public/offers/estate-${offer.id}.json`,
-      JSON.stringify(transformOffer(offer.data)),
-      {
-        encoding: 'utf8',
-        flag: 'w'
-      }
-    );
+    
+    if (listing.data.data.user.email == "marcin.kumiszczo@home-estate.pl") {
+      fs.writeFileSync(
+        `public/offers/estate-${offer.id}.json`,
+        JSON.stringify(transformOffer(listing.data.data)),
+        {
+          encoding: 'utf8',
+          flag: 'w'
+        }
+      );
+    } else {
+      delete listingsList[counter];
+    }
 
     counter++;
     if (counter === listingsList.length) {

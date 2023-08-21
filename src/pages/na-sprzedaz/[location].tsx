@@ -400,7 +400,7 @@ const EstateView: NextPage = () => {
                       <img
                         src={currentImage.src}
                         alt={currentImage.alt}
-                        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                        style={{ width: '100%', height: '100%' }}
                         loading="lazy"
                       />
                     </div>

@@ -88,7 +88,7 @@ const Estates: NextPage = () => {
           ) : data?.estatesCount > 12 ? (
             <div className="w-full flex justify-center">
             <Pagination
-              count={Math.ceil(data.estatesCount / 12)}
+              count={Math.ceil(data.estatesCount / 15)}
               page={page}
               onChange={handlePageChange}
               renderItem={(item) => (

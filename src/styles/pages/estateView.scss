@@ -97,3 +97,36 @@
     max-width: 485px;
   }
 }
+
+.large-slider {
+    @apply flex justify-center items-center relative z-10;
+    
+    @media (max-width: 430px) {
+        @apply flex-wrap;
+    }
+    
+    & .splide__track{
+        @apply flex justify-center rounded-2xl bg-sky-200/70;
+        max-width: 1200px;
+    }
+    
+    & .splide__slide {
+        @apply flex justify-center;
+    }
+    
+    & .splide__arrows {
+        @apply mt-6;
+        
+        @media (max-width: 430px) {
+            @apply flex gap-4;
+        }
+    }
+    
+    &__arrow {
+        @apply absolute p-0 cursor-pointer bg-black/30;
+        
+        @media (max-width: 430px) {
+            @apply static rounded-none;
+        }
+    }
+}

@@ -1,8 +1,7 @@
 .wrapper {
-  @apply grid relative shadow-md shadow-lightBlue hover:shadow-xl hover:shadow-lightBlue transition-shadow rounded-3xl overflow-hidden w-full;
+  @apply grid relative shadow-md shadow-lightBlue hover:shadow-xl hover:shadow-lightBlue transition-shadow rounded-3xl overflow-hidden w-full bg-white;
   max-width: 300px;
-  height: 350px;
-  grid-auto-rows: 50% auto;
+  min-height: 350px;
 }
 
 .basicInfo {

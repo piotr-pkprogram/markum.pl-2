@@ -28,7 +28,10 @@ export type EstateType = {
   videoLink: string;
   price: number | string;
   priceForm2: number | string;
-  area: number;
+  area: {
+    total: number;
+    lot: number;
+  };
   numOfRooms: number;
   constructYear: number;
   details: {

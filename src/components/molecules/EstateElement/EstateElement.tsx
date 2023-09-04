@@ -21,13 +21,12 @@ const EstateElement = ({ estate }: { estate: EstateType }) => {
           <p className="row-start-1 flex flex-wrap gap-2 items-center">
             <Image src={area} alt="" width={16} height={16} />
             <span className="text-sm font-medium">
-              {estate.area} m<sup>2</sup>
+              {estate.area.total ? estate.area.total : estate.area.lot} m<sup>2</sup>
             </span>
           </p>
           <p className="row-start-2 col-1/2 text-lg font-medium">
-            {`${estate.address.city} ${estate.address.street ? estate.address.street : ''} ${
-              estate.address.district ? estate.address.district : ''
-            }`}
+            {`${estate.address.city} ${estate.address.street ? estate.address.street : ''} ${estate.address.district ? estate.address.district : ''
+              }`}
           </p>
         </div>
       </div>

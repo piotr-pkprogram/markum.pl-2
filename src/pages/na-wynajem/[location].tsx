@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import arrowPrev from 'public/img/arrow-prev.svg';
 import arrowNext from 'public/img/arrow-next.svg';
 import area from 'public/img/blue-area.svg';
+import homeArea from 'public/img/blue-home-area.png';
 import door from 'public/img/blue-door.svg';
 import { EstateCategory } from 'types/estateType';
 import ReactDOM from 'react-dom';
@@ -32,16 +33,26 @@ const EstateView: NextPage = () => {
   const { data, error, isLoading } = useGetSingleEstateByLinkQuery(link);
   const [rooms, setRooms] = useState('');
   const splideSlider = useRef<Splide>(null);
-  const [currentImage, setCurrentImage] = useState<
-    | { src: string; alt: string; dimensions: { width: number; height: number } }
-    | { url: string; type: string }
-    | null
-  >(null);
+  const splideLargeSlider = useRef<Splide>(null);
+  const [currentImage, setCurrentImage] = useState<number | null>(null);
   const [body, setBody] = useState<HTMLBodyElement>();
 
   const handleArrowsClick = (arrowType: ArrowType) => {
     // @ts-ignore
     const splide = splideSlider?.current.splide;
+    const index = splide?.index;
+    if (arrowType === ArrowType.next) {
+      // @ts-ignore
+      splide?.go(index + 1);
+    } else {
+      // @ts-ignore
+      splide?.go(index - 1);
+    }
+  };
+
+  const handleArrowsLargeClick = (arrowType: ArrowType) => {
+    // @ts-ignore
+    const splide = splideLargeSlider?.current.splide;
     const index = splide?.index;
     if (arrowType === ArrowType.next) {
       // @ts-ignore
@@ -92,8 +103,8 @@ const EstateView: NextPage = () => {
           (data?.estate?.numOfRooms <= 10 || data?.estate?.numOfRooms >= 20)
           ? 'pokoje'
           : data?.estate?.numOfRooms !== 1
-          ? 'pokoji'
-          : 'pokój'
+            ? 'pokoji'
+            : 'pokój'
       );
     }
   }, [isLoading, data]);
@@ -102,11 +113,9 @@ const EstateView: NextPage = () => {
   return !isLoading && !error && 'estate' in data ? (
     <>
       <Head>
-        <title>{ data?.estate?.address.district ? `${
-          data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-        }, ${data?.estate?.address.city}, ${data?.estate?.address.district} | Markum - Twój Dom` : `${
-          data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-        }, ${data?.estate?.address.city} | Markum - Twój Dom` }
+        <title>{data?.estate?.address.district ? `${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
+          }, ${data?.estate?.address.city}, ${data?.estate?.address.district} | Markum - Twój Dom` : `${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
+          }, ${data?.estate?.address.city} | Markum - Twój Dom`}
         </title>
         <meta
           name="description"
@@ -118,9 +127,8 @@ const EstateView: NextPage = () => {
         />
         <meta
           property="og:title"
-          content={`${
-            data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-          } ${data?.estate?.address.city} ${data?.estate?.address.street} | Markum - Twój Dom`}
+          content={`${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
+            } ${data?.estate?.address.city} ${data?.estate?.address.street} | Markum - Twój Dom`}
         />
         <meta
           property="og:description"
@@ -132,9 +140,8 @@ const EstateView: NextPage = () => {
         />
         <meta
           property="og:site_name"
-          content={`${
-            data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-          }, ${data?.estate?.address.city} ${data?.estate?.address.street}`}
+          content={`${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
+            }, ${data?.estate?.address.city} ${data?.estate?.address.street}`}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${process.env.DOMAIN}/${data?.estate?.link}`} />
@@ -184,7 +191,7 @@ const EstateView: NextPage = () => {
                 />
                 <div
                   className="absolute w-full h-full cursor-pointer z-20"
-                  onClick={() => setCurrentImage({ url: data?.estate.videoLink, type: 'video' })}
+                  onClick={() => setCurrentImage(0)}
                 />
               </SplideSlide>
             ) : (
@@ -199,7 +206,7 @@ const EstateView: NextPage = () => {
                 />
                 <div
                   className="absolute w-full h-full cursor-pointer z-20"
-                  onClick={() => setCurrentImage({ url: data?.estate.tourLink, type: 'iframe' })}
+                  onClick={() => setCurrentImage(data?.estate.videoLink ? 1 : 0)}
                 />
               </SplideSlide>
             ) : (
@@ -217,18 +224,9 @@ const EstateView: NextPage = () => {
                     height="340px"
                     loading="lazy"
                     onClick={() => {
-                      const HTMLImage = document.querySelector(
-                        `#image-${img.id}`
-                      ) as HTMLImageElement;
+                      const largeIn = data?.estate.tourLink && data?.estate.videoLink ? index + 2 : data?.estate.videoLink || data?.estate.tourLink ? index + 1 : index;
 
-                      setCurrentImage({
-                        src: imgSrc,
-                        alt: img.description,
-                        dimensions: {
-                          width: HTMLImage.naturalWidth,
-                          height: HTMLImage.naturalHeight
-                        }
-                      });
+                      setCurrentImage(largeIn);
                     }}
                   />
                 </SplideSlide>
@@ -286,10 +284,22 @@ const EstateView: NextPage = () => {
               <span className="text-lg col-start-1 col-end-3 xs:col-start-auto xs:col-end-auto">
                 {data?.estate?.address.street}
               </span>
-              <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
-                <Image src={area} alt="" />
-                {Math.round(data?.estate?.area as number)} m<sup>2</sup>
-              </span>
+              {data?.estate?.area.total ? (
+                <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
+                  <Image src={homeArea} alt="" />
+                  {Math.round(data?.estate?.area.total as number)} m<sup>2</sup>
+                </span>
+              ) : (
+                <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto" />
+              )}
+              {data?.estate?.area.lot ? (
+                <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
+                  <Image src={area} alt="" />
+                  {Math.round(data?.estate?.area.lot as number)} m<sup>2</sup>
+                </span>
+              ) : (
+                <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto" />
+              )}
               {rooms != '' ? (
                 <span className="flex font-bold items-center gap-2 row-start-2 sm2:row-start-auto">
                   <Image src={door} alt="" />
@@ -359,54 +369,82 @@ const EstateView: NextPage = () => {
       </section>
       {ReactDOM.createPortal(
         <>
-          {currentImage ? (
+          {currentImage !== null ? (
             <div className="fixed w-full h-full z-50 top-0 flex justify-center items-center bg-gray/80">
+              <div className="absolute w-full h-full z-0" onClick={() => setCurrentImage(null)}></div>
               <IconButton
                 svg={close}
-                className="absolute z-20 h-12 w-12 top-5 right-0"
+                className="absolute z-10 h-12 w-12 top-5 right-0"
                 onClick={() => setCurrentImage(null)}
               />
-              {(() => {
-                if ('url' in currentImage)
-                  return (
-                    <div className={`placeholder-image`}>
-                      {currentImage.type === 'iframe' ? (
-                        <iframe
-                          src={data?.estate.tourLink}
-                          title="Przewodnik po nieruchomości"
-                          className="w-full h-full"
-                        />
-                      ) : currentImage.type === 'video' ? (
-                        <ReactPlayer
-                          className="!w-full !h-full"
-                          controls
-                          playing
-                          url={data?.estate.videoLink}
-                        />
-                      ) : (
-                        ''
-                      )}
-                    </div>
-                  );
-                else if ('src' in currentImage) {
-                  return (
-                    <div
-                      className={`placeholder-image ${
-                        currentImage.dimensions.width > currentImage.dimensions.height
-                          ? ''
-                          : 'placeholder-image--horizontal'
-                      }`}
+              <Splide
+                ref={splideLargeSlider}
+                className="large-slider"
+                options={{
+                  type: 'loop',
+                  perPage: 1,
+                  drag: true,
+                  arrows: false,
+                  lazyLoad: 'nearby',
+                  keyboard: true,
+                  pagination: false,
+                  preloadPages: 1,
+                  start: currentImage,
+                  breakpoints: {}
+                }}
+                renderControls={() => (
+                  <div className="splide__arrows">
+                    <button
+                      className="large-slider__arrow left-0 rounded-r-3xl"
+                      onClick={() => handleArrowsLargeClick(ArrowType.prev)}
                     >
-                      <img
-                        src={currentImage.src}
-                        alt={currentImage.alt}
-                        style={{ width: '100%', height: '100%' }}
-                        loading="lazy"
-                      />
-                    </div>
-                  );
-                } else return null;
-              })()}
+                      <Image src={arrowPrev} alt="" />
+                    </button>
+                    <button
+                      className="large-slider__arrow right-0 rounded-l-3xl"
+                      onClick={() => handleArrowsLargeClick(ArrowType.next)}
+                    >
+                      <Image src={arrowNext} alt="" />
+                    </button>
+                  </div>
+                )}
+              >
+                {data?.estate.videoLink ? (
+                  <SplideSlide>
+                    <ReactPlayer
+                      className="!w-full !h-full rounded-2xl"
+                      controls
+                      playing
+                      url={data?.estate.videoLink}
+                    />
+                  </SplideSlide>
+                ) : (
+                  ''
+                )}
+                {data?.estate.tourLink ? (
+                  <SplideSlide>
+                    <iframe
+                      src={data?.estate.tourLink}
+                      title="Przewodnik po nieruchomości"
+                      className="w-full h-full rounded-2xl"
+                    />
+                  </SplideSlide>
+                ) : (
+                  ''
+                )}
+                {data?.estate?.images.map((img, index) => (
+                  <SplideSlide key={`image-large-${index}`}>
+                    <img
+                      className="rounded-2xl"
+                      style={{ maxHeight: "100%" }}
+                      src={`https://img.asariweb.pl/large/${img.id}`}
+                      alt={img.description ? img.description : ''}
+                      loading="lazy"
+                    />
+                  </SplideSlide>
+                )
+                )}
+              </Splide>
             </div>
           ) : (
             ''

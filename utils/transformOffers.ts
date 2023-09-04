@@ -33,7 +33,10 @@ export default (offer: any) => {
     videoLink: offer.videoUrl,
     price: offer.price.amount,
     priceForm2: offer.priceM2.amount,
-    area: offer.totalArea,
+    area: {
+      total: offer.totalArea,
+      lot: offer.lotArea
+    },
     numOfRooms: offer.noOfRooms,
     constructYear: offer.yearBuilt,
     details: {

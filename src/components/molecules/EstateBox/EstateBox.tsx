@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { EstateType } from 'types/estateType';
 import area from 'public/img/area.png';
+import homeArea from 'public/img/home-area.png';
 import door from 'public/img/door.svg';
 import blueArrow from 'public/img/blue-arrow.svg';
 import styles from './EstateBox.module.scss';
@@ -30,7 +31,7 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
       <img
         src={`https://img.asariweb.pl/normal/${estate.images[0].id}`}
         alt={estate.images[0].description ? estate.images[0].description : ''}
-        style={{ objectFit: 'cover', width: '100%' }}
+        style={{ objectFit: 'cover', width: '100%', height: '195px' }}
         loading="lazy"
       />
       <div className={styles.basicInfo}>
@@ -43,15 +44,27 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
             {estate.address.city} {estate.address.district}
           </span>
         </p>
-        <div className="grid grid-flow-col gap-2">
-          <span className="flex items-center gap-1">
+        <div className="flex flex-wrap gap-4" style={{ minHeight: '72px' }}>
+          {estate.area.total ? (
+          <span className="flex items-center gap-2" title="Powierzchnia Domu">
+            <Image src={homeArea} alt="" />
+            <span>{Math.round(estate.area.total)} m<sup>2</sup></span>
+            </span>
+          ) : (
+            <span className="flex items-center gap-1" />
+          )}
+          {estate.area.lot ? (
+          <span className="flex items-center gap-2" title="Powierzchnia Działki">
             <Image src={area} alt="" />
-            {Math.round(estate.area)} m<sup>2</sup>
-          </span>
+            <span>{Math.round(estate.area.lot)} m<sup>2</sup></span>
+            </span>
+           ) : (
+            <span className="flex items-center gap-1" />
+          )}
           {estate.numOfRooms ? (
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-2">
               <Image src={door} alt="" />
-              {estate.numOfRooms} {rooms}
+              <span>{estate.numOfRooms} {rooms}</span>
             </span>
           ) : (
             <span className="flex items-center gap-1" />

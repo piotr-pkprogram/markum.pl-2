@@ -10,7 +10,7 @@ import styleInput from 'src/components/atoms/Input/Input.module.scss';
 import homeLogo from 'public/img/home-logo.jpg';
 import { useRouter } from 'next/router';
 import { useGetSingleEstateByLinkQuery } from 'src/store';
-import certificate from 'public/img/Marcin-Kumiszczo-stopka-maila-1024x576.jpg';
+import certificate from 'public/img/marcin-kumiszczo-stopka-maila.jpg';
 import { init, send } from '@emailjs/browser';
 // @ts-ignore
 import loadable from '@loadable/component';
@@ -222,12 +222,11 @@ const Footer = () => {
               loading="lazy"
             />
           </div>
-          <div className="normal2:row-start-2 normal2:col-start-3 justify-self-start">
+          <div className="lg2:row-start-2 lg2:col-start-3 normal2:row-start-3 normal2:col-start-1 normal2:col-end-3 justify-self-start">
             <Image
               className="rounded-md"
               src={certificate}
               alt="Certyfikowany Negocjator Na Rynku Nieruchomości"
-              width="320px"
               height="180px"
               loading="lazy"
             />

@@ -11,7 +11,7 @@ export const values = [
     svg: padlock
   },
   {
-    name: 'Rzytelność',
+    name: 'Rzetelność',
     svg: loyalCustomer
   },
   {

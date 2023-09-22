@@ -197,9 +197,8 @@ const Contact: NextPage = () => {
         <div className="grid gap-4">
           <Logo isBig />
           <address className="not-italic">
-            Stacyjna 1/4 <br />
-            Wrocław 53-613 <br />
-            NIP: 123456789
+            ul. Stacyjna 1 (IV Piętro) <br />
+            Wrocław 53-613
           </address>
         </div>
         <div className="localisation__map">

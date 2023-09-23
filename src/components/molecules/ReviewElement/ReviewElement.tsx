@@ -13,7 +13,7 @@ const ReviewElement = ({ review, className }: { review: ReviewType; className?: 
     return (
       <div className={`${styles.wrapper} ${className}`}>
         <p className="text-base sm2:col-1/2" dangerouslySetInnerHTML={{ __html: review.review.replaceAll('/n', '<br />') }}></p>
-        <span className="text-3xl font-medium col-start-1 row-start-2">
+        <span className={`text-3xl font-medium col-start-1 row-start-2 self-end`}>
           {review.name} {review.surname}
         </span>
         {review.image && review.image !== '' ? (
@@ -32,9 +32,8 @@ const ReviewElement = ({ review, className }: { review: ReviewType; className?: 
         <StarRating
           rating={review.rating}
           readonly
-          className={`row-start-4 ${
-            review.image && review.image !== '' ? 'sm2:row-start-3' : 'sm2:row-start-2'
-          } sm2:justify-self-end self-end`}
+          className={`row-start-4 ${review.image && review.image !== '' ? 'sm2:row-start-3' : 'sm2:row-start-2'
+            } sm2:justify-self-end self-end`}
         />
       </div>
     );
@@ -72,9 +71,8 @@ const ReviewElement = ({ review, className }: { review: ReviewType; className?: 
         <StarRating
           rating={review.rating}
           readonly
-          className={`row-start-4 ${
-            review.image && review.image !== '' ? 'sm2:row-start-3' : 'sm2:row-start-2'
-          } sm2:justify-self-end self-end`}
+          className={`row-start-4 ${review.image && review.image !== '' ? 'sm2:row-start-3' : 'sm2:row-start-2'
+            } sm2:justify-self-end self-end`}
         />
       </div>
     );

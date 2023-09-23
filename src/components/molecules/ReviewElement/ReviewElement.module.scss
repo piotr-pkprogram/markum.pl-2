@@ -1,6 +1,7 @@
 .wrapper {
   @apply grid bg-lightBlue gap-y-3 rounded-2xl border-2 border-darkBlue p-4 w-full h-max relative;
   max-width: 649px;
+  min-height: 350px;
 
   @media (min-width: 515px) {
     @apply gap-3

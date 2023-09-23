@@ -43,7 +43,7 @@ export const getAllReviews = catchAsyncErrors(
       if (req.query.id) {
         getSingleReview(req, res, next);
       } else {
-        const resPerPage = 4;
+        const resPerPage = 8;
 
         const reviewsApiFeatures = new ApiFeatures('reviews', req.query);
         let reviewsRes = await reviewsApiFeatures.query;

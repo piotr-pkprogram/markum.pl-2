@@ -55,10 +55,10 @@ const Reviews: NextPage = () => {
                 className={`${index % 2 === 0 ? '3xl:justify-self-end' : '3xl:justify-self-start'}`}
               />
             ))}
-            {data.reviewsCount > 4 ? (
+            {data.reviewsCount > 8 ? (
               <Pagination
                 className="3xl:col-start-1 3xl:col-end-3"
-                count={Math.ceil(data.reviewsCount / 4)}
+                count={Math.ceil(data.reviewsCount / 8)}
                 page={page}
                 onChange={handlePageChange}
                 renderItem={(item) => (

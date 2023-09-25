@@ -108,7 +108,7 @@ const Footer = () => {
           <address className="grid gap-1 not-italic text-sm normal2:row-start-1 normal2:row-end-3 items-center normal2:justify-items-center">
             <Logo isBig />
             <div className="self-start">
-              <p>Stacyjna 1/4</p>
+              <p>Stacyjna 1/4 (IV piętro)</p>
               <p>Wrocław 53-613</p>
               <TextLink
                 className={`${styles.styledLink} !text-darkBlue !text-sm`}

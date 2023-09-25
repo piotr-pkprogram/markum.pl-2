@@ -85,16 +85,10 @@ const Service = () => {
         <div className="about-me__desc-wrapper">
           <h2 className="about-me__title">Poznaj Mnie</h2>
           <p className="text-lg">
-            Od ponad 20 lat uprawiam sport, który stał się moją pasją, a starty w zawodach biegowych
-            czy triathlonowych dają dużo satysfakcji i uczą pokory.
+            Praca jako pośrednik w obrocie nieruchomościami jest dla mnie wyzwaniem, która pomaga mi się realizować spełniając swoje marzenia i pragnienia innych ludzi. Doświadczenie zdobyte w pracy trenera personalnego nauczyło mnie budować relacje z drugim człowiekiem, wsłuchiwać się w jego oczekiwania i realizować wyznaczony cel.
             <br />
             <br />
-            Praca jako pośrednik w obrocie nieruchomościami jest dla mnie wyzwaniem, która pomaga mi
-            się realizować spełniając swoje marzenia i pragnienia innych ludzi. Doświadczenie
-            zdobyte w pracy trenera personalnego nauczyło mnie budować relacje z drugim człowiekiem,
-            wsłuchiwać się w jego oczekiwania i realizować wyznaczony cel. W swojej pracy kieruję
-            się <b>zasadą win - win</b>, dlatego najważniejszym dla mnie celem jest wgrana obu
-            stron.
+            Specjalizuję się w sprzedaży mieszkań oraz zarządzaniu najmem długoterminowym nieruchomości. Współpracuje z inwestorami przeprowadzając ich przez cały proces: od zbadania potrzeb i możliwości, pomoc w uzyskaniu finansowania, wybór oraz zakup nieruchomości <br />
             <TextLink className="!text-lg" isRouterLink to="/o-mnie">
               {' '}
               Czytaj więcej ...
@@ -134,14 +128,13 @@ const Service = () => {
           {benefits.map((benefit, index) => (
             <div
               key={`benefit-${index}`}
-              className={`main-benefits__benefit ${
-                index > 2 ? `sm:row-start-2 sm:col-start-${index - 2}` : ''
-              }`}
+              className={`main-benefits__benefit ${index > 2 ? `sm:row-start-2 sm:col-start-${index - 2}` : ''
+                }`}
             >
               <div style={{ height: '102px', width: '102px' }}>
                 <Image src={benefit.svg} alt="" />
               </div>
-              <span className="main-benefits__benefit-name" dangerouslySetInnerHTML={{ __html: benefit.name}}></span>
+              <span className="main-benefits__benefit-name" dangerouslySetInnerHTML={{ __html: benefit.name }}></span>
             </div>
           ))}
         </div>
@@ -225,10 +218,10 @@ const Service = () => {
           >
             {data
               ? data.reviews.map((review: ReviewType) => (
-                  <SplideSlide key={review._id}>
-                    <ReviewElement review={review} />
-                  </SplideSlide>
-                ))
+                <SplideSlide key={review._id}>
+                  <ReviewElement review={review} />
+                </SplideSlide>
+              ))
               : ''}
           </Splide>
         </div>

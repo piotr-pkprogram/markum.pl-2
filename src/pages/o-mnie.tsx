@@ -65,7 +65,7 @@ const AboutMe: NextPage = () => {
           <div className="about-section__personal">
             <h3 className="about-section__title">Marcin Kumiszczo</h3>
             <span className="about-section__span">Agent Nieruchomości</span>
-            <p className="text-lg">P
+            <p className="text-lg">
               Praca jako pośrednik w obrocie nieruchomościami jest dla mnie wyzwaniem, która pomaga mi się realizować spełniając swoje marzenia i pragnienia innych ludzi. Doświadczenie zdobyte w pracy trenera personalnego nauczyło mnie  budować relacje z drugim człowiekiem, wsłuchiwać się w jego oczekiwania i realizować wyznaczony cel.
               <br />
               <br />

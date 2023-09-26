@@ -268,7 +268,7 @@
   }
 
   &__questions-wrapper {
-    @apply w-full grid justify-items-center pt-4;
+    @apply w-full grid justify-items-center gap-4;
   }
 
   &__btn {

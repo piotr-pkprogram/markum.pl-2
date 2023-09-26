@@ -40,13 +40,13 @@ const Faq: NextPage = () => {
       />
       <section className="questions">
         {!isLoading && !error ? (
-          data.questions.map((question: QuestionType, index: number) => index < 4 ? (
+          data.questions.map((question: QuestionType) => (
             <QuestionElement
               className="border-blue/40 border-4"
               question={question}
               key={question._id}
             />
-          ) : '')
+          ))
         ) : (
           <ErrorBox error={error as FetchBaseQueryError} />
         )}

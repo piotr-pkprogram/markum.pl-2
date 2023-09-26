@@ -1,7 +1,5 @@
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
 import { QuestionType } from 'types/questionType';
-import arrow from 'public/img/down-arrow.svg';
 import styles from './QuestionElement.module.scss';
 import deletePolishChars from 'utils/deletePolishChars';
 import parseHTML from 'html-react-parser';
@@ -9,7 +7,6 @@ import parseHTML from 'html-react-parser';
 type Props = {
   question: QuestionType;
   className?: string;
-  isMore?: boolean;
 };
 
 const QuestionElement = ({ question, className = '' }: Props) => {

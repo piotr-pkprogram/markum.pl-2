@@ -67,7 +67,7 @@ const Home: NextPage = () => {
           </span>
         </div>
         <div className="hero-section__img-wrapper hidden normal:block">
-          <Image src={marcinKumiszczoWorking} alt="" priority loading="eager"/>
+          <Image src={marcinKumiszczoWorking} alt="" priority loading="eager" />
         </div>
         <div className="hero-section__img-wrapper hero-section__img-wrapper--bg" />
       </section>
@@ -114,13 +114,12 @@ const Home: NextPage = () => {
         <div className="uniqueness-section__uniqueness">
           {uniqueness.map(({ id, icon, name, desc }, i) => (
             <div
-              className={`uniqueness-section__unique-container ${
-                i > 1 ? `sm3:row-start-2 sm3:col-start-${i - 1}` : 'sm3:row-start-1'
-              }`}
+              className={`uniqueness-section__unique-container ${i > 1 ? `sm3:row-start-2 sm3:col-start-${i - 1}` : 'sm3:row-start-1'
+                }`}
               key={id}
             >
               <Image className="uniqueness-section__unique-ico" src={icon} alt="" />
-              <span className="uniqueness-section__unique-name" dangerouslySetInnerHTML={{ __html: name }}/>
+              <span className="uniqueness-section__unique-name" dangerouslySetInnerHTML={{ __html: name }} />
               <p className="uniqueness-section__unique-desc">{desc}</p>
             </div>
           ))}
@@ -182,10 +181,10 @@ const Home: NextPage = () => {
               }}
             >
               {data.estates.map((estate: EstateType) => (
-                  <SplideSlide key={estate.id}>
-                    <EstateElement estate={estate} />
-                  </SplideSlide>
-                ))}
+                <SplideSlide key={estate.id}>
+                  <EstateElement estate={estate} />
+                </SplideSlide>
+              ))}
             </Splide>
           ) : (
             <ErrorBox error={error as FetchBaseQueryError} />
@@ -246,9 +245,13 @@ const Home: NextPage = () => {
         </div>
         <div className="faq-section__questions-wrapper">
           {!isLoading && !error ? (
-            data.questions.map((question: QuestionType) => (
-              <QuestionElement question={question} key={question._id} isMore />
-            ))
+            data.questions.map((question: QuestionType, index: number) => index < 4 ? (
+              <QuestionElement
+                className="border-blue/40 border-4"
+                question={question}
+                key={question._id}
+              />
+            ) : '')
           ) : (
             <ErrorBox error={error as FetchBaseQueryError} />
           )}

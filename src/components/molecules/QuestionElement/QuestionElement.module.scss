@@ -1,5 +1,5 @@
 .wrapper {
-  @apply grid grid-flow-col bg-white gap-2 p-2 items-center w-full;
+  @apply grid grid-flow-col bg-white gap-2 p-2 items-center w-full cursor-pointer;
   max-width: 1017px;
   grid-auto-columns: max-content auto;
 

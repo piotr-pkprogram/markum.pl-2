@@ -4,11 +4,7 @@ import { QuestionType } from 'types/questionType';
 import arrow from 'public/img/down-arrow.svg';
 import styles from './QuestionElement.module.scss';
 import deletePolishChars from 'utils/deletePolishChars';
-import { textShorted } from 'utils/textShorted';
-// @ts-ignore
-import loadable from '@loadable/component';
-
-const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
+import parseHTML from 'html-react-parser';
 
 type Props = {
   question: QuestionType;
@@ -16,14 +12,9 @@ type Props = {
   isMore?: boolean;
 };
 
-const QuestionElement = ({ question, className = '', isMore = false }: Props) => {
+const QuestionElement = ({ question, className = '' }: Props) => {
   const [isAnswerVisable, setIsAnswerVisable] = useState(false);
   const wrapper = useRef<HTMLDivElement>(null);
-  let answer: string | string[] = '';
-
-  if (isMore) {
-    answer = textShorted(question.answer, 360);
-  }
 
   const switchAnswerVisibility = () => {
     const arrow = document.querySelector('#arrow-down');
@@ -42,7 +33,7 @@ const QuestionElement = ({ question, className = '', isMore = false }: Props) =>
 
   return (
     <div
-      id={!isMore ? `/faq#${deletePolishChars(question.question).toLowerCase()}` : ''}
+      id={deletePolishChars(question.question).toLowerCase().replace("?", "")}
       className={`${styles.wrapper} ${className}`}
       ref={wrapper}
     >
@@ -55,18 +46,8 @@ const QuestionElement = ({ question, className = '', isMore = false }: Props) =>
       />
       <h3 className="font-semibold text-2xl row-start-1">{question.question}</h3>
       {isAnswerVisable ? (
-        <p id="description" className="row-start-2">
-          {isMore ? answer : question.answer}{' '}
-          {question.answer.length > 360 && isMore ? (
-            <TextLink
-              isRouterLink
-              to={`/faq#${deletePolishChars(question.question).toLowerCase()}`}
-            >
-              Czytaj więcej...
-            </TextLink>
-          ) : (
-            ''
-          )}
+        <p id="description" className="row-start-2 pb-7 pr-5">
+          {parseHTML(question.answer.replaceAll("\n", "<br>"))}
         </p>
       ) : (
         ''

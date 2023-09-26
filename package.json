@@ -40,6 +40,7 @@
         "canvas": "^2.11.0",
         "contentful": "^9.1.12",
         "contentful-sdk-core": "^7.0.1",
+        "html-react-parser": "^4.2.2",
         "html-webpack-plugin": "^5.5.0",
         "husky": "^7.0.4",
         "image-js": "^0.35.3",

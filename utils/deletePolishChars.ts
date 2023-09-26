@@ -12,6 +12,7 @@ const deletePolishChars = (NameFile: string) => {
   NameFile = NameFile.replaceAll("Ć","C");
   NameFile = NameFile.replaceAll("ć","c");
   NameFile = NameFile.replaceAll("ę","e");
+  NameFile = NameFile.replaceAll("ą","a");
   NameFile = NameFile.replaceAll("Ę","E");
   NameFile = NameFile.replaceAll("Ś","S");
   NameFile = NameFile.replaceAll("ś","s");

@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 // @ts-ignore
 import loadable from '@loadable/component';
-import marcinKumiszczoWorking from 'public/img/marcin-kumiszczo-pracujacy-jako-agent-nieruchomosci.png';
+import marcinKumiszczoWorking from 'public/img/marcin-kumiszczo-agent-nieruchomosci-w-garniturze.png';
 import phoneIcon from 'public/img/phone-icon.svg';
 import mailIcon from 'public/img/mail-icon.svg';
 import { uniqueness } from '../data/uniqueness';

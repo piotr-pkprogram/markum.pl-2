@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 // @ts-ignore
 import loadable from '@loadable/component';
-import marcinKumiszczoWorking from 'public/img/marcin-kumiszczo-pracujacy-jako-agent-nieruchomosci.png';
+import marcinKumiszczoWorking from 'public/img/marcin-kumiszczo-agent-nieruchomosci-w-garniturze.png';
 import phoneIcon from 'public/img/phone-icon.svg';
 import mailIcon from 'public/img/mail-icon.svg';
 import { uniqueness } from '../data/uniqueness';
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
           </span>
         </div>
         <div className="hero-section__img-wrapper hidden normal:block">
-          <Image src={marcinKumiszczoWorking} alt="" priority loading="eager"/>
+          <Image src={marcinKumiszczoWorking} alt="" priority loading="eager" />
         </div>
         <div className="hero-section__img-wrapper hero-section__img-wrapper--bg" />
       </section>
@@ -114,13 +114,12 @@ const Home: NextPage = () => {
         <div className="uniqueness-section__uniqueness">
           {uniqueness.map(({ id, icon, name, desc }, i) => (
             <div
-              className={`uniqueness-section__unique-container ${
-                i > 1 ? `sm3:row-start-2 sm3:col-start-${i - 1}` : 'sm3:row-start-1'
-              }`}
+              className={`uniqueness-section__unique-container ${i > 1 ? `sm3:row-start-2 sm3:col-start-${i - 1}` : 'sm3:row-start-1'
+                }`}
               key={id}
             >
               <Image className="uniqueness-section__unique-ico" src={icon} alt="" />
-              <span className="uniqueness-section__unique-name" dangerouslySetInnerHTML={{ __html: name }}/>
+              <span className="uniqueness-section__unique-name" dangerouslySetInnerHTML={{ __html: name }} />
               <p className="uniqueness-section__unique-desc">{desc}</p>
             </div>
           ))}
@@ -182,10 +181,10 @@ const Home: NextPage = () => {
               }}
             >
               {data.estates.map((estate: EstateType) => (
-                  <SplideSlide key={estate.id}>
-                    <EstateElement estate={estate} />
-                  </SplideSlide>
-                ))}
+                <SplideSlide key={estate.id}>
+                  <EstateElement estate={estate} />
+                </SplideSlide>
+              ))}
             </Splide>
           ) : (
             <ErrorBox error={error as FetchBaseQueryError} />

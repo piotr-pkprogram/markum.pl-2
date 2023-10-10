@@ -185,6 +185,9 @@ export interface IServicesFields {
 
   /** Desc */
   desc: string;
+  
+  created: Date | string;
+  updated: Date | string;
 
   /** Short Desc */
   shortDesc: string;

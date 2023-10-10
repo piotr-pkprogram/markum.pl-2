@@ -14,6 +14,7 @@ type Stage = {
 export type ServiceType = {
   _id: string;
   metaDesc?: string;
+  created: Date | string;
   name: string;
   desc: string;
   shortDesc: string;

@@ -77,6 +77,154 @@ const Contact: NextPage = () => {
     }
   };
 
+  // @ts-ignore
+  const metaSchema = {
+    name: 'Kontakt',
+    alternateName: 'Kontakt',
+    description: '',
+    keywords: '',
+    datePublished: "2020-03-01T15:35:23+00:00",
+    dateModified: "2023-09-25T15:35:23+00:00",
+    image: "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fphone-icon.e161f214.svg&w=96&q=75"
+  }
+
+  // @ts-ignore
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Place",
+        "@id": "https://marcinkumiszczo.pl/#place",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Stacyjna 1/4",
+          "addressLocality": "Wrocław",
+          "postalCode": "53-613",
+          "addressCountry": "Poland"
+        }
+      },
+      {
+        "@type": [
+          "LocalBusiness",
+          "Organization"
+        ],
+        "@id": "https://marcinkumiszczo.pl/#organization",
+        "name": "Marcin Kumiszczo",
+        "url": "https://marcinkumiszczo.pl/",
+        "email": "markumtwojdom@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Stacyjna 1/4",
+          "addressLocality": "Wrocław",
+          "postalCode": "53-613",
+          "addressCountry": "Poland"
+        },
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://marcinkumiszczo.pl/#logo",
+          "url": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.361821cb.png&w=384&q=75",
+          "contentUrl": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.361821cb.png&w=384&q=75",
+          "caption": "Markum - Twój Dom - Agent Nieruchomości Wrocław",
+          "inLanguage": "pl-PL",
+          "width": "128",
+          "height": "131"
+        },
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+48-730-396-827",
+            "contactType": "customer support"
+          }
+        ],
+        "location": {
+          "@id": "https://marcinkumiszczo.pl/#place"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://marcinkumiszczo.pl/#website",
+        "url": "https://marcinkumiszczo.pl",
+        "name": `${metaSchema.name}`,
+        "alternateName": `${metaSchema.alternateName}`,
+        "publisher": {
+          "@id": "https://marcinkumiszczo.pl/#organization"
+        },
+        "inLanguage": "pl-PL"
+      },
+      {
+        "@type": "ImageObject",
+        "@id": `${metaSchema.image}`,
+        "url": `${metaSchema.image}`,
+        "width": "100",
+        "height": "100",
+        "inLanguage": "pl-PL"
+      },
+      {
+        "@type": "AboutPage",
+        "@id": "https://marcinkumiszczo.pl/#webpage",
+        "url": "https://marcinkumiszczo.pl/",
+        "name": `${metaSchema.name}`,
+        "datePublished": `${metaSchema.datePublished}`,
+        "dateModified": `${metaSchema.dateModified}`,
+        "about": {
+          "@id": "https://marcinkumiszczo.pl/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://marcinkumiszczo.pl/#website"
+        },
+        "primaryImageOfPage": {
+          "@id": `${metaSchema.image}`
+        },
+        "inLanguage": "pl-PL"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://marcinkumiszczo.pl/#author",
+        "name": "Marcin Kumiszczo",
+        "image": {
+          "@type": "ImageObject",
+          "@id": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmarcin-kumiszczo-agent-nieruchomosci-w-garniturze.5a70a1fd.png&w=1200&q=75",
+          "url": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmarcin-kumiszczo-agent-nieruchomosci-w-garniturze.5a70a1fd.png&w=1200&q=75",
+          "caption": "Marcin Kumiszczo - Agent Nieruchomości Wrocław",
+          "inLanguage": "pl-PL"
+        },
+        "sameAs": [
+          "https://marcinkumiszczo.pl/"
+        ],
+        "worksFor": {
+          "@id": "https://marcinkumiszczo.pl/#organization"
+        }
+      },
+      {
+        "headline": `${metaSchema.name}`,
+        "description": `${metaSchema.description}`,
+        "keywords": `${metaSchema.keywords}`,
+        "@type": "Article",
+        "author": {
+          "@id": "https://marcinkumiszczo.pl/#author",
+          "name": "admin"
+        },
+        "datePublished": `${metaSchema.datePublished}`,
+        "dateModified": `${metaSchema.dateModified}`,
+        "name": `${metaSchema.name}`,
+        "@id": "https://marcinkumiszczo.pl/#schema-10811",
+        "isPartOf": {
+          "@id": "https://marcinkumiszczo.pl/#webpage"
+        },
+        "publisher": {
+          "@id": "https://marcinkumiszczo.pl/#organization"
+        },
+        "image": {
+          "@id": `${metaSchema.image}`
+        },
+        "inLanguage": "pl-PL",
+        "mainEntityOfPage": {
+          "@id": "https://marcinkumiszczo.pl/#webpage"
+        }
+      }
+    ]
+  }
+
   return (
     <>
       <Head>
@@ -88,6 +236,10 @@ const Contact: NextPage = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${process.env.DOMAIN}/kontakt`} />
         <meta property="og:image" content={`${process.env.DOMAIN}/kontakt`} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       </Head>
       <section className="contact-form-and-info">
         <h1 className="contact-form-and-info__title">Skontaktuj się ze&nbsp;mną</h1>

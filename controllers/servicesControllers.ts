@@ -18,6 +18,10 @@ export const transformService = async (item: Entry<IServicesFields>) => {
   // @ts-ignore
   newItem.icon = newItem.icon.fields.file.url;
   newItem._id = item.sys.id;
+  
+  newItem.created = item.sys.createdAt;
+  newItem.updated = item.sys.updatedAt;
+  
   // @ts-ignore
   newItem.process = await Promise.all(
     newItem.process.map(async (stage) => {

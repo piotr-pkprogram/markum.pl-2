@@ -1,8 +1,8 @@
 export const textShorted = (text: string, lenght: number) => {
-  let shorted = text.substring(0, lenght);
-  const textSplit = shorted.split(' ');
+  let shorted = text?.substring(0, lenght);
+  const textSplit = shorted?.split(' ');
   const lastWordText = text
-    .split(' ')
+    ?.split(' ')
     .reverse()
     .find(
       (word) =>
@@ -13,7 +13,7 @@ export const textShorted = (text: string, lenght: number) => {
   if (lastWordText != null) {
     textSplit[textSplit.length - 1] = `${lastWordText.replace(',', '')} ...`;
   }
-  shorted = textSplit.join(' ');
+  shorted = textSplit?.join(' ');
 
   return shorted;
 };

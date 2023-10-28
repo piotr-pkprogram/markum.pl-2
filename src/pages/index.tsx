@@ -43,13 +43,12 @@ const Home: NextPage = () => {
   }
 
   const schemaQuestions: any[] = data?.questions.map((question: QuestionType) => {
-    const answer = question.answer.replaceAll("\n", "<br>");
     return {
       "@type": "Question",
       "name": question.question,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": `<p>${answer}</p>`
+        "text": question.answer
       }
     };
   });

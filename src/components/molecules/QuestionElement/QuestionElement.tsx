@@ -20,7 +20,6 @@ const QuestionElement = ({ question, className = '' }: Props) => {
   const switchAnswerVisibility = () => {
     const questArrow = arrowEl.current as HTMLImageElement;
     const questWrapper = wrapper.current as HTMLDivElement;
-    console.log(questArrow);
 
     if (isAnswerVisible) {
       questArrow?.classList.remove('rotate-90');

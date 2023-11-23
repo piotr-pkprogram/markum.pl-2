@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </Head>
       <body>
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSTVHVCJ"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe></noscript>
         <Main />
         <NextScript />
       </body>

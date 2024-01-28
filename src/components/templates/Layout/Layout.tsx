@@ -6,7 +6,7 @@ import loadable from '@loadable/component';
 const Menu = loadable(() => import('src/components/organisms/Menu/Menu'));
 const Footer = loadable(() => import('src/components/organisms/Footer/Footer'));
 const ButtonTop = loadable(() => import('src/components/organisms/ButtonTop/ButtonTop'));
-const AgreeWidget = loadable(() => import('src/components/organisms/AgreeWidget/AgreeWidget'));
+// const AgreeWidget = loadable(() => import('src/components/organisms/AgreeWidget/AgreeWidget'));
 
 const Layout = ({ children }: { children: JSX.Element[] | JSX.Element }) => {
 
@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: JSX.Element[] | JSX.Element }) => {
         <Footer />
       </div>
       <ButtonTop />
-      <AgreeWidget />
+      {/* <AgreeWidget /> */}
     </>
   );
 };

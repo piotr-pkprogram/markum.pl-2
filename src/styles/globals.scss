@@ -85,6 +85,10 @@ svg {
   opacity: 1;
 }
 
+.cky-btn {
+    font-weight: 600 !important;
+}
+
 .reviews {
   @apply grid justify-items-center 3xl:grid-cols-2 py-10 px-2 w-full;
   column-gap: 91px;

@@ -31,6 +31,7 @@
         "@mui/icons-material": "^5.4.2",
         "@mui/material": "^5.4.1",
         "@reduxjs/toolkit": "^1.7.2",
+        "@rivercode/facebook-conversion-api-nextjs": "^4.3.2",
         "@splidejs/react-splide": "^0.6.20",
         "@storybook/addon-info": "^5.3.21",
         "@storybook/addon-postcss": "^2.0.0",

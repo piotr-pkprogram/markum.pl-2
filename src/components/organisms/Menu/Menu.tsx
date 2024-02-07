@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './Menu.module.scss';
-// @ts-ignore
-import loadable from '@loadable/component';
-
-const Logo = loadable(() => import('src/components/atoms/Logo/Logo'));
-const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
-const MenuLinkElement = loadable(() => import('src/components/molecules/MenuLinkElement/MenuLinkElement'));
-const IconButton = loadable(() => import('src/components/atoms/IconButton/IconButton'));
+import Logo from 'src/components/atoms/Logo/Logo';
+import TextButton from 'src/components/atoms/TextButton/TextButton';
+import MenuLinkElement from 'src/components/molecules/MenuLinkElement/MenuLinkElement';
+import IconButton from 'src/components/atoms/IconButton/IconButton';
 
 export enum MenuTypes {
   desktop = 'DESKTOP',
@@ -117,7 +114,7 @@ const Menu = ({ type = MenuTypes.desktop }: Props) => {
         </IconButton>
         <div className={styles.navWrapper}>
           <menu>
-            <MenuLinkElement className="mr-5" href="/nieruchomosci">
+            <MenuLinkElement className="mr-5" href="/nieruchomosci/na-sprzedaz">
               Nieruchomości
             </MenuLinkElement>
             <MenuLinkElement className="mr-5" href="/oferta">

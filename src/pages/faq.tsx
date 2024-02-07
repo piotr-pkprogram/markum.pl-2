@@ -1,20 +1,25 @@
 import type { NextPage } from 'next';
 import markumPng from 'public/img/agent-nieruchomosci-markum-twoj-dom.png';
 import React from 'react';
-import { useGetAllQuestionsQuery } from 'src/store';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { QuestionType } from 'types/questionType';
 import Head from 'next/head';
+
+import ShortDesc from 'src/components/molecules/ShortDesc/ShortDesc';
+import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
+import QuestionElement from 'src/components/molecules/QuestionElement/QuestionElement';
+
+export async function getStaticProps() {
+
+  const res = await fetch(`https://marcinkumiszczo.pl/api/questions`);
+  const data = await res.json();
+
+  return {
+    props: { data }
+  };
+}
 // @ts-ignore
-import loadable from '@loadable/component';
-
-const ShortDesc = loadable(() => import('src/components/molecules/ShortDesc/ShortDesc'));
-const ErrorBox = loadable(() => import('src/components/molecules/ErrorBox/ErrorBox'));
-const QuestionElement = loadable(() => import('src/components/molecules/QuestionElement/QuestionElement'));
-
-const Faq: NextPage = () => {
-  // @ts-ignore
-  const { data, error, isLoading } = useGetAllQuestionsQuery();
+const Faq: NextPage = ({ data }) => {
 
   // @ts-ignore
   const metaSchema = {
@@ -207,12 +212,12 @@ const Faq: NextPage = () => {
         isDescBold
       />
       <section className="questions">
-        {!isLoading && !error ? (
+        {data.success ? (
           data.questions.map((question: QuestionType) => (
             <QuestionElement question={question} key={question._id} isMore />
           ))
         ) : (
-          <ErrorBox error={error as FetchBaseQueryError} />
+          <ErrorBox error={data.error as FetchBaseQueryError} />
         )}
       </section>
     </>

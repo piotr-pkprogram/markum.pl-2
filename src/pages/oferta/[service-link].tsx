@@ -1,6 +1,4 @@
 import React from 'react';
-import { useGetSingleServiceByLinkQuery } from 'src/store';
-import { useRouter } from 'next/router';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import maricnKumiszczoPng from 'public/img/marcin-kumiszczo-siedzacy-w-samochodzie.png';
 import marcinKumiszczoAbout from 'public/img/marcin-kumiszczo-będący-na-spotkaniu-jakoagent-nieruchomosci.jpg';
@@ -12,15 +10,12 @@ import '@splidejs/splide/dist/css/splide.min.css';
 import { CountUp } from 'use-count-up';
 import { textShorted } from 'utils/textShorted';
 import Head from 'next/head';
-// @ts-ignore
-import loadable from '@loadable/component';
+import { NextPageContext } from 'next'
 
-const ShortDesc = loadable(() => import('src/components/molecules/ShortDesc/ShortDesc'));
-const ErrorBox = loadable(() => import('src/components/molecules/ErrorBox/ErrorBox'));
-const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
-const ReviewElement = loadable(
-  () => import('src/components/molecules/ReviewElement/ReviewElement')
-);
+import ShortDesc from 'src/components/molecules/ShortDesc/ShortDesc';
+import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
+import TextLink from 'src/components/atoms/TextLink/TextLink';
+import ReviewElement from 'src/components/molecules/ReviewElement/ReviewElement';
 
 const getYPosition = (index: number) => {
   switch (index) {
@@ -35,12 +30,19 @@ const getYPosition = (index: number) => {
   }
 };
 
-const Service = () => {
-  const router = useRouter();
-  const params = router.query;
-  const { data, error, isLoading } = useGetSingleServiceByLinkQuery(
-    params['service-link'] as string
-  );
+export async function getServerSideProps(ctx: NextPageContext) {
+  const params = ctx.query;
+
+  const res = await fetch(`https://marcinkumiszczo.pl/api/services?link=${params['service-link']}`);
+  const data = await res.json();
+
+  return {
+    props: { data }
+  };
+}
+
+// @ts-ignore
+const Service = ({ data }) => {
 
   // @ts-ignore
   const metaSchema = {
@@ -191,7 +193,7 @@ const Service = () => {
     ]
   }
 
-  return !isLoading && !error ? (
+  return data.success ? (
     <>
       <Head>
         <title>{`${data?.service?.name} | Markum - Twój Dom`}</title>
@@ -295,20 +297,20 @@ const Service = () => {
       <section className="service-process">
         <h2 className="service-process__title">Jak wygląda nasza współpraca?</h2>
         <div className="service-process__stages">
-          {data?.service.process.map((stage, index) => (
+          {data?.service.process.map((stage: any, index: number) => (
             <div className="service-process__stage" key={stage._id}>
               <h3 className="service-process__stage-title">
                 Etap {index + 1} &quot;{stage.title}&quot;:
               </h3>
               <div className="service-process__steps">
-                {stage.steps.map((step, i) => {
+                {stage.steps.map((step: any, i: number) => {
                   return (
                     <div className={`service-process__step-img row-start-${i + 1}`} key={step._id}>
                       <Image src={`https:${step.icon}`} alt="" height={65} width={65} />
                     </div>
                   );
                 })}
-                {stage.steps.map((step, i) => (
+                {stage.steps.map((step: any, i: number) => (
                   <div
                     className={`service-process__step row-start-${i + 1}`}
                     style={{
@@ -381,7 +383,7 @@ const Service = () => {
       </section>
     </>
   ) : (
-    <ErrorBox error={error as FetchBaseQueryError} />
+    <ErrorBox error={data.error as FetchBaseQueryError} />
   );
 };
 

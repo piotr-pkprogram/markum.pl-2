@@ -3,10 +3,8 @@ import Image from 'next/image';
 import { ReviewType, ReviewTypes } from 'types/reviewType';
 import styles from './ReviewElement.module.scss';
 import ReactPlayer from 'react-player/lazy';
-// @ts-ignore
-import loadable from '@loadable/component';
 
-const StarRating = loadable(() => import('src/components/atoms/StarRating/StarRating'));
+import StarRating from 'src/components/atoms/StarRating/StarRating';
 
 const ReviewElement = ({ review, className }: { review: ReviewType; className?: string }) => {
   if (review.reviewType === ReviewTypes.text)

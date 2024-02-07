@@ -2,20 +2,25 @@ import React from 'react';
 import { NextPage } from 'next';
 import { ServiceType } from 'types/serviceType';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useGetAllServicesQuery } from 'src/store';
 import maricnKumiszczoPng from 'public/img/marcin-kumiszczo-siedzacy-na-murku.png';
 import Head from 'next/head';
+
+import ServiceElement from 'src/components/molecules/ServiceElement/ServiceElement';
+import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
+import ShortDesc from 'src/components/molecules/ShortDesc/ShortDesc';
+
+export async function getStaticProps() {
+
+  const res = await fetch(`https://marcinkumiszczo.pl/api/services`);
+  const data = await res.json();
+
+  return {
+    props: { data }
+  };
+}
+
 // @ts-ignore
-import loadable from '@loadable/component';
-
-const ServiceElement = loadable(() => import('src/components/molecules/ServiceElement/ServiceElement'));
-const ErrorBox = loadable(() => import('src/components/molecules/ErrorBox/ErrorBox'));
-const ShortDesc = loadable(() => import('src/components/molecules/ShortDesc/ShortDesc'));
-
-const Services: NextPage = () => {
-  // @ts-ignore
-  const { data, error, isLoading } = useGetAllServicesQuery();
-
+const Services: NextPage = ({ data }) => {
   // @ts-ignore
   const metaSchema = {
     name: 'Oferta - W czym mogę Ci pomóc?',
@@ -192,12 +197,12 @@ const Services: NextPage = () => {
       />
       <section className="services-section">
         <div className="services-section__offers-wrapper">
-          {!isLoading && !error ? (
+          {data.success ? (
             data.services.map((service: ServiceType) => (
               <ServiceElement offer={service} key={service._id} />
             ))
           ) : (
-            <ErrorBox error={error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as FetchBaseQueryError} />
           )}
         </div>
       </section>

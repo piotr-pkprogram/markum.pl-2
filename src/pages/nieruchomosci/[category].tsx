@@ -1,24 +1,41 @@
-import type { NextPage } from 'next';
-import { useGetAllEstatesQuery } from 'src/store';
+import type { NextPage, NextPageContext } from 'next';
 import { EstateCategory } from 'types/estateType';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { Pagination, PaginationItem } from '@mui/material';
 import Head from 'next/head';
+import { useRouter } from 'next/router'
+import Link from 'next/link';
+
+import EstateBox from 'src/components/molecules/EstateBox/EstateBox';
+import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+export async function getServerSideProps(ctx: NextPageContext) {
+  const query = ctx.query;
+
+  if (!('page' in query)) { query['page'] = '01'; }
+
+  if (query['category'] == "na-sprzedaz") { query['category'] = EstateCategory.forSale }
+  else if (query['category'] == "na-wynajem") { query['category'] = EstateCategory.forRent }
+
+  const res = await fetch(`https://marcinkumiszczo.pl/api/estates?page=${parseInt(query['page'] as string)}&category=${query['category']}`);
+  const data = await res.json();
+  data.category = query['category'];
+  data.page = parseInt(query['page'] as string);
+
+  return {
+    props: { data }
+  };
+}
+
 // @ts-ignore
-import loadable from '@loadable/component';
-
-const EstateBox = loadable(() => import('src/components/molecules/EstateBox/EstateBox'));
-const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
-const ErrorBox = loadable(() => import('src/components/molecules/ErrorBox/ErrorBox'));
-const ArrowBackIcon = loadable(() => import('@mui/icons-material/ArrowBack'));
-const ArrowForwardIcon = loadable(() => import('@mui/icons-material/ArrowForward'));
-
-const Estates: NextPage = () => {
-  const [category, setCategory] = useState(EstateCategory.forSale);
-  const [isMore, setIsMore] = useState(false);
-  const [page, setPage] = useState(1);
-  const { data, error, isLoading } = useGetAllEstatesQuery({ page, category, isMore });
+const Estates: NextPage = ({ data }) => {
+  const [category, setCategory] = useState(data.category ? data.category : EstateCategory.forSale);
+  const router = useRouter()
+  const [page, setPage] = useState(data.page ? data.page : 1);
+  const pagesAmount: number = Math.ceil(data.estatesCount / 10);
 
   const switchCategory = () => {
     const tabs = document.querySelectorAll('.estates__tab');
@@ -27,21 +44,33 @@ const Estates: NextPage = () => {
       tabs[0].classList.remove('estates__tab--active');
       tabs[1].classList.add('estates__tab--active');
       setCategory(EstateCategory.forRent);
+      setPage(1);
     } else {
       tabs[1].classList.remove('estates__tab--active');
       tabs[0].classList.add('estates__tab--active');
       setCategory(EstateCategory.forSale);
+      setPage(1);
+    }
+  };
+
+  const handlePageChange = (e: ChangeEvent<unknown>, value: number) => {
+    const categorySlug = category == EstateCategory.forSale ? 'na-sprzedaz' : 'na-wynajem';
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+
+    if (value > 1)
+      router.push(`/nieruchomosci/${categorySlug}/?page=${value}`)
+    else {
+      router.push(`/nieruchomosci/${categorySlug}/`)
     }
   };
 
   useEffect(() => {
-    setPage(1);
-    setIsMore(false);
-  }, [category]);
-
-  const handlePageChange = (e: ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
+    setCategory(data.category);
+    setPage(data.page);
+  }, [data]);
 
   // @ts-ignore
   const metaSchema = {
@@ -218,29 +247,27 @@ const Estates: NextPage = () => {
       </Head>
       <section className="estates">
         <div className="estates__tabs-wrapper">
-          <button className="estates__tab estates__tab--active" onClick={switchCategory}>
-            Na sprzedaż
-          </button>
-          <button className="estates__tab estates__tab--second" onClick={switchCategory}>
-            Na wynajem
-          </button>
+          <Link passHref href="/nieruchomosci/na-sprzedaz/">
+            <button className="estates__tab estates__tab--active" onClick={switchCategory}>
+              Na sprzedaż
+            </button>
+          </Link>
+          <Link passHref href="/nieruchomosci/na-wynajem/">
+            <button className="estates__tab estates__tab--second" onClick={switchCategory}>
+              Na wynajem
+            </button>
+          </Link>
         </div>
         <div className="estates__main-wrapper">
-          {!isLoading && !error ? (
+          {data.success ? (
             <div className="estates__content">
               {data.estates.map((estate: any) => (
                 <EstateBox estate={estate} key={estate.id} />
               ))}
-              {!isMore && data?.estatesCount > 8 ? (
-                <div className="w-full flex justify-center">
-                  <TextButton classNames="estates__more" onClick={() => setIsMore(true)}>
-                    Zobacz więcej
-                  </TextButton>
-                </div>
-              ) : data?.estatesCount > 12 ? (
-                <div className="w-full flex justify-center">
+              {pagesAmount > 1 ?
+                (<div className="w-full flex justify-center">
                   <Pagination
-                    count={Math.ceil(data.estatesCount / 15)}
+                    count={pagesAmount}
                     page={page}
                     onChange={handlePageChange}
                     renderItem={(item) => (
@@ -250,13 +277,11 @@ const Estates: NextPage = () => {
                       />
                     )}
                   />
-                </div>
-              ) : (
-                ''
-              )}
+                </div>) : ''}
+
             </div>
           ) : (
-            <ErrorBox error={error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as FetchBaseQueryError} />
           )}
         </div>
       </section>

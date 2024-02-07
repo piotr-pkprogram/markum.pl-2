@@ -1,10 +1,8 @@
 import type { NextPage } from 'next';
 import React from 'react';
 import Head from 'next/head';
-// @ts-ignore
-import loadable from '@loadable/component';
 
-const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
+import TextLink from 'src/components/atoms/TextLink/TextLink';
 
 const PrivacyPolicy: NextPage = () => {
   return (

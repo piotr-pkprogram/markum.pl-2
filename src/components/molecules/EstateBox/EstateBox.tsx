@@ -6,10 +6,8 @@ import homeArea from 'public/img/home-area.png';
 import door from 'public/img/door.svg';
 import blueArrow from 'public/img/blue-arrow.svg';
 import styles from './EstateBox.module.scss';
-// @ts-ignore
-import loadable from '@loadable/component';
 
-const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
+import TextLink from 'src/components/atoms/TextLink/TextLink';
 
 const EstateBox = ({ estate }: { estate: EstateType }) => {
   let rooms = '';
@@ -19,11 +17,11 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
       (estate.numOfRooms?.toString().includes('2') ||
         estate.numOfRooms?.toString().includes('3') ||
         estate.numOfRooms?.toString().includes('4')) &&
-      (estate.numOfRooms <= 10 || estate.numOfRooms >= 20)
+        (estate.numOfRooms <= 10 || estate.numOfRooms >= 20)
         ? 'pokoje'
         : estate.numOfRooms !== 1
-        ? 'pokoji'
-        : 'pokój';
+          ? 'pokoji'
+          : 'pokój';
   }
 
   return (
@@ -46,19 +44,19 @@ const EstateBox = ({ estate }: { estate: EstateType }) => {
         </p>
         <div className="flex flex-wrap gap-4" style={{ minHeight: '72px' }}>
           {estate.area.total ? (
-          <span className="flex items-center gap-2" title="Powierzchnia Domu">
-            <Image src={homeArea} alt="" />
-            <span>{Math.round(estate.area.total)} m<sup>2</sup></span>
+            <span className="flex items-center gap-2" title="Powierzchnia Domu">
+              <Image src={homeArea} alt="" />
+              <span>{Math.round(estate.area.total)} m<sup>2</sup></span>
             </span>
           ) : (
             <span className="flex items-center gap-1" />
           )}
           {estate.area.lot ? (
-          <span className="flex items-center gap-2" title="Powierzchnia Działki">
-            <Image src={area} alt="" />
-            <span>{Math.round(estate.area.lot)} m<sup>2</sup></span>
+            <span className="flex items-center gap-2" title="Powierzchnia Działki">
+              <Image src={area} alt="" />
+              <span>{Math.round(estate.area.lot)} m<sup>2</sup></span>
             </span>
-           ) : (
+          ) : (
             <span className="flex items-center gap-1" />
           )}
           {estate.numOfRooms ? (

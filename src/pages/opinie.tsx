@@ -1,27 +1,53 @@
-import type { NextPage } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import dictionaryPng from 'public/img/dziennik-agenta-nieruchomosci-lezacy-na-brazowym-stole.png';
-import React, { ChangeEvent, useState } from 'react';
-import { useGetAllReviewsQuery } from 'src/store';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { ReviewType } from 'types/reviewType';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { Pagination, PaginationItem } from '@mui/material';
+import { useRouter } from 'next/router'
 import Head from 'next/head';
+
+import ShortDesc from 'src/components/molecules/ShortDesc/ShortDesc';
+import ReviewElement from 'src/components/molecules/ReviewElement/ReviewElement';
+import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+export async function getServerSideProps(ctx: NextPageContext) {
+  const query = ctx.query;
+
+  if (!('page' in query)) { query['page'] = '01'; }
+
+  const res = await fetch(`https://marcinkumiszczo.pl/api/reviews?page=${parseInt(query['page'] as string)}`);
+  const data = await res.json();
+  data.page = parseInt(query['page'] as string);
+
+  return {
+    props: { data }
+  };
+}
+
 // @ts-ignore
-import loadable from '@loadable/component';
-
-const ShortDesc = loadable(() => import('src/components/molecules/ShortDesc/ShortDesc'));
-const ReviewElement = loadable(() => import('src/components/molecules/ReviewElement/ReviewElement'));
-const ErrorBox = loadable(() => import('src/components/molecules/ErrorBox/ErrorBox'));
-const ArrowBackIcon = loadable(() => import('@mui/icons-material/ArrowBack'));
-const ArrowForwardIcon = loadable(() => import('@mui/icons-material/ArrowForward'));
-
-const Reviews: NextPage = () => {
-  const [page, setPage] = useState(1);
-  const { data, error, isLoading } = useGetAllReviewsQuery({ page });
+const Reviews: NextPage = ({ data }) => {
+  const [page, setPage] = useState(data.page ? data.page : 1);
+  const router = useRouter()
 
   const handlePageChange = (e: ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+
+    if (value > 1)
+      router.push(`/opinie/?page=${value}`)
+    else {
+      router.push(`/opinie/`)
+    }
   };
+
+  useEffect(() => {
+    setPage(data.page);
+  }, [data]);
 
   // @ts-ignore
   const metaSchema = {
@@ -198,7 +224,7 @@ const Reviews: NextPage = () => {
         isDescBold
       />
       <section className="reviews">
-        {!isLoading && !error ? (
+        {data.success ? (
           <>
             {data.reviews.map((review: ReviewType, index: number) => (
               <ReviewElement
@@ -225,7 +251,7 @@ const Reviews: NextPage = () => {
             )}
           </>
         ) : (
-          <ErrorBox error={error as FetchBaseQueryError} />
+          <ErrorBox error={data.error as FetchBaseQueryError} />
         )}
       </section>
     </>

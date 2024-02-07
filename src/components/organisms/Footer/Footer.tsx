@@ -12,14 +12,12 @@ import { useRouter } from 'next/router';
 import { useGetSingleEstateByLinkQuery } from 'src/store';
 import certificate from 'public/img/marcin-kumiszczo-stopka-maila.jpg';
 import { init, send } from '@emailjs/browser';
-// @ts-ignore
-import loadable from '@loadable/component';
 
-const Logo = loadable(() => import('src/components/atoms/Logo/Logo'));
-const Checkbox = loadable(() => import('src/components/atoms/Checkbox/Checkbox'));
-const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
-const ResponseP = loadable(() => import('src/components/atoms/ResponseP/ResponseP'));
-const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
+import Logo from 'src/components/atoms/Logo/Logo';
+import Checkbox from 'src/components/atoms/Checkbox/Checkbox';
+import TextLink from 'src/components/atoms/TextLink/TextLink';
+import ResponseP from 'src/components/atoms/ResponseP/ResponseP';
+import TextButton from 'src/components/atoms/TextButton/TextButton';
 
 const InitialState: NamePhoneFormState = {
   name: '',

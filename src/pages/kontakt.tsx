@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import posrednik from 'public/img/posrednik-nieruchomosci.jpg';
 import styleInput from 'src/components/atoms/Input/Input.module.scss';
@@ -8,14 +8,12 @@ import { useForm } from 'src/hooks/useForm';
 import stylesFooter from 'src/components/organisms/Footer/Footer.module.scss';
 import { BtnTypes } from 'types/btnTypes';
 import Head from 'next/head';
-// @ts-ignore
-import loadable from '@loadable/component';
 import { send } from '@emailjs/browser';
 
-const Logo = loadable(() => import('src/components/atoms/Logo/Logo'));
-const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
-const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
-const ResponseP = loadable(() => import('src/components/atoms/ResponseP/ResponseP'));
+import Logo from 'src/components/atoms/Logo/Logo';
+import TextButton from 'src/components/atoms/TextButton/TextButton';
+import TextLink from 'src/components/atoms/TextLink/TextLink';
+import ResponseP from 'src/components/atoms/ResponseP/ResponseP';
 
 const InitialState: ContactFormState = {
   name: '',
@@ -24,6 +22,7 @@ const InitialState: ContactFormState = {
   message: ''
 };
 
+// @ts-ignore
 const Contact: NextPage = () => {
   const {
     // @ts-ignore

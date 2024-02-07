@@ -5,13 +5,9 @@ import Image from 'next/image';
 import React from 'react';
 import agentNieruchomosci from 'public/img/agent-nieruchomosci-wroclaw.png';
 import Head from 'next/head';
-// @ts-ignore
-import loadable from '@loadable/component';
-
-const ShortDesc = loadable(() => import('src/components/molecules/ShortDesc/ShortDesc'));
+import ShortDesc from 'src/components/molecules/ShortDesc/ShortDesc';
 
 const AboutMe: NextPage = () => {
-
   // @ts-ignore
   const metaSchema = {
     name: 'O Mnie',

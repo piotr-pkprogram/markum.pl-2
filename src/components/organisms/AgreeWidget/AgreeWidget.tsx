@@ -3,11 +3,9 @@ import Image from 'next/image';
 import close from 'public/img/close(1).png';
 import styles from 'src/components/organisms/AgreeWidget/AgreeWidget.module.scss';
 import { useCookies } from 'react-cookie';
-// @ts-ignore
-import loadable from '@loadable/component';
 
-const TextLink = loadable(() => import('src/components/atoms/TextLink/TextLink'));
-const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
+import TextLink from 'src/components/atoms/TextLink/TextLink';
+import TextButton from 'src/components/atoms/TextButton/TextButton';
 
 const AgreeWidget = () => {
   const [cookies, setCookie] = useCookies(['privacy-policy-agree']);

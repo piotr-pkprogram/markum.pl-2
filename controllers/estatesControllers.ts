@@ -70,10 +70,7 @@ export const getAllEstates = catchAsyncErrors(
       } else if (req.query.link && req.query.link !== '') {
         getSingleEstateByLink(req, res, next);
       } else {
-        let resPerPage;
-
-        if ('isMore' in req.query && req.query.isMore !== 'false') resPerPage = 15;
-        else resPerPage = 10;
+        const resPerPage = 10;
 
         let estates = Array.from(await getAllOffers());
         let estatesCount = estates.length;

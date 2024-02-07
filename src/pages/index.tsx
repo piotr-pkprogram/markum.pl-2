@@ -1,12 +1,10 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 // @ts-ignore
-import loadable from '@loadable/component';
 import marcinKumiszczoWorking from 'public/img/marcin-kumiszczo-agent-nieruchomosci-w-garniturze.png';
 import phoneIcon from 'public/img/phone-icon.svg';
 import mailIcon from 'public/img/mail-icon.svg';
 import { uniqueness } from '../data/uniqueness';
-import { useGetAllDataQuery } from '../store';
 import { ServiceType } from 'types/serviceType';
 import { EstateType } from 'types/estateType';
 import { QuestionType } from 'types/questionType';
@@ -16,21 +14,26 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import Head from 'next/head';
 
-const ErrorBox = loadable(() => import('src/components/molecules/ErrorBox/ErrorBox'));
-const TextLink = loadable(() => import('../components/atoms/TextLink/TextLink'));
-const ServiceElement = loadable(
-  () => import('../components/molecules/ServiceElement/ServiceElement')
-);
-const EstateElement = loadable(() => import('../components/molecules/EstateElement/EstateElement'));
-const ReviewElement = loadable(() => import('../components/molecules/ReviewElement/ReviewElement'));
-const QuestionElement = loadable(
-  () => import('src/components/molecules/QuestionElement/QuestionElement')
-);
-const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
-const Home: NextPage = () => {
-  // @ts-ignore
-  const { data, error, isLoading } = useGetAllDataQuery();
+import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
+import TextLink from '../components/atoms/TextLink/TextLink';
+import ServiceElement from '../components/molecules/ServiceElement/ServiceElement';
+import EstateElement from '../components/molecules/EstateElement/EstateElement';
+import ReviewElement from '../components/molecules/ReviewElement/ReviewElement';
+import QuestionElement from 'src/components/molecules/QuestionElement/QuestionElement';
+import TextButton from 'src/components/atoms/TextButton/TextButton';
 
+export async function getServerSideProps() {
+
+  const res = await fetch(`https://marcinkumiszczo.pl/api/getAllData`);
+  const data = await res.json();
+
+  return {
+    props: { data }
+  };
+}
+
+// @ts-ignore
+const Home: NextPage = ({ data }) => {
   // @ts-ignore
   const metaSchema = {
     name: 'Marcin Kumiszczo - Agent nieruchomości, którego potrzebujesz',
@@ -295,19 +298,19 @@ const Home: NextPage = () => {
       <section className="services-section">
         <h2 className="services-section__title">W czym mogę Ci pomóc?</h2>
         <div className="services-section__offers-wrapper">
-          {!isLoading && !error ? (
+          {data.success ? (
             data.services.map((service: ServiceType) => (
               <ServiceElement offer={service} key={service._id} />
             ))
           ) : (
-            <ErrorBox error={error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as FetchBaseQueryError} />
           )}
         </div>
       </section>
       <section className="estates-section">
         <h2 className="estates-section__title">Moje oferty</h2>
         <div className="estates-section__slider-wrapper">
-          {!isLoading && !error ? (
+          {data.success ? (
             <Splide
               className="splide-estates"
               options={{
@@ -354,7 +357,7 @@ const Home: NextPage = () => {
               ))}
             </Splide>
           ) : (
-            <ErrorBox error={error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as FetchBaseQueryError} />
           )}
         </div>
       </section>
@@ -364,7 +367,7 @@ const Home: NextPage = () => {
           <h2 className="reviews-section__title">Co mówią o mnie moi klienci?</h2>
         </div>
         <div className="reviews-section__slider-wrapper">
-          {!isLoading && !error ? (
+          {data.success ? (
             <Splide
               className="splide-reviews"
               options={{
@@ -401,7 +404,7 @@ const Home: NextPage = () => {
               ))}
             </Splide>
           ) : (
-            <ErrorBox error={error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as FetchBaseQueryError} />
           )}
         </div>
       </section>
@@ -411,7 +414,7 @@ const Home: NextPage = () => {
           <h2 className="faq-section__title">A może masz jakieś pytania?</h2>
         </div>
         <div className="faq-section__questions-wrapper">
-          {!isLoading && !error ? (
+          {data.success ? (
             data.questions.map((question: QuestionType, index: number) => index < 4 ? (
               <QuestionElement
                 className="border-blue/40 border-4"
@@ -420,7 +423,7 @@ const Home: NextPage = () => {
               />
             ) : '')
           ) : (
-            <ErrorBox error={error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as FetchBaseQueryError} />
           )}
         </div>
         <TextButton classNames="faq-section__btn !font-semibold !text-xl" isRouterLink to="/faq">

@@ -1,5 +1,4 @@
-import { NextPage } from 'next';
-import { useGetSingleEstateByLinkQuery } from 'src/store';
+import { NextPage, NextPageContext } from 'next';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import Image from 'next/image';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -11,26 +10,40 @@ import area from 'public/img/blue-area.svg';
 import homeArea from 'public/img/blue-home-area.png';
 import door from 'public/img/blue-door.svg';
 import { EstateCategory } from 'types/estateType';
-import ReactDOM from 'react-dom';
 import close from 'public/img/close.svg';
 import Head from 'next/head';
 import { textShorted } from 'utils/textShorted';
 // @ts-ignore
-import loadable from '@loadable/component';
 import ReactPlayer from 'react-player/lazy';
 
-const ErrorBox = loadable(() => import('src/components/molecules/ErrorBox/ErrorBox'));
-const TextButton = loadable(() => import('src/components/atoms/TextButton/TextButton'));
-const IconButton = loadable(() => import('src/components/atoms/IconButton/IconButton'));
+import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
+import TextButton from 'src/components/atoms/TextButton/TextButton';
+import IconButton from 'src/components/atoms/IconButton/IconButton';
+
+type EstateImage = {
+  id: string;
+  description: string;
+};
 
 enum ArrowType {
   prev = 'PREV',
   next = 'NEXT'
 }
 
-const EstateView: NextPage = () => {
+export async function getServerSideProps(ctx: NextPageContext) {
+  const params = ctx.query;
+
+  const res = await fetch(`https://marcinkumiszczo.pl/api/estates?link=${params['location']}`);
+  const data = await res.json();
+
+  return {
+    props: { data }
+  };
+}
+
+// @ts-ignore
+const EstateView: NextPage = ({ data }) => {
   const [link, setLink] = useState('');
-  const { data, error, isLoading } = useGetSingleEstateByLinkQuery(link);
   const [rooms, setRooms] = useState('');
   const splideSlider = useRef<Splide>(null);
   const splideLargeSlider = useRef<Splide>(null);
@@ -85,8 +98,7 @@ const EstateView: NextPage = () => {
       initThumbnails(thumbnail as HTMLElement, index, Array.from(thumbnails));
     });
 
-    // @ts-ignore
-    if (!isLoading && 'estate' in data) {
+    if (data.success && 'estate' in data) {
       // @ts-ignore
       const splide = splideSlider?.current.splide;
       splide?.on('moved', () => {
@@ -107,163 +119,15 @@ const EstateView: NextPage = () => {
             : 'pokój'
       );
     }
-  }, [isLoading, data]);
+  }, [data]);
 
   // @ts-ignore
-  const metaSchema = {
-    name: `${data?.estate.adsName} - ${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'}`,
-    description: data?.estate && 'metaDesc' in data?.estate
-      ? data.estate.metaDesc
-      : textShorted(data?.estate?.desc as string, 230),
-    keywords: '',
-    datePublished: data?.estate.createdDate,
-    dateModified: data?.estate.updatedDate,
-    image: data?.estate.images[0]
-  }
-
-  // @ts-ignore
-  const schema = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Place",
-        "@id": "https://marcinkumiszczo.pl/#place",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Stacyjna 1/4",
-          "addressLocality": "Wrocław",
-          "postalCode": "53-613",
-          "addressCountry": "Poland"
-        }
-      },
-      {
-        "@type": [
-          "LocalBusiness",
-          "Organization"
-        ],
-        "@id": "https://marcinkumiszczo.pl/#organization",
-        "name": "Marcin Kumiszczo",
-        "url": "https://marcinkumiszczo.pl/",
-        "email": "markumtwojdom@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Stacyjna 1/4",
-          "addressLocality": "Wrocław",
-          "postalCode": "53-613",
-          "addressCountry": "Poland"
-        },
-        "logo": {
-          "@type": "ImageObject",
-          "@id": "https://marcinkumiszczo.pl/#logo",
-          "url": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.361821cb.png&w=384&q=75",
-          "contentUrl": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.361821cb.png&w=384&q=75",
-          "caption": "Markum - Twój Dom - Agent Nieruchomości Wrocław",
-          "inLanguage": "pl-PL",
-          "width": "128",
-          "height": "131"
-        },
-        "contactPoint": [
-          {
-            "@type": "ContactPoint",
-            "telephone": "+48-730-396-827",
-            "contactType": "customer support"
-          }
-        ],
-        "location": {
-          "@id": "https://marcinkumiszczo.pl/#place"
-        }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://marcinkumiszczo.pl/#website",
-        "url": "https://marcinkumiszczo.pl",
-        "name": `${metaSchema.name}`,
-        "alternateName": "",
-        "publisher": {
-          "@id": "https://marcinkumiszczo.pl/#organization"
-        },
-        "inLanguage": "pl-PL"
-      },
-      {
-        "@type": "ImageObject",
-        "@id": `${metaSchema.image}`,
-        "url": `${metaSchema.image}`,
-        "width": "1200",
-        "height": "768",
-        "inLanguage": "pl-PL"
-      },
-      {
-        "@type": "AboutPage",
-        "@id": "https://marcinkumiszczo.pl/#webpage",
-        "url": "https://marcinkumiszczo.pl/",
-        "name": `${metaSchema.name}`,
-        "datePublished": `${metaSchema.datePublished}`,
-        "dateModified": `${metaSchema.dateModified}`,
-        "about": {
-          "@id": "https://marcinkumiszczo.pl/#organization"
-        },
-        "isPartOf": {
-          "@id": "https://marcinkumiszczo.pl/#website"
-        },
-        "primaryImageOfPage": {
-          "@id": `${metaSchema.image}`
-        },
-        "inLanguage": "pl-PL"
-      },
-      {
-        "@type": "Person",
-        "@id": "https://marcinkumiszczo.pl/#author",
-        "name": "Marcin Kumiszczo",
-        "image": {
-          "@type": "ImageObject",
-          "@id": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmarcin-kumiszczo-agent-nieruchomosci-w-garniturze.5a70a1fd.png&w=1200&q=75",
-          "url": "https://marcinkumiszczo.pl/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmarcin-kumiszczo-agent-nieruchomosci-w-garniturze.5a70a1fd.png&w=1200&q=75",
-          "caption": "Marcin Kumiszczo - Agent Nieruchomości Wrocław",
-          "inLanguage": "pl-PL"
-        },
-        "sameAs": [
-          "https://marcinkumiszczo.pl/"
-        ],
-        "worksFor": {
-          "@id": "https://marcinkumiszczo.pl/#organization"
-        }
-      },
-      {
-        "headline": `${metaSchema.name}`,
-        "description": `${metaSchema.description}`,
-        "keywords": `${metaSchema.keywords}`,
-        "@type": "Article",
-        "author": {
-          "@id": "https://marcinkumiszczo.pl/#author",
-          "name": "admin"
-        },
-        "datePublished": `${metaSchema.datePublished}`,
-        "dateModified": `${metaSchema.dateModified}`,
-        "name": `${metaSchema.name}`,
-        "@id": "https://marcinkumiszczo.pl/#schema-10811",
-        "isPartOf": {
-          "@id": "https://marcinkumiszczo.pl/#webpage"
-        },
-        "publisher": {
-          "@id": "https://marcinkumiszczo.pl/#organization"
-        },
-        "image": {
-          "@id": `${metaSchema.image}`
-        },
-        "inLanguage": "pl-PL",
-        "mainEntityOfPage": {
-          "@id": "https://marcinkumiszczo.pl/#webpage"
-        }
-      }
-    ]
-  }
-
-  // @ts-ignore
-  return !isLoading && !error && 'estate' in data ? (
+  return data.success && 'estate' in data ? (
     <>
       <Head>
-        <title>{`${data?.estate.adsName} - ${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
-          } | Markum - Twój Dom`}
+        <title>{data?.estate?.address.district ? `${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
+          }, ${data?.estate?.address.city}, ${data?.estate?.address.district} | Markum - Twój Dom` : `${data?.estate?.category === EstateCategory.forSale ? 'Na sprzedaż' : 'Na wynajem'
+          }, ${data?.estate?.address.city} | Markum - Twój Dom`}
         </title>
         <meta
           name="description"
@@ -296,10 +160,6 @@ const EstateView: NextPage = () => {
         <meta
           property="og:image"
           content={`${process.env.DOMAIN}/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.2f16cc6a.png&w=256&q=75`}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       </Head>
       <section className="estate-info">
@@ -364,7 +224,7 @@ const EstateView: NextPage = () => {
             ) : (
               ''
             )}
-            {data?.estate?.images.map((img, index) => {
+            {data?.estate?.images.map((img: EstateImage, index: number) => {
               const imgSrc = `https://img.asariweb.pl/large/${img.id}`;
               return (
                 <SplideSlide className="estate-info__slide" key={`image-slide-${index}`}>
@@ -400,7 +260,7 @@ const EstateView: NextPage = () => {
             ) : (
               ''
             )}
-            {data?.estate?.images.map((img, index) => {
+            {data?.estate?.images.map((img: EstateImage, index: number) => {
               if (data?.estate.tourLink && data?.estate.videoLink) index += 2;
               else if (data?.estate.tourLink || data?.estate.videoLink) index += 1;
               return (
@@ -519,94 +379,94 @@ const EstateView: NextPage = () => {
           dangerouslySetInnerHTML={{ __html: data?.estate?.desc as string }}
         />
       </section>
-      {ReactDOM.createPortal(
-        <>
-          {currentImage !== null ? (
-            <div className="fixed w-full h-full z-50 top-0 flex justify-center items-center bg-gray/80">
-              <div className="absolute w-full h-full z-0" onClick={() => setCurrentImage(null)}></div>
-              <IconButton
-                svg={close}
-                className="absolute z-10 h-12 w-12 top-5 right-0"
-                onClick={() => setCurrentImage(null)}
-              />
-              <Splide
-                ref={splideLargeSlider}
-                className="large-slider"
-                options={{
-                  type: 'loop',
-                  perPage: 1,
-                  drag: true,
-                  arrows: false,
-                  lazyLoad: 'nearby',
-                  keyboard: true,
-                  pagination: false,
-                  preloadPages: 1,
-                  start: currentImage,
-                  breakpoints: {}
-                }}
-                renderControls={() => (
-                  <div className="splide__arrows">
-                    <button
-                      className="large-slider__arrow left-0 rounded-r-3xl"
-                      onClick={() => handleArrowsLargeClick(ArrowType.prev)}
-                    >
-                      <Image src={arrowPrev} alt="" />
-                    </button>
-                    <button
-                      className="large-slider__arrow right-0 rounded-l-3xl"
-                      onClick={() => handleArrowsLargeClick(ArrowType.next)}
-                    >
-                      <Image src={arrowNext} alt="" />
-                    </button>
-                  </div>
-                )}
-              >
-                {data?.estate.videoLink ? (
-                  <SplideSlide>
-                    <ReactPlayer
-                      className="!w-full !h-full rounded-2xl"
-                      controls
-                      playing
-                      url={data?.estate.videoLink}
-                    />
-                  </SplideSlide>
-                ) : (
-                  ''
-                )}
-                {data?.estate.tourLink ? (
-                  <SplideSlide>
-                    <iframe
-                      src={data?.estate.tourLink}
-                      title="Przewodnik po nieruchomości"
-                      className="w-full h-full rounded-2xl"
-                    />
-                  </SplideSlide>
-                ) : (
-                  ''
-                )}
-                {data?.estate?.images.map((img, index) => (
-                  <SplideSlide key={`image-large-${index}`}>
-                    <img
-                      className="rounded-2xl"
-                      style={{ maxHeight: "100%" }}
-                      src={`https://img.asariweb.pl/large/${img.id}`}
-                      alt={img.description ? img.description : ''}
-                      loading="lazy"
-                    />
-                  </SplideSlide>
-                )
-                )}
-              </Splide>
-            </div>
-          ) : (
-            ''
-          )}
-        </>,
-        body as HTMLBodyElement
+      {/* {ReactDOM.createPortal(
+        <> */}
+      {currentImage !== null ? (
+        <div className="fixed w-full h-full z-50 top-0 flex justify-center items-center bg-gray/80">
+          <div className="absolute w-full h-full z-0" onClick={() => setCurrentImage(null)}></div>
+          <IconButton
+            svg={close}
+            className="absolute z-10 h-12 w-12 top-5 right-0"
+            onClick={() => setCurrentImage(null)}
+          />
+          <Splide
+            ref={splideLargeSlider}
+            className="large-slider"
+            options={{
+              type: 'loop',
+              perPage: 1,
+              drag: true,
+              arrows: false,
+              lazyLoad: 'nearby',
+              keyboard: true,
+              pagination: false,
+              preloadPages: 1,
+              start: currentImage,
+              breakpoints: {}
+            }}
+            renderControls={() => (
+              <div className="splide__arrows">
+                <button
+                  className="large-slider__arrow left-0 rounded-r-3xl"
+                  onClick={() => handleArrowsLargeClick(ArrowType.prev)}
+                >
+                  <Image src={arrowPrev} alt="" />
+                </button>
+                <button
+                  className="large-slider__arrow right-0 rounded-l-3xl"
+                  onClick={() => handleArrowsLargeClick(ArrowType.next)}
+                >
+                  <Image src={arrowNext} alt="" />
+                </button>
+              </div>
+            )}
+          >
+            {data?.estate.videoLink ? (
+              <SplideSlide>
+                <ReactPlayer
+                  className="!w-full !h-full rounded-2xl"
+                  controls
+                  playing
+                  url={data?.estate.videoLink}
+                />
+              </SplideSlide>
+            ) : (
+              ''
+            )}
+            {data?.estate.tourLink ? (
+              <SplideSlide>
+                <iframe
+                  src={data?.estate.tourLink}
+                  title="Przewodnik po nieruchomości"
+                  className="w-full h-full rounded-2xl"
+                />
+              </SplideSlide>
+            ) : (
+              ''
+            )}
+            {data?.estate?.images.map((img: EstateImage, index: number) => (
+              <SplideSlide key={`image-large-${index}`}>
+                <img
+                  className="rounded-2xl"
+                  style={{ maxHeight: "100%" }}
+                  src={`https://img.asariweb.pl/large/${img.id}`}
+                  alt={img.description ? img.description : ''}
+                  loading="lazy"
+                />
+              </SplideSlide>
+            )
+            )}
+          </Splide>
+        </div>
+      ) : (
+        ''
       )}
+      {/* </>,
+        body as HTMLBodyElement
+      )} */}
     </>
   ) : (
-    <ErrorBox error={error as FetchBaseQueryError} />
+    <ErrorBox error={data.error as FetchBaseQueryError} />
   );
 };
 

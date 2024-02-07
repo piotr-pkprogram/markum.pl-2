@@ -214,7 +214,7 @@ const Faq: NextPage = ({ data }) => {
       <section className="questions">
         {data.success ? (
           data.questions.map((question: QuestionType) => (
-            <QuestionElement question={question} key={question._id} isMore />
+            <QuestionElement question={question} key={question._id} />
           ))
         ) : (
           <ErrorBox error={data.error as FetchBaseQueryError} />

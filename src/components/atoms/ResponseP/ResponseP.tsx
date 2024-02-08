@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ResponseP.module.scss';
 import { ResError } from 'types/FormTypes';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import Image from 'next/image';
 import styles from './ErrorBox.module.scss';

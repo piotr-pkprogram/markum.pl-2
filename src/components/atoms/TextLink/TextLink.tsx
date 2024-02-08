@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './TextLink.module.scss';
 import { useRouter } from 'next/router';
 

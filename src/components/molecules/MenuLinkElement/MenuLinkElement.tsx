@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'src/components/atoms/NavLink/NavLink';
 import styles from './MenuLinkElement.module.scss';
 

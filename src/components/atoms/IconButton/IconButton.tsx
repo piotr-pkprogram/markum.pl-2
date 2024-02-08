@@ -1,7 +1,7 @@
-import React from 'react';
-import { useRouter } from 'next/router';
 import { BtnTypes } from 'types/btnTypes';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+
 
 type Props = {
   svg?: string;

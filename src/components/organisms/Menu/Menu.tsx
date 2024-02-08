@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Menu.module.scss';
 import Logo from 'src/components/atoms/Logo/Logo';
 import TextButton from 'src/components/atoms/TextButton/TextButton';

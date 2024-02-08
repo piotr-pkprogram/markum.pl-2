@@ -1,4 +1,3 @@
-import React from 'react';
 import { BtnTypes } from 'types/btnTypes';
 import { useRouter } from 'next/router';
 import styles from './TextButton.module.scss';

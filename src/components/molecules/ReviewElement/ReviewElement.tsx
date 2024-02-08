@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'next/image';
 import { ReviewType, ReviewTypes } from 'types/reviewType';
 import styles from './ReviewElement.module.scss';

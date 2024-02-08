@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { QuestionType } from 'types/questionType';
 import styles from './QuestionElement.module.scss';
 import deletePolishChars from 'utils/deletePolishChars';

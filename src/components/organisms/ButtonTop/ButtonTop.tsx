@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import next from 'public/img/next(2).png';
 import Image from 'next/image';
 import styles from 'src/components/organisms/ButtonTop/ButtonTop.module.scss';

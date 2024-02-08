@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { StyledCheckbox } from './Checkbox.styles';
 import { useValidators } from 'src/hooks/useValidators';
 
@@ -9,7 +9,7 @@ type Props = {
   className?: string;
 };
 
-const Checkbox = ({ children, opt, handleThrowError, className = ''}: Props) => {
+const Checkbox = ({ children, opt, handleThrowError, className = '' }: Props) => {
   const [isCheckboxCheck, setIsCheckboxCheck] = useState(false);
   const { validateCheckbox } = useValidators(handleThrowError);
 

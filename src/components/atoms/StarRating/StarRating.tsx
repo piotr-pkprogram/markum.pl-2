@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 
 type Props = {
@@ -31,8 +31,8 @@ const StarRating = ({ rating, ratingColor = '#001E54', readonly = false, classNa
         ? ratingColor
         : '#ccc'
       : (hoverValue || currentValue) > index
-      ? ratingColor
-      : '#ccc';
+        ? ratingColor
+        : '#ccc';
 
   return (
     <div className={`flex items-center ${className}`}>

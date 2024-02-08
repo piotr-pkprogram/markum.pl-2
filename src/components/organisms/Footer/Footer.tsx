@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import pkprogram from 'public/img/pk-program-logo.png';
 import Image from 'next/image';
 import styles from './Footer.module.scss';
@@ -9,7 +9,6 @@ import axios from 'axios';
 import styleInput from 'src/components/atoms/Input/Input.module.scss';
 import homeLogo from 'public/img/home-logo.jpg';
 import { useRouter } from 'next/router';
-import { useGetSingleEstateByLinkQuery } from 'src/store';
 import certificate from 'public/img/marcin-kumiszczo-stopka-maila.jpg';
 import { init, send } from '@emailjs/browser';
 
@@ -38,8 +37,8 @@ const Footer = () => {
   const [ResError, setResError] = useState<ResError>();
   const [isContactPage, setIsContactPage] = useState<boolean>(false);
   const router = useRouter();
-  const [link, setLink] = useState('');
-  const { data, isLoading } = useGetSingleEstateByLinkQuery(link);
+  const [link, setLink] = useState(router.pathname);
+  const linkTab = link.split('-');
 
   init('user_lMRCEmHpYEa191SzKn8aZ');
 
@@ -49,7 +48,7 @@ const Footer = () => {
 
     if ('location' in router.query)
       setLink(router.pathname.replace('[location]', `${router.query.location}`));
-  }, [router.pathname, isLoading]);
+  }, [router.pathname]);
 
   const sendContact = async (inputs: FormInput[]) => {
     const loader = loaderWrapper.current as HTMLDivElement;
@@ -65,13 +64,13 @@ const Footer = () => {
         subject: `${inputs[0].value} zostawił Ci swój kontakt.`,
         name: inputs[0].value,
         phoneNumber: inputs[1].value,
-        estateId: data?.estate ? data?.estate.id : '',
-        estateLink: data?.estate ? `https://marcinkumiszczo.pl${data?.estate.link}` : ''
+        estateId: linkTab[linkTab.length - 1],
+        estateLink: `https://marcinkumiszczo.pl${link}`
       };
 
       send(
         'service_axjqgar',
-        data?.estate ? 'template_jtjziqf' : 'template_peshgyk',
+        linkTab.length > 2 ? 'template_jtjziqf' : 'template_peshgyk',
         dataEmail
       ).then(
         function () {

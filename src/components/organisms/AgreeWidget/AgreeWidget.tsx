@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import close from 'public/img/close(1).png';
 import styles from 'src/components/organisms/AgreeWidget/AgreeWidget.module.scss';

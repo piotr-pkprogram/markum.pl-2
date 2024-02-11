@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import markumPng from 'public/img/agent-nieruchomosci-markum-twoj-dom.png';
-import React from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { QuestionType } from 'types/questionType';
 import Head from 'next/head';

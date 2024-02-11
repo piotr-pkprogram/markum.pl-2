@@ -29,6 +29,7 @@
         "@loadable/component": "^5.15.2",
         "@loadable/server": "^5.16.2",
         "@material-ui/styles": "^4.11.4",
+        "@mui/base": "^5.0.0-beta.36",
         "@mui/icons-material": "^5.4.2",
         "@mui/material": "^5.4.1",
         "@reduxjs/toolkit": "^1.7.2",

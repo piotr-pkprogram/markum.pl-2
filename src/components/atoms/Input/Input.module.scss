@@ -1,3 +1,12 @@
 .Input {
-  @apply bg-lightBlue border-solid border-2 focus:border-darkBlue border-black text-darkBlue placeholder:text-darkBlue font-bold text-xl px-3 py-2 resize-y focus:outline-none w-full;
+  @apply bg-lightBlue border-solid border-2 focus:border-darkBlue border-black text-darkBlue placeholder:text-darkBlue font-medium xs:text-xl px-3 py-2 resize-y focus:outline-none text-base;
+}
+
+.SelectInput {
+    @apply bg-lightBlue border-solid border-2 focus:border-darkBlue border-black text-darkBlue placeholder:text-darkBlue font-medium xs:text-xl xs:px-3 py-2 resize-y focus:outline-none w-full text-base;
+    height: 48px;
+    
+    @media (min-width: 768px) {
+        width: 273px;
+    }
 }

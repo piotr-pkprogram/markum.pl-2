@@ -6,13 +6,15 @@ import {
   SubmitFormEvent,
   FnSendForm,
   ContactFormState,
+  ReportEstateFormState,
   NamePhoneFormState,
   FormInput
 } from 'types/FormTypes';
 import { useValidators } from './useValidators';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 // @ts-ignore
-const formReducer: Reducer<ContactFormState | NamePhoneFormState, ReducerAction> = (
+const formReducer: Reducer<ContactFormState | NamePhoneFormState | ReportEstateFormState, ReducerAction> = (
   state,
   action
 ) => {
@@ -39,7 +41,7 @@ const formReducer: Reducer<ContactFormState | NamePhoneFormState, ReducerAction>
   }
 };
 
-export const useForm = (initialValues: ContactFormState | NamePhoneFormState) => {
+export const useForm = (initialValues: ContactFormState | NamePhoneFormState | ReportEstateFormState) => {
   const [formValues, dispatch] = useReducer(formReducer, initialValues);
 
   const handleThrowError = (inputName: string, errorMessage: string) => {
@@ -52,9 +54,31 @@ export const useForm = (initialValues: ContactFormState | NamePhoneFormState) =>
 
   const { validateEmpty, validateEmail, validatePhone, validateCheckbox } =
     useValidators(handleThrowError);
+  
+  const validateSelectInput = (target: { value: string, name: string }, defaultValue: string, id: string) => {
+    const inputValueBox = document.querySelector(`#${id}`) as HTMLDivElement;
+    const parent = inputValueBox.parentNode as HTMLDivElement;
+    const nativeInput = parent.querySelector('.MuiSelect-nativeInput') as HTMLInputElement;
+    
+    if (parent.dataset.required === 'true') {
+      nativeInput.setAttribute('placeholder', defaultValue);
+      validateEmpty(nativeInput);
+      if (target.value.toLowerCase() === defaultValue.toLowerCase()) handleThrowError(target.name, 'Wybierz opcję')
+    }
+  }
 
+  const handleSelectInputChange = (e: SelectChangeEvent, defaultValue: string, id: string) => {
+    validateSelectInput(e.target, defaultValue, id);
+    
+    dispatch({
+      type: ActionTypes.inputChange,
+      field: e.target.name,
+      value: e.target.value
+    })
+  }
+  
   const handleInputChange = (e: ChangeInputEvent) => {
-    if (e.target.getAttribute('data-required') === 'true') {
+    if (e.target.dataset.required === 'true') {
       if (e.target.type !== 'checkbox') validateEmpty(e.target);
       if (e.target.type === 'email') validateEmail(e.target);
       if (e.target.type === 'tel') validatePhone(e.target);
@@ -68,7 +92,7 @@ export const useForm = (initialValues: ContactFormState | NamePhoneFormState) =>
     });
   };
 
-  const handleClearForm = (initialValues: ContactFormState | NamePhoneFormState) => {
+  const handleClearForm = (initialValues: ContactFormState | NamePhoneFormState | ReportEstateFormState) => {
     dispatch({ type: ActionTypes.clearValues, initialValues });
   };
 
@@ -80,11 +104,14 @@ export const useForm = (initialValues: ContactFormState | NamePhoneFormState) =>
     );
 
     formInputs.forEach((input) => {
-      if (input.getAttribute('data-required') === 'true') {
+      if (input.dataset.required === 'true') {
         if (input.type !== 'checkbox') validateEmpty(input);
         if (input.type === 'email') validateEmail(input);
         if (input.type === 'tel') validatePhone(input);
         if (input.type === 'checkbox') validateCheckbox(input as HTMLInputElement);
+      } else if (input.classList.contains('MuiSelect-nativeInput')) {
+        const id = input.dataset.id as string;
+        validateSelectInput({ value: input.value, name: input.name }, input.dataset.placeholder as string, id);
       }
     });
 
@@ -113,6 +140,7 @@ export const useForm = (initialValues: ContactFormState | NamePhoneFormState) =>
   return {
     formValues,
     handleInputChange,
+    handleSelectInputChange,
     handleClearForm,
     handleThrowError,
     handleSubmitForm

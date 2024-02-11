@@ -275,7 +275,7 @@ const Contact: NextPage = () => {
             <input
               type="text"
               name="name"
-              className={`${styleInput.Input} !font-semibold`}
+              className={`${styleInput.Input}`}
               value={name}
               onChange={handleInputChange}
               placeholder="Imię"
@@ -291,7 +291,7 @@ const Contact: NextPage = () => {
             <input
               type="text"
               name="topic"
-              className={`${styleInput.Input} !font-semibold`}
+              className={`${styleInput.Input}`}
               value={topic}
               onChange={handleInputChange}
               placeholder="Temat"
@@ -300,7 +300,7 @@ const Contact: NextPage = () => {
             <input
               type="email"
               name="email"
-              className={`${styleInput.Input} !font-semibold col-start-1 col-end-3`}
+              className={`${styleInput.Input} col-start-1 col-end-3`}
               value={email}
               onChange={handleInputChange}
               placeholder="Adres email"
@@ -318,13 +318,13 @@ const Contact: NextPage = () => {
             )}
             <textarea
               name="message"
-              className={`${styleInput.Input} textarea-contact !font-semibold col-start-1 col-end-3`}
+              className={`${styleInput.Input} textarea-contact col-start-1 col-end-3`}
               value={message}
               onChange={handleInputChange}
               placeholder="Wiadomość"
               data-required="false"
             />
-            <TextButton classNames={`!py-2 !px-5 !text-xl relative`} type={BtnTypes.SUBMIT}>
+            <TextButton classNames={`!py-2 !px-5 !text-lg xs:!text-xl relative`} type={BtnTypes.SUBMIT}>
               <span>Wyślij</span>
               <div className={`contact-form-and-info__loader hidden`} ref={loaderWrapper}>
                 <svg viewBox="25 25 50 50" className="loader-svg">
@@ -336,6 +336,7 @@ const Contact: NextPage = () => {
               <ResponseP
                 isSuccess={isSuccess}
                 error={ResError}
+                classes="col-1/2"
                 message="Dziękuję za wysłanie wiadomości. Odpowiem w wolnej chwili :)."
               />
             ) : (

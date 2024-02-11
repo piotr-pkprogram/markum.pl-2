@@ -133,8 +133,8 @@ const Menu = ({ type = MenuTypes.desktop }: Props) => {
               Kontakt
             </MenuLinkElement>
           </menu>
-          <TextButton isFill isExternalLink to="tel:+48 730 396 827">
-            Umów się na Rozmowę
+          <TextButton classNames={'uppercase'} isFill isRouterLink to="/zglos-nieruchomosc">
+            Zgłoś Nieruchomość
           </TextButton>
         </div>
       </div>
@@ -171,6 +171,9 @@ const Menu = ({ type = MenuTypes.desktop }: Props) => {
           <MenuLinkElement className={styles.phoneNavLink} href="/kontakt">
             Kontakt
           </MenuLinkElement>
+          <TextButton classNames={'uppercase'} isFill isRouterLink to="/zglos-nieruchomosc">
+            Zgłoś Nieruchomość
+          </TextButton>
         </menu>
       </>
     );

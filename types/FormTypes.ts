@@ -1,10 +1,23 @@
 import { ChangeEvent, FormEvent } from 'react';
 
 interface ErrorsInputs extends Object {
-  name?: string;email?: string;
+  name?: string;
+  email?: string;
   contactPhone?: string;
   message?: string;
   checked?: string;
+}
+
+interface ReportEstateErrorInputs extends ErrorsInputs {
+  estateType?: string;  
+  transactionType?: string;
+  fullName?: string;
+  email?: string;
+  location?: string;
+  area?: string;
+  price?: string;
+  phone?: string;
+  description?: string;
 }
 
 export type ContactFormState = {
@@ -13,6 +26,19 @@ export type ContactFormState = {
   email?: string;
   message?: string;
   errorsInputs?: ErrorsInputs;
+};
+
+export type ReportEstateFormState = {
+  estateType: "Typ nieruchomości" | "Dom" | "Mieszkanie" | "Działka" | "Komercyjny";  
+  transactionType: "Typ transakcji" | "sprzedaż" | "wynajem";
+  fullName: string;
+  email: string;
+  location: string;
+  area: string;
+  price?: string;
+  phone?: string;
+  description?: string;
+  errorsInputs?: ReportEstateErrorInputs;
 };
 
 export type NamePhoneFormState = {

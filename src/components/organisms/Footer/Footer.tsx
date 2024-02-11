@@ -25,13 +25,13 @@ const InitialState: NamePhoneFormState = {
 
 const Footer = () => {
   const {
-    // @ts-ignore
-    formValues: { name, contactPhone, errorsInputs },
+    formValues,
     handleInputChange,
     handleSubmitForm,
     handleThrowError,
     handleClearForm
   } = useForm(InitialState);
+  const { name, contactPhone, errorsInputs } = formValues as NamePhoneFormState;
   const loaderWrapper = useRef<HTMLDivElement>(null);
   const [isSuccess, setIsSuccess] = useState<boolean>();
   const [ResError, setResError] = useState<ResError>();
@@ -148,7 +148,7 @@ const Footer = () => {
                 data-required="true"
               />
               <TextButton
-                classNames={`${styles.sendBtn} !text-xl !py-3 !px-7`}
+                classNames={`${styles.sendBtn} !text-lg xs:!text-xl !py-3 !px-7`}
                 type={BtnTypes.SUBMIT}
                 isFill
               >
@@ -159,7 +159,7 @@ const Footer = () => {
                   </svg>
                 </div>
               </TextButton>
-              {errorsInputs && errorsInputs.name !== '' ? (
+              {errorsInputs && errorsInputs?.name !== '' ? (
                 <p className={`${styles.errorP} col-start-1`} id="error-name">
                   {errorsInputs.name}
                 </p>
@@ -201,6 +201,7 @@ const Footer = () => {
               <ResponseP
                 isSuccess={isSuccess}
                 error={ResError}
+                classes="col-1/2"
                 message="Dziękuję za zostawienie kontaktu. Oddzwonię w wolnej chwili :)."
               />
             ) : (

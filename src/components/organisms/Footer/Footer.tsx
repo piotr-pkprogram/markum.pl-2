@@ -202,7 +202,7 @@ const Footer = () => {
                 isSuccess={isSuccess}
                 error={ResError}
                 classes="col-1/2"
-                message="Dziękuję za zostawienie kontaktu. Oddzwonię w wolnej chwili :)."
+                message="Dziękuję za zostawienie kontaktu. Oddzwonię w wolnej chwili :)"
               />
             ) : (
               ''

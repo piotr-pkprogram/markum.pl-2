@@ -257,7 +257,7 @@ const ReportEstate: NextPage = () => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       </Head>
-      <ShortDesc title="Zgłoś Nieruchomość" desc="Z tej strony Marcin Kumiszczo, pomagam skutecznie sprzedawać nieruchomości i znajdować najemców we Wrocławiu i okolicach. <b>W branży mam już 4 lata doświadczenia i sprzedałem ponad 100 nieruchomości.</b> Zgłoś swoją nieruchomość, a ja zadbam o resztę." images={{ desktop: agentWSamochodzie, phone: 'marcin-kumiszczo-siedzacy-w-samochodzie.webp' }} height="323px"></ShortDesc>
+      <ShortDesc title="Zgłoś Nieruchomość" desc="Z tej strony Marcin Kumiszczo, pomagam skutecznie sprzedawać nieruchomości i znajdować najemców we Wrocławiu i okolicach. <b>Posiadam ponad 4-letnie doświadczenie w branży nieruchomości i przeprowadziłem w tym czasie ponad 100 transakcji</b> Zgłoś swoją nieruchomość, a ja zadbam o resztę." images={{ desktop: agentWSamochodzie, phone: 'marcin-kumiszczo-siedzacy-w-samochodzie.webp' }} height="323px"></ShortDesc>
       <section className="report-estate">
         <form
           className="report-estate__form"
@@ -449,7 +449,7 @@ const ReportEstate: NextPage = () => {
             <ResponseP
               isSuccess={isSuccess}
               error={ResError}
-              message="Dziękuję za zgłoszenie nieruchomości. Odpowiem jak najszybciej to możliwe :)."
+              message="Dziękuję za zgłoszenie nieruchomości. Odpowiem jak najszybciej to możliwe :)"
             />
           ) : (
             ''

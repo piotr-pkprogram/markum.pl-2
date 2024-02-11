@@ -337,7 +337,7 @@ const Contact: NextPage = () => {
                 isSuccess={isSuccess}
                 error={ResError}
                 classes="col-1/2"
-                message="Dziękuję za wysłanie wiadomości. Odpowiem w wolnej chwili :)."
+                message="Dziękuję za wysłanie wiadomości. Odpowiem w wolnej chwili :)"
               />
             ) : (
               ''

@@ -439,6 +439,7 @@ const EstateView: NextPage = ({ data }) => {
                   src={data?.estate.tourLink}
                   title="Przewodnik po nieruchomości"
                   className="w-full h-full rounded-2xl"
+                  style={{ minHeight: '335px' }}
                 />
               </SplideSlide>
             ) : (

@@ -82,7 +82,7 @@ const Footer = () => {
           setIsSuccess(false);
           setResError({
             status: err.status,
-            isOfflineError: !navigator.onLine
+            isOfflineError: !navigator?.onLine
           });
           loader.classList.add('hidden');
         }
@@ -92,7 +92,7 @@ const Footer = () => {
       setIsSuccess(false);
       setResError({
         status: e.status,
-        isOfflineError: !navigator.onLine
+        isOfflineError: !navigator?.onLine
       });
       loader.classList.add('hidden');
     }

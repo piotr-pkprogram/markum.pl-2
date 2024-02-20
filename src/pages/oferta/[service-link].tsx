@@ -1,5 +1,5 @@
 import React from 'react';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ServerError } from 'src/components/molecules/ErrorBox/ErrorBox';
 import maricnKumiszczoPng from 'public/img/marcin-kumiszczo-siedzacy-w-samochodzie.png';
 import marcinKumiszczoAbout from 'public/img/marcin-kumiszczo-będący-na-spotkaniu-jakoagent-nieruchomosci.jpg';
 import Image from 'next/image';
@@ -383,7 +383,7 @@ const Service = ({ data }) => {
       </section>
     </>
   ) : (
-    <ErrorBox error={data.error as FetchBaseQueryError} />
+    <ErrorBox error={data.error as ServerError} />
   );
 };
 

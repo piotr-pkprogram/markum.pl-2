@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import markumPng from 'public/img/agent-nieruchomosci-markum-twoj-dom.png';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ServerError } from 'src/components/molecules/ErrorBox/ErrorBox';
 import { QuestionType } from 'types/questionType';
 import Head from 'next/head';
 
@@ -216,7 +216,7 @@ const Faq: NextPage = ({ data }) => {
             <QuestionElement question={question} key={question._id} />
           ))
         ) : (
-          <ErrorBox error={data.error as FetchBaseQueryError} />
+          <ErrorBox error={data.error as ServerError} />
         )}
       </section>
     </>

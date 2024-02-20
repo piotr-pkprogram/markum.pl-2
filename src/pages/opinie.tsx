@@ -2,7 +2,7 @@ import type { NextPage, NextPageContext } from 'next';
 import dictionaryPng from 'public/img/dziennik-agenta-nieruchomosci-lezacy-na-brazowym-stole.png';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { ReviewType } from 'types/reviewType';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ServerError } from 'src/components/molecules/ErrorBox/ErrorBox';
 import { Pagination, PaginationItem } from '@mui/material';
 import { useRouter } from 'next/router'
 import Head from 'next/head';
@@ -251,7 +251,7 @@ const Reviews: NextPage = ({ data }) => {
             )}
           </>
         ) : (
-          <ErrorBox error={data.error as FetchBaseQueryError} />
+          <ErrorBox error={data.error as ServerError} />
         )}
       </section>
     </>

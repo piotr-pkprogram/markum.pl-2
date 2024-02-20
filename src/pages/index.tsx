@@ -10,7 +10,7 @@ import { EstateType } from 'types/estateType';
 import { QuestionType } from 'types/questionType';
 import { ReviewType } from 'types/reviewType';
 import '@splidejs/splide/dist/css/splide.min.css';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ServerError } from 'src/components/molecules/ErrorBox/ErrorBox';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import Head from 'next/head';
 
@@ -303,7 +303,7 @@ const Home: NextPage = ({ data }) => {
               <ServiceElement offer={service} key={service._id} />
             ))
           ) : (
-            <ErrorBox error={data.error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as ServerError} />
           )}
         </div>
       </section>
@@ -357,7 +357,7 @@ const Home: NextPage = ({ data }) => {
               ))}
             </Splide>
           ) : (
-            <ErrorBox error={data.error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as ServerError} />
           )}
         </div>
       </section>
@@ -404,7 +404,7 @@ const Home: NextPage = ({ data }) => {
               ))}
             </Splide>
           ) : (
-            <ErrorBox error={data.error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as ServerError} />
           )}
         </div>
       </section>
@@ -423,7 +423,7 @@ const Home: NextPage = ({ data }) => {
               />
             ) : '')
           ) : (
-            <ErrorBox error={data.error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as ServerError} />
           )}
         </div>
         <TextButton classNames="faq-section__btn !font-semibold !text-xl" isRouterLink to="/faq">

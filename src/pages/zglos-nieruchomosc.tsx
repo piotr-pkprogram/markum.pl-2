@@ -1,8 +1,6 @@
 import type { NextPage } from 'next';
-import { useRef, useState, useEffect } from 'react';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useRef, useState } from 'react';
 import Head from 'next/head';
-import ErrorBox from 'src/components/molecules/ErrorBox/ErrorBox';
 import ShortDesc from 'src/components/molecules/ShortDesc/ShortDesc';
 import agentWSamochodzie from 'public/img/marcin-kumiszczo-siedzacy-w-samochodzie.webp';
 import { ReportEstateFormState, FormInput, ResError, SubmitFormEvent } from 'types/FormTypes';
@@ -77,7 +75,7 @@ const ReportEstate: NextPage = () => {
           console.log(err);
           setResError({
             status: err.status,
-            isOfflineError: !navigator.onLine
+            isOfflineError: !navigator?.onLine
           });
           loader.classList.add('hidden');
         }
@@ -87,7 +85,7 @@ const ReportEstate: NextPage = () => {
       setIsSuccess(false);
       setResError({
         status: e.status,
-        isOfflineError: !navigator.onLine
+        isOfflineError: !navigator?.onLine
       });
       loader.classList.add('hidden');
     }

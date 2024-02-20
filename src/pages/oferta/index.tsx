@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import { ServiceType } from 'types/serviceType';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ServerError } from 'src/components/molecules/ErrorBox/ErrorBox';
 import maricnKumiszczoPng from 'public/img/marcin-kumiszczo-siedzacy-na-murku.png';
 import Head from 'next/head';
 
@@ -202,7 +202,7 @@ const Services: NextPage = ({ data }) => {
               <ServiceElement offer={service} key={service._id} />
             ))
           ) : (
-            <ErrorBox error={data.error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as ServerError} />
           )}
         </div>
       </section>

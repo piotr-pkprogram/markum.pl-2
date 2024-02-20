@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ServerError } from 'src/components/molecules/ErrorBox/ErrorBox';
 import Image from 'next/image';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
@@ -35,6 +35,8 @@ export async function getServerSideProps(ctx: NextPageContext) {
 
   const res = await fetch(`https://marcinkumiszczo.pl/api/estates?link=${params['location']}`);
   const data = await res.json();
+  if (data?.message == "Please enter correct link. Cannot find estate.")
+    data.error.statusCode = 404;
 
   return {
     props: { data }
@@ -467,7 +469,7 @@ const EstateView: NextPage = ({ data }) => {
       )} */}
     </>
   ) : (
-    <ErrorBox error={data.error as FetchBaseQueryError} />
+    <ErrorBox error={data.error as ServerError} />
   );
 };
 

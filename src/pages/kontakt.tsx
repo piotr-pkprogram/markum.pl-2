@@ -60,7 +60,7 @@ const Contact: NextPage = () => {
           console.log(err);
           setResError({
             status: err.status,
-            isOfflineError: !navigator.onLine
+            isOfflineError: !navigator?.onLine
           });
           loader.classList.add('hidden');
         }
@@ -70,7 +70,7 @@ const Contact: NextPage = () => {
       setIsSuccess(false);
       setResError({
         status: e.status,
-        isOfflineError: !navigator.onLine
+        isOfflineError: !navigator?.onLine
       });
       loader.classList.add('hidden');
     }

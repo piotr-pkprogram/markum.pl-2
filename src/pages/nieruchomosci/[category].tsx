@@ -1,7 +1,7 @@
 import type { NextPage, NextPageContext } from 'next';
 import { EstateCategory } from 'types/estateType';
 import { ChangeEvent, useState, useEffect } from 'react';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ServerError } from 'src/components/molecules/ErrorBox/ErrorBox';
 import { Pagination, PaginationItem } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router'
@@ -281,7 +281,7 @@ const Estates: NextPage = ({ data }) => {
 
             </div>
           ) : (
-            <ErrorBox error={data.error as FetchBaseQueryError} />
+            <ErrorBox error={data.error as ServerError} />
           )}
         </div>
       </section>
